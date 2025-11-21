@@ -1,0 +1,15 @@
+{
+  "scripts": {
+    "benchmark": "npx ts-node src/scripts/benchmark.ts",
+    "benchmark:db": "npx ts-node -e \"import('./src/scripts/benchmark').then(m => m.runDatabaseBenchmarks())\"",
+    "benchmark:cache": "npx ts-node -e \"import('./src/scripts/benchmark').then(m => m.runCacheBenchmarks())\"",
+    "performance:test": "npm run benchmark && npm run test:performance",
+    "test:performance": "jest --testPathPattern=performance --verbose",
+    "dev:optimized": "NODE_ENV=development nodemon --exec ts-node src/index.ts",
+    "prod:optimized": "NODE_ENV=production node dist/index.js",
+    "cache:clear": "npx ts-node -e \"import('./src/config/redis').then(m => m.redisCache.flush())\"",
+    "db:indexes": "npx ts-node -e \"import('./src/config/indexes').then(m => m.createOptimizedIndexes())\"",
+    "health:check": "curl -s http://localhost:8081/api/v1/performance/health | jq",
+    "metrics": "curl -s http://localhost:8081/api/v1/performance/metrics | jq"
+  }
+}

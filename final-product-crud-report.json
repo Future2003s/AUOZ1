@@ -1,0 +1,332 @@
+{
+  "timestamp": "2025-08-19T06:51:25.369Z",
+  "operations": {
+    "create": {
+      "status": "PARTIAL",
+      "tests": [
+        {
+          "name": "Create Product (No Auth)",
+          "success": true,
+          "status": 401,
+          "duration": 4,
+          "error": "Request failed with status code 401",
+          "errorData": {
+            "success": false,
+            "error": "Not authorized to access this route",
+            "stack": "Error: Not authorized to access this route\n    at fn (D:\\WorkSpace\\nodejsBackEnd\\src\\middleware\\auth.ts:52:21)\n    at D:\\WorkSpace\\nodejsBackEnd\\src\\utils\\asyncHandler.ts:7:25\n    at Layer.handleRequest (D:\\WorkSpace\\nodejsBackEnd\\node_modules\\router\\lib\\layer.js:152:17)\n    at next (D:\\WorkSpace\\nodejsBackEnd\\node_modules\\router\\lib\\route.js:157:13)\n    at Route.dispatch (D:\\WorkSpace\\nodejsBackEnd\\node_modules\\router\\lib\\route.js:117:3)\n    at handle (D:\\WorkSpace\\nodejsBackEnd\\node_modules\\router\\index.js:435:11)\n    at Layer.handleRequest (D:\\WorkSpace\\nodejsBackEnd\\node_modules\\router\\lib\\layer.js:152:17)\n    at D:\\WorkSpace\\nodejsBackEnd\\node_modules\\router\\index.js:295:15\n    at processParams (D:\\WorkSpace\\nodejsBackEnd\\node_modules\\router\\index.js:582:12)\n    at next (D:\\WorkSpace\\nodejsBackEnd\\node_modules\\router\\index.js:291:5)"
+          },
+          "expectedStatus": 401
+        },
+        {
+          "name": "Create Product (Admin)",
+          "success": false,
+          "status": 400,
+          "duration": 149,
+          "error": "Request failed with status code 400",
+          "errorData": {
+            "success": false,
+            "message": "Validation failed",
+            "data": [
+              {
+                "field": "body.images.0",
+                "message": "Invalid input: expected object, received string",
+                "code": "invalid_type"
+              }
+            ]
+          },
+          "expectedStatus": 201
+        },
+        {
+          "name": "Create Product (Seller)",
+          "success": false,
+          "status": 400,
+          "duration": 147,
+          "error": "Request failed with status code 400",
+          "errorData": {
+            "success": false,
+            "message": "Validation failed",
+            "data": [
+              {
+                "field": "body.images.0",
+                "message": "Invalid input: expected object, received string",
+                "code": "invalid_type"
+              }
+            ]
+          },
+          "expectedStatus": 201
+        },
+        {
+          "name": "Create Product (Invalid Data)",
+          "success": true,
+          "status": 400,
+          "duration": 97,
+          "error": "Request failed with status code 400",
+          "errorData": {
+            "success": false,
+            "message": "Validation failed",
+            "data": [
+              {
+                "field": "body.name",
+                "message": "Product name must be at least 2 characters",
+                "code": "too_small"
+              },
+              {
+                "field": "body.description",
+                "message": "Invalid input: expected string, received undefined",
+                "code": "invalid_type"
+              },
+              {
+                "field": "body.price",
+                "message": "Price must be a positive number",
+                "code": "too_small"
+              },
+              {
+                "field": "body.sku",
+                "message": "SKU is required",
+                "code": "too_small"
+              },
+              {
+                "field": "body.category",
+                "message": "Invalid input: expected string, received undefined",
+                "code": "invalid_type"
+              }
+            ]
+          },
+          "expectedStatus": 400
+        }
+      ],
+      "endpoint": "POST /products",
+      "successRate": "50.0"
+    },
+    "read": {
+      "status": "PASS",
+      "tests": [
+        {
+          "name": "Get All Products",
+          "success": true,
+          "status": 200,
+          "duration": 203,
+          "data": {
+            "success": true,
+            "message": "Products retrieved successfully",
+            "data": [
+              {
+                "_id": "68a41e4821011ad56d50e395",
+                "name": "Sample Programming Book",
+                "description": "Learn programming with this comprehensive guide",
+                "price": 49.99,
+                "comparePrice": 59.99,
+                "salePrice": 44.99,
+                "sku": "BOOK-001",
+                "category": "68a41e4821011ad56d50e387",
+                "brand": "68a41e4821011ad56d50e38e",
+                "quantity": 50,
+                "images": [
+                  "https://example.com/book1.jpg"
+                ],
+                "features": [
+                  "500+ Pages",
+                  "Code Examples",
+                  "Beginner Friendly"
+                ],
+                "specifications": {
+                  "pages": 520,
+                  "language": "English",
+                  "format": "Paperback"
+                },
+                "isActive": true,
+                "isFeatured": true,
+                "__v": 0
+              },
+              {
+                "_id": "68a41e4821011ad56d50e394",
+                "name": "Sample T-Shirt",
+                "description": "Comfortable cotton t-shirt for everyday wear",
+                "price": 29.99,
+                "comparePrice": 39.99,
+                "salePrice": 24.99,
+                "sku": "SHIRT-001",
+                "category": "68a41e4821011ad56d50e386",
+                "brand": "68a41e4821011ad56d50e38d",
+                "quantity": 200,
+                "images": [
+                  "https://example.com/shirt1.jpg"
+                ],
+                "features": [
+                  "100% Cotton",
+                  "Machine Washable",
+                  "Various Sizes"
+                ],
+                "specifications": {
+                  "material": "Cotton",
+                  "fit": "Regular",
+                  "care": "Machine wash cold"
+                },
+                "isActive": true,
+                "isFeatured": false,
+                "__v": 0
+              },
+              {
+                "_id": "68a41e4821011ad56d50e393",
+                "name": "Sample Smartphone",
+                "description": "A high-quality smartphone for testing purposes",
+                "price": 599.99,
+                "comparePrice": 699.99,
+                "salePrice": 549.99,
+                "sku": "PHONE-001",
+                "category": "68a41e4821011ad56d50e385",
+                "brand": "68a41e4821011ad56d50e38c",
+                "quantity": 100,
+                "images": [
+                  "https://example.com/phone1.jpg"
+                ],
+                "features": [
+                  "5G Ready",
+                  "Dual Camera",
+                  "Fast Charging"
+                ],
+                "specifications": {
+                  "screen": "6.1 inch",
+                  "storage": "128GB",
+                  "ram": "8GB"
+                },
+                "isActive": true,
+                "isFeatured": true,
+                "__v": 0
+              }
+            ],
+            "pagination": {
+              "page": 1,
+              "limit": 20,
+              "total": 3,
+              "pages": 1
+            }
+          },
+          "expectedStatus": 200
+        }
+      ],
+      "endpoint": "GET /products",
+      "successRate": "100.0"
+    },
+    "readById": {
+      "status": "PARTIAL",
+      "tests": [
+        {
+          "name": "Get Product by ID",
+          "success": false,
+          "status": 500,
+          "duration": 2,
+          "error": "Request failed with status code 500",
+          "errorData": {
+            "success": false,
+            "message": "Validation error"
+          },
+          "expectedStatus": 200
+        },
+        {
+          "name": "Get Product by Invalid ID",
+          "success": true,
+          "status": 400,
+          "duration": 2,
+          "error": "Request failed with status code 400",
+          "errorData": {
+            "success": false,
+            "message": "Validation failed",
+            "data": [
+              {
+                "field": "params.id",
+                "message": "Invalid ObjectId",
+                "code": "custom"
+              }
+            ]
+          },
+          "expectedStatus": 400
+        },
+        {
+          "name": "Get Product by Non-existent ID",
+          "success": false,
+          "status": 500,
+          "duration": 2,
+          "error": "Request failed with status code 500",
+          "errorData": {
+            "success": false,
+            "message": "Validation error"
+          },
+          "expectedStatus": 404
+        }
+      ],
+      "endpoint": "GET /products/:id",
+      "successRate": "33.3"
+    },
+    "update": {
+      "status": "PARTIAL",
+      "tests": [
+        {
+          "name": "Update Product (No Auth)",
+          "success": true,
+          "status": 401,
+          "duration": 2,
+          "error": "Request failed with status code 401",
+          "errorData": {
+            "success": false,
+            "error": "Not authorized to access this route",
+            "stack": "Error: Not authorized to access this route\n    at fn (D:\\WorkSpace\\nodejsBackEnd\\src\\middleware\\auth.ts:52:21)\n    at D:\\WorkSpace\\nodejsBackEnd\\src\\utils\\asyncHandler.ts:7:25\n    at Layer.handleRequest (D:\\WorkSpace\\nodejsBackEnd\\node_modules\\router\\lib\\layer.js:152:17)\n    at next (D:\\WorkSpace\\nodejsBackEnd\\node_modules\\router\\lib\\route.js:157:13)\n    at Route.dispatch (D:\\WorkSpace\\nodejsBackEnd\\node_modules\\router\\lib\\route.js:117:3)\n    at handle (D:\\WorkSpace\\nodejsBackEnd\\node_modules\\router\\index.js:435:11)\n    at Layer.handleRequest (D:\\WorkSpace\\nodejsBackEnd\\node_modules\\router\\lib\\layer.js:152:17)\n    at D:\\WorkSpace\\nodejsBackEnd\\node_modules\\router\\index.js:295:15\n    at param (D:\\WorkSpace\\nodejsBackEnd\\node_modules\\router\\index.js:600:14)\n    at param (D:\\WorkSpace\\nodejsBackEnd\\node_modules\\router\\index.js:610:14)"
+          },
+          "expectedStatus": 401
+        },
+        {
+          "name": "Update Product (Admin)",
+          "success": false,
+          "status": 500,
+          "duration": 98,
+          "error": "Request failed with status code 500",
+          "errorData": {
+            "success": false,
+            "message": "Validation error"
+          },
+          "expectedStatus": 200
+        },
+        {
+          "name": "Update Product (Seller)",
+          "success": false,
+          "status": 500,
+          "duration": 96,
+          "error": "Request failed with status code 500",
+          "errorData": {
+            "success": false,
+            "message": "Validation error"
+          },
+          "expectedStatus": 200
+        },
+        {
+          "name": "Update Product (Invalid ID)",
+          "success": true,
+          "status": 400,
+          "duration": 97,
+          "error": "Request failed with status code 400",
+          "errorData": {
+            "success": false,
+            "message": "Validation failed",
+            "data": [
+              {
+                "field": "params.id",
+                "message": "Invalid ObjectId",
+                "code": "custom"
+              }
+            ]
+          },
+          "expectedStatus": 400
+        }
+      ],
+      "endpoint": "PUT /products/:id",
+      "successRate": "50.0"
+    },
+    "delete": {
+      "status": "NOT_TESTED",
+      "tests": [],
+      "endpoint": "DELETE /products/:id"
+    }
+  },
+  "overallStatus": "INCOMPLETE",
+  "createdProductIds": []
+}

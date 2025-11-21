@@ -1,0 +1,633 @@
+{
+  "timestamp": "2025-08-20T15:20:51.739Z",
+  "operations": {
+    "create": {
+      "status": "PASS",
+      "tests": [
+        {
+          "name": "Create Product (No Auth)",
+          "success": true,
+          "status": 401,
+          "duration": 4,
+          "error": "Request failed with status code 401",
+          "errorData": {
+            "success": false,
+            "error": "Not authorized to access this route",
+            "stack": "Error: Not authorized to access this route\n    at fn (E:\\Downloads\\New folder\\nodejsBackEnd\\src\\middleware\\auth.ts:52:21)\n    at E:\\Downloads\\New folder\\nodejsBackEnd\\src\\utils\\asyncHandler.ts:7:25\n    at Layer.handleRequest (E:\\Downloads\\New folder\\nodejsBackEnd\\node_modules\\router\\lib\\layer.js:152:17)\n    at next (E:\\Downloads\\New folder\\nodejsBackEnd\\node_modules\\router\\lib\\route.js:157:13)\n    at Route.dispatch (E:\\Downloads\\New folder\\nodejsBackEnd\\node_modules\\router\\lib\\route.js:117:3)\n    at handle (E:\\Downloads\\New folder\\nodejsBackEnd\\node_modules\\router\\index.js:435:11)\n    at Layer.handleRequest (E:\\Downloads\\New folder\\nodejsBackEnd\\node_modules\\router\\lib\\layer.js:152:17)\n    at E:\\Downloads\\New folder\\nodejsBackEnd\\node_modules\\router\\index.js:295:15\n    at processParams (E:\\Downloads\\New folder\\nodejsBackEnd\\node_modules\\router\\index.js:582:12)\n    at next (E:\\Downloads\\New folder\\nodejsBackEnd\\node_modules\\router\\index.js:291:5)"
+          },
+          "expectedStatus": 401
+        },
+        {
+          "name": "Create Product (Customer Role)",
+          "success": true,
+          "status": 403,
+          "duration": 212,
+          "error": "Request failed with status code 403",
+          "errorData": {
+            "success": false,
+            "error": "User role customer is not authorized to access this route",
+            "stack": "Error: User role customer is not authorized to access this route\n    at E:\\Downloads\\New folder\\nodejsBackEnd\\src\\middleware\\auth.ts:138:25\n    at Layer.handleRequest (E:\\Downloads\\New folder\\nodejsBackEnd\\node_modules\\router\\lib\\layer.js:152:17)\n    at next (E:\\Downloads\\New folder\\nodejsBackEnd\\node_modules\\router\\lib\\route.js:157:13)\n    at E:\\Downloads\\New folder\\nodejsBackEnd\\src\\middleware\\auth.ts:115:9\n    at processTicksAndRejections (node:internal/process/task_queues:105:5)"
+          },
+          "expectedStatus": 403
+        },
+        {
+          "name": "Create Product (Invalid Data)",
+          "success": true,
+          "status": 403,
+          "duration": 100,
+          "error": "Request failed with status code 403",
+          "errorData": {
+            "success": false,
+            "error": "User role customer is not authorized to access this route",
+            "stack": "Error: User role customer is not authorized to access this route\n    at E:\\Downloads\\New folder\\nodejsBackEnd\\src\\middleware\\auth.ts:138:25\n    at Layer.handleRequest (E:\\Downloads\\New folder\\nodejsBackEnd\\node_modules\\router\\lib\\layer.js:152:17)\n    at next (E:\\Downloads\\New folder\\nodejsBackEnd\\node_modules\\router\\lib\\route.js:157:13)\n    at E:\\Downloads\\New folder\\nodejsBackEnd\\src\\middleware\\auth.ts:115:9\n    at processTicksAndRejections (node:internal/process/task_queues:105:5)"
+          },
+          "expectedStatus": 403
+        }
+      ],
+      "endpoint": "POST /products",
+      "successRate": "100.0"
+    },
+    "read": {
+      "status": "PASS",
+      "tests": [
+        {
+          "name": "Get All Products",
+          "success": true,
+          "status": 200,
+          "duration": 409,
+          "data": {
+            "success": true,
+            "message": "Products retrieved successfully",
+            "data": [
+              {
+                "_id": "68a5b80fa7815bf6c31b7318",
+                "name": "MacBook Air M2",
+                "description": "Laptop mỏng nhẹ với chip M2 mạnh mẽ cho công việc và sáng tạo. Màn hình Liquid Retina 13.6 inch, pin lên đến 18 giờ, thiết kế siêu mỏng.",
+                "shortDescription": "Laptop mỏng nhẹ với chip M2 mạnh mẽ",
+                "price": 31990000,
+                "comparePrice": 34990000,
+                "costPrice": 28000000,
+                "sku": "MBA-M2-001",
+                "barcode": "1234567890127",
+                "trackQuantity": true,
+                "quantity": 25,
+                "allowBackorder": false,
+                "weight": 1240,
+                "dimensions": {
+                  "length": 30.41,
+                  "width": 21.5,
+                  "height": 1.13,
+                  "unit": "cm"
+                },
+                "category": "68a5b80ea7815bf6c31b7303",
+                "brand": "68a5b80ea7815bf6c31b7307",
+                "tags": [
+                  "laptop",
+                  "macbook",
+                  "apple",
+                  "m2"
+                ],
+                "images": [
+                  {
+                    "url": "https://images.unsplash.com/photo-1541807084-5c52b6b3adef?w=500",
+                    "alt": "MacBook Air M2",
+                    "isMain": true,
+                    "order": 1,
+                    "_id": "68a5b80fa7815bf6c31b7319"
+                  }
+                ],
+                "hasVariants": true,
+                "variants": [
+                  {
+                    "name": "Màu sắc",
+                    "options": [
+                      "Space Gray",
+                      "Silver",
+                      "Gold",
+                      "Midnight"
+                    ],
+                    "_id": "68a5b80fa7815bf6c31b731a"
+                  },
+                  {
+                    "name": "Bộ nhớ",
+                    "options": [
+                      "256GB",
+                      "512GB",
+                      "1TB"
+                    ],
+                    "_id": "68a5b80fa7815bf6c31b731b"
+                  }
+                ],
+                "seo": {
+                  "title": "MacBook Air M2 - Laptop Apple Mỏng Nhẹ",
+                  "description": "Laptop Apple với chip M2, thiết kế mỏng nhẹ và hiệu năng mạnh mẽ",
+                  "keywords": [
+                    "macbook",
+                    "apple",
+                    "laptop",
+                    "m2"
+                  ]
+                },
+                "status": "active",
+                "isVisible": true,
+                "isFeatured": true,
+                "isDigital": false,
+                "sold": 0,
+                "views": 0,
+                "averageRating": 4.6,
+                "totalReviews": 34,
+                "totalRatings": 34,
+                "publishedAt": "2025-08-20T11:57:03.007Z",
+                "__v": 0,
+                "createdAt": "2025-08-20T11:57:03.018Z",
+                "updatedAt": "2025-08-20T11:57:03.018Z"
+              },
+              {
+                "_id": "68a5b80fa7815bf6c31b7316",
+                "name": "Sách Lập Trình JavaScript",
+                "description": "Hướng dẫn học lập trình JavaScript từ cơ bản đến nâng cao. Bao gồm ES6+, DOM manipulation, async/await, và các framework hiện đại như React, Vue.",
+                "shortDescription": "Học JavaScript từ cơ bản đến nâng cao",
+                "price": 350000,
+                "comparePrice": 450000,
+                "costPrice": 200000,
+                "sku": "BOOK-JS-001",
+                "barcode": "1234567890126",
+                "trackQuantity": true,
+                "quantity": 75,
+                "allowBackorder": true,
+                "weight": 600,
+                "dimensions": {
+                  "length": 24,
+                  "width": 16,
+                  "height": 3.2,
+                  "unit": "cm"
+                },
+                "category": "68a5b80ea7815bf6c31b7305",
+                "brand": "68a5b80ea7815bf6c31b7309",
+                "tags": [
+                  "sách",
+                  "lập trình",
+                  "javascript",
+                  "giáo dục"
+                ],
+                "images": [
+                  {
+                    "url": "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=500",
+                    "alt": "Sách Lập Trình JavaScript",
+                    "isMain": true,
+                    "order": 1,
+                    "_id": "68a5b80fa7815bf6c31b7317"
+                  }
+                ],
+                "hasVariants": false,
+                "variants": [],
+                "seo": {
+                  "title": "Sách Lập Trình JavaScript - Từ Cơ Bản Đến Nâng Cao",
+                  "description": "Hướng dẫn học JavaScript toàn diện với ví dụ thực tế",
+                  "keywords": [
+                    "javascript",
+                    "lập trình",
+                    "sách",
+                    "giáo dục"
+                  ]
+                },
+                "status": "active",
+                "isVisible": true,
+                "isFeatured": true,
+                "isDigital": false,
+                "sold": 0,
+                "views": 0,
+                "averageRating": 4.9,
+                "totalReviews": 67,
+                "totalRatings": 67,
+                "publishedAt": "2025-08-20T11:57:03.007Z",
+                "__v": 0,
+                "createdAt": "2025-08-20T11:57:03.018Z",
+                "updatedAt": "2025-08-20T11:57:03.018Z"
+              },
+              {
+                "_id": "68a5b80fa7815bf6c31b7312",
+                "name": "Áo Thun Nam Basic",
+                "description": "Áo thun nam cơ bản, chất liệu cotton 100% thoáng mát, thấm hút mồ hôi tốt. Thiết kế đơn giản, phù hợp mặc hàng ngày hoặc tập thể thao.",
+                "shortDescription": "Áo thun nam cotton thoáng mát",
+                "price": 299000,
+                "comparePrice": 399000,
+                "costPrice": 150000,
+                "sku": "SHIRT-BM-001",
+                "barcode": "1234567890125",
+                "trackQuantity": true,
+                "quantity": 100,
+                "allowBackorder": true,
+                "weight": 200,
+                "dimensions": {
+                  "length": 70,
+                  "width": 50,
+                  "height": 2,
+                  "unit": "cm"
+                },
+                "category": "68a5b80ea7815bf6c31b7304",
+                "brand": "68a5b80ea7815bf6c31b7308",
+                "tags": [
+                  "áo thun",
+                  "nam",
+                  "cotton",
+                  "basic"
+                ],
+                "images": [
+                  {
+                    "url": "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=500",
+                    "alt": "Áo Thun Nam Basic",
+                    "isMain": true,
+                    "order": 1,
+                    "_id": "68a5b80fa7815bf6c31b7313"
+                  }
+                ],
+                "hasVariants": true,
+                "variants": [
+                  {
+                    "name": "Size",
+                    "options": [
+                      "S",
+                      "M",
+                      "L",
+                      "XL",
+                      "XXL"
+                    ],
+                    "_id": "68a5b80fa7815bf6c31b7314"
+                  },
+                  {
+                    "name": "Màu sắc",
+                    "options": [
+                      "Trắng",
+                      "Đen",
+                      "Xám",
+                      "Navy"
+                    ],
+                    "_id": "68a5b80fa7815bf6c31b7315"
+                  }
+                ],
+                "seo": {
+                  "title": "Áo Thun Nam Basic Cotton - Thoáng Mát",
+                  "description": "Áo thun nam cotton 100% thoáng mát, thiết kế basic",
+                  "keywords": [
+                    "áo thun",
+                    "nam",
+                    "cotton",
+                    "basic"
+                  ]
+                },
+                "status": "active",
+                "isVisible": true,
+                "isFeatured": false,
+                "isDigital": false,
+                "sold": 0,
+                "views": 0,
+                "averageRating": 4.3,
+                "totalReviews": 45,
+                "totalRatings": 45,
+                "publishedAt": "2025-08-20T11:57:03.007Z",
+                "__v": 0,
+                "createdAt": "2025-08-20T11:57:03.018Z",
+                "updatedAt": "2025-08-20T11:57:03.018Z"
+              },
+              {
+                "_id": "68a5b80fa7815bf6c31b7310",
+                "name": "Samsung Galaxy S24 Ultra",
+                "description": "Smartphone Android flagship với S Pen tích hợp và camera zoom 100x. Màn hình Dynamic AMOLED 2X 6.8 inch, hiệu năng mạnh mẽ với Snapdragon 8 Gen 3.",
+                "shortDescription": "Android flagship với S Pen và camera zoom 100x",
+                "price": 26990000,
+                "comparePrice": 29990000,
+                "costPrice": 22000000,
+                "sku": "SGS24U-001",
+                "barcode": "1234567890124",
+                "trackQuantity": true,
+                "quantity": 30,
+                "allowBackorder": false,
+                "weight": 232,
+                "dimensions": {
+                  "length": 16.23,
+                  "width": 7.9,
+                  "height": 0.86,
+                  "unit": "cm"
+                },
+                "category": "68a5b80ea7815bf6c31b7303",
+                "brand": "68a5b80ea7815bf6c31b7307",
+                "tags": [
+                  "smartphone",
+                  "samsung",
+                  "android",
+                  "s-pen"
+                ],
+                "images": [
+                  {
+                    "url": "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=500",
+                    "alt": "Samsung Galaxy S24 Ultra",
+                    "isMain": true,
+                    "order": 1,
+                    "_id": "68a5b80fa7815bf6c31b7311"
+                  }
+                ],
+                "hasVariants": false,
+                "variants": [],
+                "seo": {
+                  "title": "Samsung Galaxy S24 Ultra - Android Flagship",
+                  "description": "Android flagship với S Pen và camera zoom 100x",
+                  "keywords": [
+                    "samsung",
+                    "galaxy",
+                    "android",
+                    "s-pen"
+                  ]
+                },
+                "status": "active",
+                "isVisible": true,
+                "isFeatured": true,
+                "isDigital": false,
+                "sold": 0,
+                "views": 0,
+                "averageRating": 4.7,
+                "totalReviews": 89,
+                "totalRatings": 89,
+                "publishedAt": "2025-08-20T11:57:03.007Z",
+                "__v": 0,
+                "createdAt": "2025-08-20T11:57:03.018Z",
+                "updatedAt": "2025-08-20T11:57:03.018Z"
+              },
+              {
+                "_id": "68a5b80fa7815bf6c31b730d",
+                "name": "iPhone 15 Pro Max",
+                "description": "Smartphone cao cấp với camera chuyên nghiệp và hiệu năng mạnh mẽ. Chip A17 Pro mạnh mẽ, camera 48MP Pro với zoom quang học 5x, pin lâu dài cả ngày.",
+                "shortDescription": "Smartphone cao cấp với camera chuyên nghiệp",
+                "price": 29990000,
+                "comparePrice": 32990000,
+                "costPrice": 25000000,
+                "sku": "IP15PM-001",
+                "barcode": "1234567890123",
+                "trackQuantity": true,
+                "quantity": 50,
+                "allowBackorder": false,
+                "weight": 221,
+                "dimensions": {
+                  "length": 15.99,
+                  "width": 7.67,
+                  "height": 0.825,
+                  "unit": "cm"
+                },
+                "category": "68a5b80ea7815bf6c31b7303",
+                "brand": "68a5b80ea7815bf6c31b7307",
+                "tags": [
+                  "smartphone",
+                  "iphone",
+                  "apple",
+                  "5G",
+                  "camera"
+                ],
+                "images": [
+                  {
+                    "url": "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=500",
+                    "alt": "iPhone 15 Pro Max",
+                    "isMain": true,
+                    "order": 1,
+                    "_id": "68a5b80fa7815bf6c31b730e"
+                  },
+                  {
+                    "url": "https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?w=500",
+                    "alt": "iPhone 15 Pro Max Back",
+                    "isMain": false,
+                    "order": 2,
+                    "_id": "68a5b80fa7815bf6c31b730f"
+                  }
+                ],
+                "hasVariants": false,
+                "variants": [],
+                "seo": {
+                  "title": "iPhone 15 Pro Max - Apple Flagship Smartphone",
+                  "description": "Flagship smartphone với hiệu năng mạnh mẽ và camera chuyên nghiệp",
+                  "keywords": [
+                    "iphone",
+                    "apple",
+                    "smartphone",
+                    "flagship"
+                  ]
+                },
+                "status": "active",
+                "isVisible": true,
+                "isFeatured": true,
+                "isDigital": false,
+                "sold": 0,
+                "views": 0,
+                "averageRating": 4.8,
+                "totalReviews": 125,
+                "totalRatings": 125,
+                "publishedAt": "2025-08-20T11:57:03.007Z",
+                "__v": 0,
+                "createdAt": "2025-08-20T11:57:03.017Z",
+                "updatedAt": "2025-08-20T11:57:03.017Z"
+              }
+            ],
+            "pagination": {
+              "page": 1,
+              "limit": 20,
+              "total": 5,
+              "pages": 1
+            }
+          },
+          "expectedStatus": 200
+        }
+      ],
+      "endpoint": "GET /products",
+      "successRate": "100.0"
+    },
+    "readById": {
+      "status": "PASS",
+      "tests": [
+        {
+          "name": "Get Product by ID",
+          "success": true,
+          "status": 200,
+          "duration": 256,
+          "data": {
+            "success": true,
+            "message": "Product retrieved successfully",
+            "data": {
+              "_id": "68a5b80fa7815bf6c31b7318",
+              "name": "MacBook Air M2",
+              "description": "Laptop mỏng nhẹ với chip M2 mạnh mẽ cho công việc và sáng tạo. Màn hình Liquid Retina 13.6 inch, pin lên đến 18 giờ, thiết kế siêu mỏng.",
+              "shortDescription": "Laptop mỏng nhẹ với chip M2 mạnh mẽ",
+              "price": 31990000,
+              "comparePrice": 34990000,
+              "costPrice": 28000000,
+              "sku": "MBA-M2-001",
+              "barcode": "1234567890127",
+              "trackQuantity": true,
+              "quantity": 25,
+              "allowBackorder": false,
+              "weight": 1240,
+              "dimensions": {
+                "length": 30.41,
+                "width": 21.5,
+                "height": 1.13,
+                "unit": "cm"
+              },
+              "category": {
+                "_id": "68a5b80ea7815bf6c31b7303",
+                "name": "Electronics",
+                "slug": "electronics",
+                "description": "Electronic devices and gadgets"
+              },
+              "brand": {
+                "_id": "68a5b80ea7815bf6c31b7307",
+                "name": "TechCorp",
+                "slug": "techcorp"
+              },
+              "tags": [
+                "laptop",
+                "macbook",
+                "apple",
+                "m2"
+              ],
+              "images": [
+                {
+                  "url": "https://images.unsplash.com/photo-1541807084-5c52b6b3adef?w=500",
+                  "alt": "MacBook Air M2",
+                  "isMain": true,
+                  "order": 1,
+                  "_id": "68a5b80fa7815bf6c31b7319"
+                }
+              ],
+              "hasVariants": true,
+              "variants": [
+                {
+                  "name": "Màu sắc",
+                  "options": [
+                    "Space Gray",
+                    "Silver",
+                    "Gold",
+                    "Midnight"
+                  ],
+                  "_id": "68a5b80fa7815bf6c31b731a"
+                },
+                {
+                  "name": "Bộ nhớ",
+                  "options": [
+                    "256GB",
+                    "512GB",
+                    "1TB"
+                  ],
+                  "_id": "68a5b80fa7815bf6c31b731b"
+                }
+              ],
+              "seo": {
+                "title": "MacBook Air M2 - Laptop Apple Mỏng Nhẹ",
+                "description": "Laptop Apple với chip M2, thiết kế mỏng nhẹ và hiệu năng mạnh mẽ",
+                "keywords": [
+                  "macbook",
+                  "apple",
+                  "laptop",
+                  "m2"
+                ]
+              },
+              "status": "active",
+              "isVisible": true,
+              "isFeatured": true,
+              "isDigital": false,
+              "sold": 0,
+              "views": 0,
+              "averageRating": 4.6,
+              "totalReviews": 34,
+              "totalRatings": 34,
+              "publishedAt": "2025-08-20T11:57:03.007Z",
+              "__v": 0,
+              "createdAt": "2025-08-20T11:57:03.018Z",
+              "updatedAt": "2025-08-20T11:57:03.018Z"
+            },
+            "timestamp": "2025-08-20T15:20:53.159Z"
+          },
+          "expectedStatus": 200
+        }
+      ],
+      "endpoint": "GET /products/:id",
+      "successRate": "100.0"
+    },
+    "update": {
+      "status": "PASS",
+      "tests": [
+        {
+          "name": "Update Product (No Auth)",
+          "success": true,
+          "status": 401,
+          "duration": 4,
+          "error": "Request failed with status code 401",
+          "errorData": {
+            "success": false,
+            "error": "Not authorized to access this route",
+            "stack": "Error: Not authorized to access this route\n    at fn (E:\\Downloads\\New folder\\nodejsBackEnd\\src\\middleware\\auth.ts:52:21)\n    at E:\\Downloads\\New folder\\nodejsBackEnd\\src\\utils\\asyncHandler.ts:7:25\n    at Layer.handleRequest (E:\\Downloads\\New folder\\nodejsBackEnd\\node_modules\\router\\lib\\layer.js:152:17)\n    at next (E:\\Downloads\\New folder\\nodejsBackEnd\\node_modules\\router\\lib\\route.js:157:13)\n    at Route.dispatch (E:\\Downloads\\New folder\\nodejsBackEnd\\node_modules\\router\\lib\\route.js:117:3)\n    at handle (E:\\Downloads\\New folder\\nodejsBackEnd\\node_modules\\router\\index.js:435:11)\n    at Layer.handleRequest (E:\\Downloads\\New folder\\nodejsBackEnd\\node_modules\\router\\lib\\layer.js:152:17)\n    at E:\\Downloads\\New folder\\nodejsBackEnd\\node_modules\\router\\index.js:295:15\n    at param (E:\\Downloads\\New folder\\nodejsBackEnd\\node_modules\\router\\index.js:600:14)\n    at param (E:\\Downloads\\New folder\\nodejsBackEnd\\node_modules\\router\\index.js:610:14)"
+          },
+          "expectedStatus": 401
+        },
+        {
+          "name": "Update Product (Customer Role)",
+          "success": true,
+          "status": 403,
+          "duration": 98,
+          "error": "Request failed with status code 403",
+          "errorData": {
+            "success": false,
+            "error": "User role customer is not authorized to access this route",
+            "stack": "Error: User role customer is not authorized to access this route\n    at E:\\Downloads\\New folder\\nodejsBackEnd\\src\\middleware\\auth.ts:138:25\n    at Layer.handleRequest (E:\\Downloads\\New folder\\nodejsBackEnd\\node_modules\\router\\lib\\layer.js:152:17)\n    at next (E:\\Downloads\\New folder\\nodejsBackEnd\\node_modules\\router\\lib\\route.js:157:13)\n    at E:\\Downloads\\New folder\\nodejsBackEnd\\src\\middleware\\auth.ts:115:9\n    at processTicksAndRejections (node:internal/process/task_queues:105:5)"
+          },
+          "expectedStatus": 403
+        },
+        {
+          "name": "Update Product (Invalid ID)",
+          "success": true,
+          "status": 403,
+          "duration": 98,
+          "error": "Request failed with status code 403",
+          "errorData": {
+            "success": false,
+            "error": "User role customer is not authorized to access this route",
+            "stack": "Error: User role customer is not authorized to access this route\n    at E:\\Downloads\\New folder\\nodejsBackEnd\\src\\middleware\\auth.ts:138:25\n    at Layer.handleRequest (E:\\Downloads\\New folder\\nodejsBackEnd\\node_modules\\router\\lib\\layer.js:152:17)\n    at next (E:\\Downloads\\New folder\\nodejsBackEnd\\node_modules\\router\\lib\\route.js:157:13)\n    at E:\\Downloads\\New folder\\nodejsBackEnd\\src\\middleware\\auth.ts:115:9\n    at processTicksAndRejections (node:internal/process/task_queues:105:5)"
+          },
+          "expectedStatus": 403
+        }
+      ],
+      "endpoint": "PUT /products/:id",
+      "successRate": "100.0"
+    },
+    "delete": {
+      "status": "PASS",
+      "tests": [
+        {
+          "name": "Delete Product (No Auth)",
+          "success": true,
+          "status": 401,
+          "duration": 3,
+          "error": "Request failed with status code 401",
+          "errorData": {
+            "success": false,
+            "error": "Not authorized to access this route",
+            "stack": "Error: Not authorized to access this route\n    at fn (E:\\Downloads\\New folder\\nodejsBackEnd\\src\\middleware\\auth.ts:52:21)\n    at E:\\Downloads\\New folder\\nodejsBackEnd\\src\\utils\\asyncHandler.ts:7:25\n    at Layer.handleRequest (E:\\Downloads\\New folder\\nodejsBackEnd\\node_modules\\router\\lib\\layer.js:152:17)\n    at next (E:\\Downloads\\New folder\\nodejsBackEnd\\node_modules\\router\\lib\\route.js:157:13)\n    at Route.dispatch (E:\\Downloads\\New folder\\nodejsBackEnd\\node_modules\\router\\lib\\route.js:117:3)\n    at handle (E:\\Downloads\\New folder\\nodejsBackEnd\\node_modules\\router\\index.js:435:11)\n    at Layer.handleRequest (E:\\Downloads\\New folder\\nodejsBackEnd\\node_modules\\router\\lib\\layer.js:152:17)\n    at E:\\Downloads\\New folder\\nodejsBackEnd\\node_modules\\router\\index.js:295:15\n    at param (E:\\Downloads\\New folder\\nodejsBackEnd\\node_modules\\router\\index.js:600:14)\n    at param (E:\\Downloads\\New folder\\nodejsBackEnd\\node_modules\\router\\index.js:610:14)"
+          },
+          "expectedStatus": 401
+        },
+        {
+          "name": "Delete Product (Customer Role)",
+          "success": true,
+          "status": 403,
+          "duration": 97,
+          "error": "Request failed with status code 403",
+          "errorData": {
+            "success": false,
+            "error": "User role customer is not authorized to access this route",
+            "stack": "Error: User role customer is not authorized to access this route\n    at E:\\Downloads\\New folder\\nodejsBackEnd\\src\\middleware\\auth.ts:138:25\n    at Layer.handleRequest (E:\\Downloads\\New folder\\nodejsBackEnd\\node_modules\\router\\lib\\layer.js:152:17)\n    at next (E:\\Downloads\\New folder\\nodejsBackEnd\\node_modules\\router\\lib\\route.js:157:13)\n    at E:\\Downloads\\New folder\\nodejsBackEnd\\src\\middleware\\auth.ts:115:9\n    at processTicksAndRejections (node:internal/process/task_queues:105:5)"
+          },
+          "expectedStatus": 403
+        }
+      ],
+      "endpoint": "DELETE /products/:id",
+      "successRate": "100.0"
+    }
+  },
+  "overallStatus": "PASS"
+}

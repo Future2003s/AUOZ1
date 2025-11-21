@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Page Not Found - LALA-LYCHEEE</title>
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+
+            body {
+                font-family:
+                    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                min-height: 100vh;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: #333;
+            }
+
+            .container {
+                text-align: center;
+                background: white;
+                padding: 3rem 2rem;
+                border-radius: 20px;
+                box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+                max-width: 500px;
+                width: 90%;
+            }
+
+            .error-code {
+                font-size: 8rem;
+                font-weight: 900;
+                color: #667eea;
+                line-height: 1;
+                margin-bottom: 1rem;
+                text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+            }
+
+            .error-title {
+                font-size: 2rem;
+                font-weight: 700;
+                color: #2d3748;
+                margin-bottom: 1rem;
+            }
+
+            .error-message {
+                font-size: 1.1rem;
+                color: #718096;
+                margin-bottom: 2rem;
+                line-height: 1.6;
+            }
+
+            .btn-home {
+                display: inline-block;
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                color: white;
+                padding: 12px 30px;
+                text-decoration: none;
+                border-radius: 50px;
+                font-weight: 600;
+                transition: all 0.3s ease;
+                box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+            }
+
+            .btn-home:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+            }
+
+            .illustration {
+                width: 200px;
+                height: 200px;
+                margin: 0 auto 2rem;
+                background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300"><defs><linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:%23667eea;stop-opacity:1" /><stop offset="100%" style="stop-color:%23764ba2;stop-opacity:1" /></linearGradient></defs><circle cx="200" cy="150" r="100" fill="url(%23grad1)" opacity="0.1"/><path d="M150 120 L250 120 L250 180 L150 180 Z" fill="none" stroke="%23667eea" stroke-width="3" stroke-dasharray="5,5"/><circle cx="180" cy="140" r="8" fill="%23667eea"/><circle cx="220" cy="140" r="8" fill="%23667eea"/><path d="M170 160 Q200 180 230 160" fill="none" stroke="%23667eea" stroke-width="3" stroke-linecap="round"/></svg>')
+                    center/contain no-repeat;
+            }
+
+            .features {
+                margin-top: 2rem;
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+                gap: 1rem;
+                text-align: center;
+            }
+
+            .feature {
+                padding: 1rem;
+                background: #f7fafc;
+                border-radius: 10px;
+                font-size: 0.9rem;
+                color: #4a5568;
+            }
+
+            .feature-icon {
+                font-size: 1.5rem;
+                margin-bottom: 0.5rem;
+            }
+
+            @media (max-width: 480px) {
+                .error-code {
+                    font-size: 6rem;
+                }
+
+                .error-title {
+                    font-size: 1.5rem;
+                }
+
+                .container {
+                    padding: 2rem 1rem;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <div class="illustration"></div>
+            <div class="error-code">404</div>
+            <h1 class="error-title">Page Not Found</h1>
+            <p class="error-message">
+                Oops! The page you're looking for doesn't exist. It might have been moved, deleted, or you entered the
+                wrong URL.
+            </p>
+
+            <a href="/" class="btn-home">🏠 Back to Home</a>
+
+            <div class="features">
+                <div class="feature">
+                    <div class="feature-icon">🛍️</div>
+                    <div>Shop Products</div>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">📱</div>
+                    <div>Mobile App</div>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">💬</div>
+                    <div>Support</div>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            // Add some interactivity
+            document.addEventListener("DOMContentLoaded", function () {
+                const container = document.querySelector(".container");
+                container.style.opacity = "0";
+                container.style.transform = "translateY(20px)";
+
+                setTimeout(() => {
+                    container.style.transition = "all 0.6s ease";
+                    container.style.opacity = "1";
+                    container.style.transform = "translateY(0)";
+                }, 100);
+            });
+        </script>
+    </body>
+</html>

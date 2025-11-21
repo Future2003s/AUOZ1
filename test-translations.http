@@ -1,0 +1,123 @@
+### ShopDev Translation API Tests
+### Cần có admin token để test các endpoint quản lý
+
+### 1. Đăng nhập để lấy admin token
+POST http://localhost:8081/api/v1/auth/login
+Content-Type: application/json
+
+{
+  "email": "admin@shopdev.com",
+  "password": "Admin123!"
+}
+
+### 2. Lấy tất cả translations (tiếng Việt)
+GET http://localhost:8081/api/v1/translations/all?lang=vi
+
+### 3. Lấy translation cụ thể (tiếng Nhật)
+GET http://localhost:8081/api/v1/translations/key/ui.welcome?lang=ja
+
+### 4. Lấy translations theo category (tiếng Anh)
+GET http://localhost:8081/api/v1/translations/category/product?lang=en
+
+### 5. Lấy nhiều translations cùng lúc
+POST http://localhost:8081/api/v1/translations/bulk?lang=vi
+Content-Type: application/json
+
+{
+  "keys": ["ui.welcome", "ui.login", "ui.register", "product.price"]
+}
+
+### === ADMIN ENDPOINTS (Cần Authorization) ===
+
+### 6. Lấy danh sách translations (admin)
+GET http://localhost:8081/api/v1/translations?page=1&limit=10&category=ui
+Authorization: Bearer YOUR_ADMIN_TOKEN_HERE
+
+### 7. Tạo translation mới
+POST http://localhost:8081/api/v1/translations
+Authorization: Bearer YOUR_ADMIN_TOKEN_HERE
+Content-Type: application/json
+
+{
+  "key": "ui.test_button",
+  "category": "ui",
+  "translations": {
+    "vi": "Nút thử nghiệm",
+    "en": "Test Button",
+    "ja": "テストボタン"
+  },
+  "description": "Test button for demo"
+}
+
+### 8. Cập nhật translation
+PUT http://localhost:8081/api/v1/translations/ui.test_button
+Authorization: Bearer YOUR_ADMIN_TOKEN_HERE
+Content-Type: application/json
+
+{
+  "translations": {
+    "vi": "Nút thử nghiệm đã cập nhật",
+    "en": "Updated Test Button",
+    "ja": "更新されたテストボタン"
+  },
+  "description": "Updated test button"
+}
+
+### 9. Tìm kiếm translations
+GET http://localhost:8081/api/v1/translations/search?query=test&language=vi
+Authorization: Bearer YOUR_ADMIN_TOKEN_HERE
+
+### 10. Thống kê translations
+GET http://localhost:8081/api/v1/translations/stats
+Authorization: Bearer YOUR_ADMIN_TOKEN_HERE
+
+### 11. Bulk import translations
+POST http://localhost:8081/api/v1/translations/bulk-import
+Authorization: Bearer YOUR_ADMIN_TOKEN_HERE
+Content-Type: application/json
+
+{
+  "translations": [
+    {
+      "key": "ui.save_button",
+      "category": "ui",
+      "translations": {
+        "vi": "Lưu",
+        "en": "Save",
+        "ja": "保存"
+      },
+      "description": "Save button"
+    },
+    {
+      "key": "ui.cancel_button", 
+      "category": "ui",
+      "translations": {
+        "vi": "Hủy",
+        "en": "Cancel",
+        "ja": "キャンセル"
+      },
+      "description": "Cancel button"
+    }
+  ]
+}
+
+### 12. Export translations
+GET http://localhost:8081/api/v1/translations/export?category=ui&language=vi
+Authorization: Bearer YOUR_ADMIN_TOKEN_HERE
+
+### 13. Xóa translation
+DELETE http://localhost:8081/api/v1/translations/ui.test_button
+Authorization: Bearer YOUR_ADMIN_TOKEN_HERE
+
+### === TEST LANGUAGE DETECTION ===
+
+### 14. Test với Accept-Language header (Vietnamese)
+GET http://localhost:8081/api/v1/translations/key/ui.welcome
+Accept-Language: vi-VN,vi;q=0.9,en;q=0.8
+
+### 15. Test với Accept-Language header (Japanese)
+GET http://localhost:8081/api/v1/translations/key/ui.welcome
+Accept-Language: ja-JP,ja;q=0.9,en;q=0.8
+
+### 16. Test fallback to English
+GET http://localhost:8081/api/v1/translations/key/nonexistent.key?lang=vi

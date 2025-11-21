@@ -1,0 +1,137 @@
+{
+  "timestamp": "2025-08-19T07:35:47.142Z",
+  "tests": [
+    {
+      "name": "Get Products (No Auth)",
+      "success": true,
+      "status": 200,
+      "duration": 291,
+      "expectedStatus": 200,
+      "dataCount": 3,
+      "hasData": true
+    },
+    {
+      "name": "Get Products with Query Params (No Auth)",
+      "success": true,
+      "status": 200,
+      "duration": 237,
+      "expectedStatus": 200,
+      "dataCount": 3,
+      "hasData": true
+    },
+    {
+      "name": "Get Products Search (No Auth)",
+      "success": true,
+      "status": 200,
+      "duration": 235,
+      "expectedStatus": 200,
+      "dataCount": 1,
+      "hasData": true
+    },
+    {
+      "name": "Get Featured Products (No Auth)",
+      "success": true,
+      "status": 200,
+      "duration": 128,
+      "expectedStatus": 200,
+      "dataCount": 0,
+      "hasData": true
+    },
+    {
+      "name": "Get Products (Customer Auth)",
+      "success": true,
+      "status": 200,
+      "duration": 60,
+      "expectedStatus": 200,
+      "dataCount": 3,
+      "hasData": true
+    },
+    {
+      "name": "Get Products with Filters (Customer Auth)",
+      "success": true,
+      "status": 200,
+      "duration": 276,
+      "expectedStatus": 200,
+      "dataCount": 0,
+      "hasData": true
+    },
+    {
+      "name": "Get Products (Admin Auth)",
+      "success": true,
+      "status": 200,
+      "duration": 88,
+      "expectedStatus": 200,
+      "dataCount": 3,
+      "hasData": true
+    },
+    {
+      "name": "Get Products with Admin Filters (Admin Auth)",
+      "success": true,
+      "status": 200,
+      "duration": 309,
+      "expectedStatus": 200,
+      "dataCount": 0,
+      "hasData": true
+    },
+    {
+      "name": "Get Product by ID (No Auth)",
+      "success": false,
+      "status": 500,
+      "duration": 6,
+      "error": "Request failed with status code 500",
+      "errorData": {
+        "success": false,
+        "message": "Validation error"
+      },
+      "expectedStatus": 200
+    },
+    {
+      "name": "Get Product by ID (Customer Auth)",
+      "success": false,
+      "status": 500,
+      "duration": 5,
+      "error": "Request failed with status code 500",
+      "errorData": {
+        "success": false,
+        "message": "Validation error"
+      },
+      "expectedStatus": 200
+    },
+    {
+      "name": "Get Product with Invalid ID",
+      "success": true,
+      "status": 400,
+      "duration": 4,
+      "error": "Request failed with status code 400",
+      "errorData": {
+        "success": false,
+        "message": "Validation failed",
+        "data": [
+          {
+            "field": "params.id",
+            "message": "Invalid ObjectId",
+            "code": "custom"
+          }
+        ]
+      },
+      "expectedStatus": 400
+    },
+    {
+      "name": "Get Product with Non-existent ID",
+      "success": false,
+      "status": 500,
+      "duration": 4,
+      "error": "Request failed with status code 500",
+      "errorData": {
+        "success": false,
+        "message": "Validation error"
+      },
+      "expectedStatus": 404
+    }
+  ],
+  "summary": {
+    "total": 12,
+    "passed": 9,
+    "failed": 3
+  }
+}

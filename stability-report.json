@@ -1,0 +1,1113 @@
+{
+  "timestamp": "2025-08-19T03:18:04.008Z",
+  "totalRuns": 3,
+  "categories": {
+    "authentication": {
+      "tests": [
+        {
+          "name": "Server Health Check",
+          "stability": 100,
+          "avgResponseTime": 8.666666666666666,
+          "results": [
+            {
+              "run": 1,
+              "success": true,
+              "status": 200,
+              "duration": 23,
+              "data": {
+                "status": "healthy",
+                "timestamp": "2025-08-19T03:18:04.030Z",
+                "uptime": 123.734888,
+                "memory": {
+                  "rss": 139505664,
+                  "heapTotal": 72761344,
+                  "heapUsed": 67245560,
+                  "external": 26810564,
+                  "arrayBuffers": 23580830
+                },
+                "version": "1.0.0"
+              }
+            },
+            {
+              "run": 2,
+              "success": true,
+              "status": 200,
+              "duration": 2,
+              "data": {
+                "status": "healthy",
+                "timestamp": "2025-08-19T03:18:04.034Z",
+                "uptime": 123.739709,
+                "memory": {
+                  "rss": 139505664,
+                  "heapTotal": 72761344,
+                  "heapUsed": 67304584,
+                  "external": 26810564,
+                  "arrayBuffers": 23580830
+                },
+                "version": "1.0.0"
+              }
+            },
+            {
+              "run": 3,
+              "success": true,
+              "status": 200,
+              "duration": 1,
+              "data": {
+                "status": "healthy",
+                "timestamp": "2025-08-19T03:18:04.036Z",
+                "uptime": 123.7414718,
+                "memory": {
+                  "rss": 139505664,
+                  "heapTotal": 72761344,
+                  "heapUsed": 67364680,
+                  "external": 26810564,
+                  "arrayBuffers": 23580830
+                },
+                "version": "1.0.0"
+              }
+            }
+          ],
+          "consistent": true
+        },
+        {
+          "name": "User Registration",
+          "stability": 100,
+          "avgResponseTime": 459.3333333333333,
+          "results": [
+            {
+              "run": 1,
+              "success": true,
+              "status": 201,
+              "duration": 455,
+              "data": {
+                "success": true,
+                "message": "User registered successfully.",
+                "data": {
+                  "user": {
+                    "_id": "68a3ecec86b73c6b8cd162b7",
+                    "firstName": "Stability",
+                    "lastName": "Test",
+                    "email": "stability1755573484038_qhyd0@example.com",
+                    "role": "customer",
+                    "avatar": "",
+                    "isActive": true,
+                    "isEmailVerified": true,
+                    "phone": "+1234567890",
+                    "preferences": {
+                      "language": "en",
+                      "currency": "USD",
+                      "notifications": {
+                        "email": true,
+                        "sms": false,
+                        "push": true
+                      }
+                    },
+                    "addresses": [],
+                    "createdAt": "2025-08-19T03:18:04.094Z",
+                    "updatedAt": "2025-08-19T03:18:04.094Z",
+                    "__v": 0,
+                    "fullName": "Stability Test",
+                    "id": "68a3ecec86b73c6b8cd162b7"
+                  },
+                  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4YTNlY2VjODZiNzNjNmI4Y2QxNjJiNyIsImlhdCI6MTc1NTU3MzQ4NCwiZXhwIjoxNzU1NTc0Mzg0fQ.GSpPi0XmkxPIiaytHzPBZyEwRXaepC8KYnVRzvgZWfM",
+                  "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4YTNlY2VjODZiNzNjNmI4Y2QxNjJiNyIsImlhdCI6MTc1NTU3MzQ4NCwiZXhwIjoxNzU2MTc4Mjg0fQ.mGt0QsZFk-uy72w8_Wb1L3VCQqvGMVFXrTP98BKTaQk"
+                },
+                "timestamp": "2025-08-19T03:18:04.492Z"
+              }
+            },
+            {
+              "run": 2,
+              "success": true,
+              "status": 201,
+              "duration": 456,
+              "data": {
+                "success": true,
+                "message": "User registered successfully.",
+                "data": {
+                  "user": {
+                    "_id": "68a3ecec86b73c6b8cd162ba",
+                    "firstName": "Stability",
+                    "lastName": "Test",
+                    "email": "stability1755573484493_ngyeg@example.com",
+                    "role": "customer",
+                    "avatar": "",
+                    "isActive": true,
+                    "isEmailVerified": true,
+                    "phone": "+1234567890",
+                    "preferences": {
+                      "language": "en",
+                      "currency": "USD",
+                      "notifications": {
+                        "email": true,
+                        "sms": false,
+                        "push": true
+                      }
+                    },
+                    "addresses": [],
+                    "createdAt": "2025-08-19T03:18:04.549Z",
+                    "updatedAt": "2025-08-19T03:18:04.549Z",
+                    "__v": 0,
+                    "fullName": "Stability Test",
+                    "id": "68a3ecec86b73c6b8cd162ba"
+                  },
+                  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4YTNlY2VjODZiNzNjNmI4Y2QxNjJiYSIsImlhdCI6MTc1NTU3MzQ4NCwiZXhwIjoxNzU1NTc0Mzg0fQ.ooSAdCpUjpuDx_npiAbXDxk4saPsuHG-VLcJ1pntxzM",
+                  "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4YTNlY2VjODZiNzNjNmI4Y2QxNjJiYSIsImlhdCI6MTc1NTU3MzQ4NCwiZXhwIjoxNzU2MTc4Mjg0fQ.Bem3akMqrcLIY6wvGlbAbeuhAj4BvjqjtuoDDIlAF0Y"
+                },
+                "timestamp": "2025-08-19T03:18:04.946Z"
+              }
+            },
+            {
+              "run": 3,
+              "success": true,
+              "status": 201,
+              "duration": 467,
+              "data": {
+                "success": true,
+                "message": "User registered successfully.",
+                "data": {
+                  "user": {
+                    "_id": "68a3eced86b73c6b8cd162bd",
+                    "firstName": "Stability",
+                    "lastName": "Test",
+                    "email": "stability1755573484949_dx3hr@example.com",
+                    "role": "customer",
+                    "avatar": "",
+                    "isActive": true,
+                    "isEmailVerified": true,
+                    "phone": "+1234567890",
+                    "preferences": {
+                      "language": "en",
+                      "currency": "USD",
+                      "notifications": {
+                        "email": true,
+                        "sms": false,
+                        "push": true
+                      }
+                    },
+                    "addresses": [],
+                    "createdAt": "2025-08-19T03:18:05.008Z",
+                    "updatedAt": "2025-08-19T03:18:05.008Z",
+                    "__v": 0,
+                    "fullName": "Stability Test",
+                    "id": "68a3eced86b73c6b8cd162bd"
+                  },
+                  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4YTNlY2VkODZiNzNjNmI4Y2QxNjJiZCIsImlhdCI6MTc1NTU3MzQ4NSwiZXhwIjoxNzU1NTc0Mzg1fQ.oSidX8kVOayvJ-RQsSn2gTTxIws_4kMV3hBM0R6l44I",
+                  "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4YTNlY2VkODZiNzNjNmI4Y2QxNjJiZCIsImlhdCI6MTc1NTU3MzQ4NSwiZXhwIjoxNzU2MTc4Mjg1fQ.nmuOhZHKRmh9HtcfdNy2rI2wWW4k5sFd8Z_TmGReIfU"
+                },
+                "timestamp": "2025-08-19T03:18:05.415Z"
+              }
+            }
+          ],
+          "consistent": true
+        },
+        {
+          "name": "User Login",
+          "stability": 100,
+          "avgResponseTime": 508,
+          "results": [
+            {
+              "run": 1,
+              "success": true,
+              "status": 200,
+              "duration": 503,
+              "data": {
+                "success": true,
+                "message": "Login successful",
+                "data": {
+                  "user": {
+                    "_id": "68a3eb87b735860a3556d8f2",
+                    "firstName": "Consistent",
+                    "lastName": "User",
+                    "email": "consistent.test@example.com",
+                    "role": "customer",
+                    "avatar": "",
+                    "isActive": true,
+                    "isEmailVerified": true,
+                    "phone": "+1234567890",
+                    "preferences": {
+                      "language": "en",
+                      "currency": "USD",
+                      "notifications": {
+                        "email": true,
+                        "sms": false,
+                        "push": true
+                      }
+                    },
+                    "addresses": [],
+                    "createdAt": "2025-08-19T03:12:07.543Z",
+                    "updatedAt": "2025-08-19T03:12:09.441Z",
+                    "lastLogin": "2025-08-19T03:12:09.441Z",
+                    "__v": 0,
+                    "fullName": "Consistent User",
+                    "id": "68a3eb87b735860a3556d8f2"
+                  },
+                  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4YTNlYjg3YjczNTg2MGEzNTU2ZDhmMiIsImlhdCI6MTc1NTU3MzQ4NSwiZXhwIjoxNzU1NTc0Mzg1fQ.5dUxOb1NLPenb1jLL5F0BdUclg3Ws4NdyNtOX3ryCoY",
+                  "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4YTNlYjg3YjczNTg2MGEzNTU2ZDhmMiIsImlhdCI6MTc1NTU3MzQ4NSwiZXhwIjoxNzU2MTc4Mjg1fQ.MPf0neAl0m_ENmdZRS6jXVTH9BhtIEdb8di0HxdWOAU"
+                },
+                "timestamp": "2025-08-19T03:18:05.976Z"
+              }
+            },
+            {
+              "run": 2,
+              "success": true,
+              "status": 200,
+              "duration": 516,
+              "data": {
+                "success": true,
+                "message": "Login successful",
+                "data": {
+                  "user": {
+                    "_id": "68a3eb87b735860a3556d8f2",
+                    "firstName": "Consistent",
+                    "lastName": "User",
+                    "email": "consistent.test@example.com",
+                    "role": "customer",
+                    "avatar": "",
+                    "isActive": true,
+                    "isEmailVerified": true,
+                    "phone": "+1234567890",
+                    "preferences": {
+                      "language": "en",
+                      "currency": "USD",
+                      "notifications": {
+                        "email": true,
+                        "sms": false,
+                        "push": true
+                      }
+                    },
+                    "addresses": [],
+                    "createdAt": "2025-08-19T03:12:07.543Z",
+                    "updatedAt": "2025-08-19T03:18:05.923Z",
+                    "lastLogin": "2025-08-19T03:18:05.923Z",
+                    "__v": 0,
+                    "fullName": "Consistent User",
+                    "id": "68a3eb87b735860a3556d8f2"
+                  },
+                  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4YTNlYjg3YjczNTg2MGEzNTU2ZDhmMiIsImlhdCI6MTc1NTU3MzQ4NiwiZXhwIjoxNzU1NTc0Mzg2fQ.Uiqx3BaNDUKEx23b9RDtRe1C8prLxX2PcfwzJtlAAsw",
+                  "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4YTNlYjg3YjczNTg2MGEzNTU2ZDhmMiIsImlhdCI6MTc1NTU3MzQ4NiwiZXhwIjoxNzU2MTc4Mjg2fQ.DR63GRDZ94lfCql4K_J4c_15AvEmaYx6UB7XU5KUSm8"
+                },
+                "timestamp": "2025-08-19T03:18:06.492Z"
+              }
+            },
+            {
+              "run": 3,
+              "success": true,
+              "status": 200,
+              "duration": 505,
+              "data": {
+                "success": true,
+                "message": "Login successful",
+                "data": {
+                  "user": {
+                    "_id": "68a3eb87b735860a3556d8f2",
+                    "firstName": "Consistent",
+                    "lastName": "User",
+                    "email": "consistent.test@example.com",
+                    "role": "customer",
+                    "avatar": "",
+                    "isActive": true,
+                    "isEmailVerified": true,
+                    "phone": "+1234567890",
+                    "preferences": {
+                      "language": "en",
+                      "currency": "USD",
+                      "notifications": {
+                        "email": true,
+                        "sms": false,
+                        "push": true
+                      }
+                    },
+                    "addresses": [],
+                    "createdAt": "2025-08-19T03:12:07.543Z",
+                    "updatedAt": "2025-08-19T03:18:06.438Z",
+                    "lastLogin": "2025-08-19T03:18:06.437Z",
+                    "__v": 0,
+                    "fullName": "Consistent User",
+                    "id": "68a3eb87b735860a3556d8f2"
+                  },
+                  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4YTNlYjg3YjczNTg2MGEzNTU2ZDhmMiIsImlhdCI6MTc1NTU3MzQ4NiwiZXhwIjoxNzU1NTc0Mzg2fQ.Uiqx3BaNDUKEx23b9RDtRe1C8prLxX2PcfwzJtlAAsw",
+                  "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4YTNlYjg3YjczNTg2MGEzNTU2ZDhmMiIsImlhdCI6MTc1NTU3MzQ4NiwiZXhwIjoxNzU2MTc4Mjg2fQ.DR63GRDZ94lfCql4K_J4c_15AvEmaYx6UB7XU5KUSm8"
+                },
+                "timestamp": "2025-08-19T03:18:06.998Z"
+              }
+            }
+          ],
+          "consistent": true
+        },
+        {
+          "name": "Get Current User",
+          "stability": 100,
+          "avgResponseTime": 126.66666666666667,
+          "results": [
+            {
+              "run": 1,
+              "success": true,
+              "status": 200,
+              "duration": 164,
+              "data": {
+                "success": true,
+                "message": "User profile retrieved successfully",
+                "data": {
+                  "preferences": {
+                    "notifications": {
+                      "email": true,
+                      "sms": false,
+                      "push": true
+                    },
+                    "language": "en",
+                    "currency": "USD"
+                  },
+                  "_id": "68a3ecec86b73c6b8cd162b7",
+                  "firstName": "Stability",
+                  "lastName": "Test",
+                  "email": "stability1755573484038_qhyd0@example.com",
+                  "phone": "+1234567890",
+                  "avatar": null,
+                  "role": "customer",
+                  "isActive": true,
+                  "isEmailVerified": true,
+                  "addresses": [],
+                  "createdAt": "2025-08-19T03:18:04.094Z",
+                  "updatedAt": "2025-08-19T03:18:04.094Z",
+                  "__v": 0,
+                  "fullName": "Stability Test",
+                  "id": "68a3ecec86b73c6b8cd162b7"
+                },
+                "timestamp": "2025-08-19T03:18:07.162Z"
+              }
+            },
+            {
+              "run": 2,
+              "success": true,
+              "status": 200,
+              "duration": 108,
+              "data": {
+                "success": true,
+                "message": "User profile retrieved successfully",
+                "data": {
+                  "preferences": {
+                    "notifications": {
+                      "email": true,
+                      "sms": false,
+                      "push": true
+                    },
+                    "language": "en",
+                    "currency": "USD"
+                  },
+                  "_id": "68a3ecec86b73c6b8cd162b7",
+                  "firstName": "Stability",
+                  "lastName": "Test",
+                  "email": "stability1755573484038_qhyd0@example.com",
+                  "phone": "+1234567890",
+                  "avatar": null,
+                  "role": "customer",
+                  "isActive": true,
+                  "isEmailVerified": true,
+                  "addresses": [],
+                  "createdAt": "2025-08-19T03:18:04.094Z",
+                  "updatedAt": "2025-08-19T03:18:04.094Z",
+                  "__v": 0,
+                  "fullName": "Stability Test",
+                  "id": "68a3ecec86b73c6b8cd162b7"
+                },
+                "timestamp": "2025-08-19T03:18:07.271Z"
+              }
+            },
+            {
+              "run": 3,
+              "success": true,
+              "status": 200,
+              "duration": 108,
+              "data": {
+                "success": true,
+                "message": "User profile retrieved successfully",
+                "data": {
+                  "preferences": {
+                    "notifications": {
+                      "email": true,
+                      "sms": false,
+                      "push": true
+                    },
+                    "language": "en",
+                    "currency": "USD"
+                  },
+                  "_id": "68a3ecec86b73c6b8cd162b7",
+                  "firstName": "Stability",
+                  "lastName": "Test",
+                  "email": "stability1755573484038_qhyd0@example.com",
+                  "phone": "+1234567890",
+                  "avatar": null,
+                  "role": "customer",
+                  "isActive": true,
+                  "isEmailVerified": true,
+                  "addresses": [],
+                  "createdAt": "2025-08-19T03:18:04.094Z",
+                  "updatedAt": "2025-08-19T03:18:04.094Z",
+                  "__v": 0,
+                  "fullName": "Stability Test",
+                  "id": "68a3ecec86b73c6b8cd162b7"
+                },
+                "timestamp": "2025-08-19T03:18:07.379Z"
+              }
+            }
+          ],
+          "consistent": true
+        }
+      ],
+      "stability": 100,
+      "avgResponseTime": 275.6666666666667
+    },
+    "products": {
+      "tests": [
+        {
+          "name": "Get All Products",
+          "stability": 100,
+          "avgResponseTime": 54.333333333333336,
+          "results": [
+            {
+              "run": 1,
+              "success": true,
+              "status": 200,
+              "duration": 55,
+              "data": {
+                "success": true,
+                "message": "Products retrieved successfully",
+                "data": [],
+                "pagination": {
+                  "page": 1,
+                  "limit": 20,
+                  "total": 0,
+                  "pages": 0
+                }
+              }
+            },
+            {
+              "run": 2,
+              "success": true,
+              "status": 200,
+              "duration": 54,
+              "data": {
+                "success": true,
+                "message": "Products retrieved successfully",
+                "data": [],
+                "pagination": {
+                  "page": 1,
+                  "limit": 20,
+                  "total": 0,
+                  "pages": 0
+                }
+              }
+            },
+            {
+              "run": 3,
+              "success": true,
+              "status": 200,
+              "duration": 54,
+              "data": {
+                "success": true,
+                "message": "Products retrieved successfully",
+                "data": [],
+                "pagination": {
+                  "page": 1,
+                  "limit": 20,
+                  "total": 0,
+                  "pages": 0
+                }
+              }
+            }
+          ],
+          "consistent": true
+        },
+        {
+          "name": "Product Search",
+          "stability": 100,
+          "avgResponseTime": 54,
+          "results": [
+            {
+              "run": 1,
+              "success": true,
+              "status": 200,
+              "duration": 54,
+              "data": {
+                "success": true,
+                "message": "Search results for \"test\"",
+                "data": [],
+                "pagination": {
+                  "page": 1,
+                  "limit": 20,
+                  "total": 0,
+                  "pages": 0
+                }
+              }
+            },
+            {
+              "run": 2,
+              "success": true,
+              "status": 200,
+              "duration": 54,
+              "data": {
+                "success": true,
+                "message": "Search results for \"test\"",
+                "data": [],
+                "pagination": {
+                  "page": 1,
+                  "limit": 20,
+                  "total": 0,
+                  "pages": 0
+                }
+              }
+            },
+            {
+              "run": 3,
+              "success": true,
+              "status": 200,
+              "duration": 54,
+              "data": {
+                "success": true,
+                "message": "Search results for \"test\"",
+                "data": [],
+                "pagination": {
+                  "page": 1,
+                  "limit": 20,
+                  "total": 0,
+                  "pages": 0
+                }
+              }
+            }
+          ],
+          "consistent": true
+        },
+        {
+          "name": "Product Pagination",
+          "stability": 100,
+          "avgResponseTime": 54.666666666666664,
+          "results": [
+            {
+              "run": 1,
+              "success": true,
+              "status": 200,
+              "duration": 54,
+              "data": {
+                "success": true,
+                "message": "Products retrieved successfully",
+                "data": [],
+                "pagination": {
+                  "page": 1,
+                  "limit": 5,
+                  "total": 0,
+                  "pages": 0
+                }
+              }
+            },
+            {
+              "run": 2,
+              "success": true,
+              "status": 200,
+              "duration": 55,
+              "data": {
+                "success": true,
+                "message": "Products retrieved successfully",
+                "data": [],
+                "pagination": {
+                  "page": 1,
+                  "limit": 5,
+                  "total": 0,
+                  "pages": 0
+                }
+              }
+            },
+            {
+              "run": 3,
+              "success": true,
+              "status": 200,
+              "duration": 55,
+              "data": {
+                "success": true,
+                "message": "Products retrieved successfully",
+                "data": [],
+                "pagination": {
+                  "page": 1,
+                  "limit": 5,
+                  "total": 0,
+                  "pages": 0
+                }
+              }
+            }
+          ],
+          "consistent": true
+        },
+        {
+          "name": "Get Categories",
+          "stability": 100,
+          "avgResponseTime": 3,
+          "results": [
+            {
+              "run": 1,
+              "success": true,
+              "status": 200,
+              "duration": 3,
+              "data": {
+                "success": true,
+                "message": "Categories retrieved successfully",
+                "data": {},
+                "timestamp": "2025-08-19T03:18:07.875Z"
+              }
+            },
+            {
+              "run": 2,
+              "success": true,
+              "status": 200,
+              "duration": 4,
+              "data": {
+                "success": true,
+                "message": "Categories retrieved successfully",
+                "data": {},
+                "timestamp": "2025-08-19T03:18:07.879Z"
+              }
+            },
+            {
+              "run": 3,
+              "success": true,
+              "status": 200,
+              "duration": 2,
+              "data": {
+                "success": true,
+                "message": "Categories retrieved successfully",
+                "data": {},
+                "timestamp": "2025-08-19T03:18:07.882Z"
+              }
+            }
+          ],
+          "consistent": true
+        },
+        {
+          "name": "Get Brands",
+          "stability": 100,
+          "avgResponseTime": 3,
+          "results": [
+            {
+              "run": 1,
+              "success": true,
+              "status": 200,
+              "duration": 3,
+              "data": {
+                "success": true,
+                "message": "Brands retrieved successfully",
+                "data": [],
+                "pagination": {
+                  "page": 1,
+                  "limit": 50,
+                  "total": 0,
+                  "pages": 0
+                }
+              }
+            },
+            {
+              "run": 2,
+              "success": true,
+              "status": 200,
+              "duration": 3,
+              "data": {
+                "success": true,
+                "message": "Brands retrieved successfully",
+                "data": [],
+                "pagination": {
+                  "page": 1,
+                  "limit": 50,
+                  "total": 0,
+                  "pages": 0
+                }
+              }
+            },
+            {
+              "run": 3,
+              "success": true,
+              "status": 200,
+              "duration": 3,
+              "data": {
+                "success": true,
+                "message": "Brands retrieved successfully",
+                "data": [],
+                "pagination": {
+                  "page": 1,
+                  "limit": 50,
+                  "total": 0,
+                  "pages": 0
+                }
+              }
+            }
+          ],
+          "consistent": true
+        }
+      ],
+      "stability": 100,
+      "avgResponseTime": 33.8
+    },
+    "cart": {
+      "tests": [
+        {
+          "name": "Get Cart (Guest)",
+          "stability": 100,
+          "avgResponseTime": 3,
+          "results": [
+            {
+              "run": 1,
+              "success": true,
+              "status": 200,
+              "duration": 4,
+              "data": {
+                "success": true,
+                "message": "Cart retrieved successfully",
+                "data": {
+                  "items": [],
+                  "totalItems": 0,
+                  "totalPrice": 0,
+                  "currency": "USD",
+                  "isActive": true,
+                  "_id": "68a3ecef86b73c6b8cd162d3",
+                  "createdAt": "2025-08-19T03:18:07.896Z",
+                  "updatedAt": "2025-08-19T03:18:07.896Z",
+                  "__v": 0,
+                  "isEmpty": true,
+                  "id": "68a3ecef86b73c6b8cd162d3"
+                },
+                "timestamp": "2025-08-19T03:18:07.897Z"
+              }
+            },
+            {
+              "run": 2,
+              "success": true,
+              "status": 200,
+              "duration": 3,
+              "data": {
+                "success": true,
+                "message": "Cart retrieved successfully",
+                "data": {
+                  "items": [],
+                  "totalItems": 0,
+                  "totalPrice": 0,
+                  "currency": "USD",
+                  "isActive": true,
+                  "_id": "68a3ecef86b73c6b8cd162d5",
+                  "createdAt": "2025-08-19T03:18:07.899Z",
+                  "updatedAt": "2025-08-19T03:18:07.899Z",
+                  "__v": 0,
+                  "isEmpty": true,
+                  "id": "68a3ecef86b73c6b8cd162d5"
+                },
+                "timestamp": "2025-08-19T03:18:07.900Z"
+              }
+            },
+            {
+              "run": 3,
+              "success": true,
+              "status": 200,
+              "duration": 2,
+              "data": {
+                "success": true,
+                "message": "Cart retrieved successfully",
+                "data": {
+                  "items": [],
+                  "totalItems": 0,
+                  "totalPrice": 0,
+                  "currency": "USD",
+                  "isActive": true,
+                  "_id": "68a3ecef86b73c6b8cd162d7",
+                  "createdAt": "2025-08-19T03:18:07.901Z",
+                  "updatedAt": "2025-08-19T03:18:07.901Z",
+                  "__v": 0,
+                  "isEmpty": true,
+                  "id": "68a3ecef86b73c6b8cd162d7"
+                },
+                "timestamp": "2025-08-19T03:18:07.902Z"
+              }
+            }
+          ],
+          "consistent": true
+        },
+        {
+          "name": "Get Cart (Authenticated)",
+          "stability": 100,
+          "avgResponseTime": 3.3333333333333335,
+          "results": [
+            {
+              "run": 1,
+              "success": true,
+              "status": 200,
+              "duration": 2,
+              "data": {
+                "success": true,
+                "message": "Cart retrieved successfully",
+                "data": {
+                  "items": [],
+                  "totalItems": 0,
+                  "totalPrice": 0,
+                  "currency": "USD",
+                  "isActive": true,
+                  "_id": "68a3ecef86b73c6b8cd162d9",
+                  "createdAt": "2025-08-19T03:18:07.905Z",
+                  "updatedAt": "2025-08-19T03:18:07.905Z",
+                  "__v": 0,
+                  "isEmpty": true,
+                  "id": "68a3ecef86b73c6b8cd162d9"
+                },
+                "timestamp": "2025-08-19T03:18:07.906Z"
+              }
+            },
+            {
+              "run": 2,
+              "success": true,
+              "status": 200,
+              "duration": 4,
+              "data": {
+                "success": true,
+                "message": "Cart retrieved successfully",
+                "data": {
+                  "items": [],
+                  "totalItems": 0,
+                  "totalPrice": 0,
+                  "currency": "USD",
+                  "isActive": true,
+                  "_id": "68a3ecef86b73c6b8cd162db",
+                  "createdAt": "2025-08-19T03:18:07.907Z",
+                  "updatedAt": "2025-08-19T03:18:07.907Z",
+                  "__v": 0,
+                  "isEmpty": true,
+                  "id": "68a3ecef86b73c6b8cd162db"
+                },
+                "timestamp": "2025-08-19T03:18:07.909Z"
+              }
+            },
+            {
+              "run": 3,
+              "success": true,
+              "status": 200,
+              "duration": 4,
+              "data": {
+                "success": true,
+                "message": "Cart retrieved successfully",
+                "data": {
+                  "items": [],
+                  "totalItems": 0,
+                  "totalPrice": 0,
+                  "currency": "USD",
+                  "isActive": true,
+                  "_id": "68a3ecef86b73c6b8cd162dd",
+                  "createdAt": "2025-08-19T03:18:07.912Z",
+                  "updatedAt": "2025-08-19T03:18:07.912Z",
+                  "__v": 0,
+                  "isEmpty": true,
+                  "id": "68a3ecef86b73c6b8cd162dd"
+                },
+                "timestamp": "2025-08-19T03:18:07.913Z"
+              }
+            }
+          ],
+          "consistent": true
+        },
+        {
+          "name": "Clear Cart",
+          "stability": 100,
+          "avgResponseTime": 4.333333333333333,
+          "results": [
+            {
+              "run": 1,
+              "success": true,
+              "status": 200,
+              "duration": 4,
+              "data": {
+                "success": true,
+                "message": "Cart cleared successfully",
+                "data": {
+                  "items": [],
+                  "totalItems": 0,
+                  "totalPrice": 0,
+                  "currency": "USD",
+                  "isActive": true,
+                  "_id": "68a3ecef86b73c6b8cd162df",
+                  "createdAt": "2025-08-19T03:18:07.915Z",
+                  "updatedAt": "2025-08-19T03:18:07.915Z",
+                  "__v": 0,
+                  "isEmpty": true,
+                  "id": "68a3ecef86b73c6b8cd162df"
+                },
+                "timestamp": "2025-08-19T03:18:07.917Z"
+              }
+            },
+            {
+              "run": 2,
+              "success": true,
+              "status": 200,
+              "duration": 4,
+              "data": {
+                "success": true,
+                "message": "Cart cleared successfully",
+                "data": {
+                  "items": [],
+                  "totalItems": 0,
+                  "totalPrice": 0,
+                  "currency": "USD",
+                  "isActive": true,
+                  "_id": "68a3ecef86b73c6b8cd162e2",
+                  "createdAt": "2025-08-19T03:18:07.919Z",
+                  "updatedAt": "2025-08-19T03:18:07.919Z",
+                  "__v": 0,
+                  "isEmpty": true,
+                  "id": "68a3ecef86b73c6b8cd162e2"
+                },
+                "timestamp": "2025-08-19T03:18:07.921Z"
+              }
+            },
+            {
+              "run": 3,
+              "success": true,
+              "status": 200,
+              "duration": 5,
+              "data": {
+                "success": true,
+                "message": "Cart cleared successfully",
+                "data": {
+                  "items": [],
+                  "totalItems": 0,
+                  "totalPrice": 0,
+                  "currency": "USD",
+                  "isActive": true,
+                  "_id": "68a3ecef86b73c6b8cd162e5",
+                  "createdAt": "2025-08-19T03:18:07.923Z",
+                  "updatedAt": "2025-08-19T03:18:07.923Z",
+                  "__v": 0,
+                  "isEmpty": true,
+                  "id": "68a3ecef86b73c6b8cd162e5"
+                },
+                "timestamp": "2025-08-19T03:18:07.926Z"
+              }
+            }
+          ],
+          "consistent": true
+        }
+      ],
+      "stability": 100,
+      "avgResponseTime": 3.555555555555556
+    },
+    "orders": {
+      "tests": [
+        {
+          "name": "Get Order History",
+          "stability": 100,
+          "avgResponseTime": 107,
+          "results": [
+            {
+              "run": 1,
+              "success": true,
+              "status": 200,
+              "duration": 107,
+              "data": {
+                "message": "Get user orders - Coming soon"
+              }
+            },
+            {
+              "run": 2,
+              "success": true,
+              "status": 200,
+              "duration": 106,
+              "data": {
+                "message": "Get user orders - Coming soon"
+              }
+            },
+            {
+              "run": 3,
+              "success": true,
+              "status": 200,
+              "duration": 108,
+              "data": {
+                "message": "Get user orders - Coming soon"
+              }
+            }
+          ],
+          "consistent": true
+        }
+      ],
+      "stability": 100,
+      "avgResponseTime": 107
+    },
+    "security": {
+      "tests": [
+        {
+          "name": "Reject Access Without Token",
+          "stability": 100,
+          "avgResponseTime": 2,
+          "results": [
+            {
+              "run": 1,
+              "success": true,
+              "status": 401,
+              "duration": 2,
+              "data": {
+                "securityWorking": true
+              }
+            },
+            {
+              "run": 2,
+              "success": true,
+              "status": 401,
+              "duration": 2,
+              "data": {
+                "securityWorking": true
+              }
+            },
+            {
+              "run": 3,
+              "success": true,
+              "status": 401,
+              "duration": 2,
+              "data": {
+                "securityWorking": true
+              }
+            }
+          ],
+          "consistent": true
+        },
+        {
+          "name": "Reject Invalid Token",
+          "stability": 100,
+          "avgResponseTime": 54.666666666666664,
+          "results": [
+            {
+              "run": 1,
+              "success": true,
+              "status": 401,
+              "duration": 55,
+              "data": {
+                "securityWorking": true
+              }
+            },
+            {
+              "run": 2,
+              "success": true,
+              "status": 401,
+              "duration": 55,
+              "data": {
+                "securityWorking": true
+              }
+            },
+            {
+              "run": 3,
+              "success": true,
+              "status": 401,
+              "duration": 54,
+              "data": {
+                "securityWorking": true
+              }
+            }
+          ],
+          "consistent": true
+        }
+      ],
+      "stability": 100,
+      "avgResponseTime": 28.333333333333332
+    }
+  },
+  "overallStability": 100,
+  "regressionIssues": [],
+  "productionReady": true
+}

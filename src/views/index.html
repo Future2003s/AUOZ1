@@ -1,0 +1,383 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>LALA-LYCHEEE - API</title>
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+
+            body {
+                font-family:
+                    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                min-height: 100vh;
+                color: #333;
+            }
+
+            .container {
+                max-width: 1200px;
+                margin: 0 auto;
+                padding: 2rem;
+            }
+
+            .header {
+                text-align: center;
+                background: white;
+                padding: 3rem 2rem;
+                border-radius: 20px;
+                box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+                margin-bottom: 3rem;
+            }
+
+            .logo {
+                font-size: 3rem;
+                font-weight: 900;
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                background-clip: text;
+                margin-bottom: 1rem;
+            }
+
+            .tagline {
+                font-size: 1.2rem;
+                color: #666;
+                margin-bottom: 2rem;
+            }
+
+            .api-status {
+                display: inline-flex;
+                align-items: center;
+                background: #10b981;
+                color: white;
+                padding: 0.5rem 1rem;
+                border-radius: 50px;
+                font-weight: 600;
+                font-size: 0.9rem;
+            }
+
+            .status-dot {
+                width: 8px;
+                height: 8px;
+                background: white;
+                border-radius: 50%;
+                margin-right: 0.5rem;
+                animation: pulse 2s infinite;
+            }
+
+            @keyframes pulse {
+                0%,
+                100% {
+                    opacity: 1;
+                }
+                50% {
+                    opacity: 0.5;
+                }
+            }
+
+            .features {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+                gap: 2rem;
+                margin-bottom: 3rem;
+            }
+
+            .feature-card {
+                background: white;
+                padding: 2rem;
+                border-radius: 15px;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+                transition:
+                    transform 0.3s ease,
+                    box-shadow 0.3s ease;
+            }
+
+            .feature-card:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+            }
+
+            .feature-icon {
+                font-size: 2.5rem;
+                margin-bottom: 1rem;
+            }
+
+            .feature-title {
+                font-size: 1.3rem;
+                font-weight: 700;
+                margin-bottom: 1rem;
+                color: #2d3748;
+            }
+
+            .feature-description {
+                color: #666;
+                line-height: 1.6;
+            }
+
+            .api-docs {
+                background: white;
+                padding: 2rem;
+                border-radius: 15px;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            }
+
+            .api-docs h2 {
+                font-size: 1.8rem;
+                margin-bottom: 1.5rem;
+                color: #2d3748;
+            }
+
+            .endpoint-group {
+                margin-bottom: 2rem;
+            }
+
+            .endpoint-group h3 {
+                font-size: 1.2rem;
+                color: #667eea;
+                margin-bottom: 1rem;
+                border-bottom: 2px solid #f0f0f0;
+                padding-bottom: 0.5rem;
+            }
+
+            .endpoint {
+                display: flex;
+                align-items: center;
+                padding: 0.75rem;
+                margin-bottom: 0.5rem;
+                background: #f8f9fa;
+                border-radius: 8px;
+                font-family: "Monaco", "Menlo", "Ubuntu Mono", monospace;
+                font-size: 0.9rem;
+            }
+
+            .method {
+                padding: 0.25rem 0.75rem;
+                border-radius: 4px;
+                font-weight: 600;
+                margin-right: 1rem;
+                min-width: 60px;
+                text-align: center;
+                font-size: 0.8rem;
+            }
+
+            .method.get {
+                background: #10b981;
+                color: white;
+            }
+            .method.post {
+                background: #3b82f6;
+                color: white;
+            }
+            .method.put {
+                background: #f59e0b;
+                color: white;
+            }
+            .method.delete {
+                background: #ef4444;
+                color: white;
+            }
+
+            .endpoint-path {
+                color: #374151;
+            }
+
+            .footer {
+                text-align: center;
+                color: white;
+                margin-top: 3rem;
+            }
+
+            .footer a {
+                color: white;
+                text-decoration: none;
+                font-weight: 600;
+            }
+
+            .footer a:hover {
+                text-decoration: underline;
+            }
+
+            @media (max-width: 768px) {
+                .container {
+                    padding: 1rem;
+                }
+
+                .header {
+                    padding: 2rem 1rem;
+                }
+
+                .logo {
+                    font-size: 2rem;
+                }
+
+                .endpoint {
+                    flex-direction: column;
+                    align-items: flex-start;
+                }
+
+                .method {
+                    margin-bottom: 0.5rem;
+                    margin-right: 0;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <div class="header">
+                <div class="logo">🛍️ ShopDev</div>
+                <div class="tagline">Modern E-commerce API with TypeScript, MongoDB & Express</div>
+                <div class="api-status">
+                    <div class="status-dot"></div>
+                    API Online
+                </div>
+            </div>
+
+            <div class="features">
+                <div class="feature-card">
+                    <div class="feature-icon">🔐</div>
+                    <div class="feature-title">Authentication & Authorization</div>
+                    <div class="feature-description">
+                        JWT-based authentication with role-based access control. Secure user registration, login, and
+                        password management.
+                    </div>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">📦</div>
+                    <div class="feature-title">Product Management</div>
+                    <div class="feature-description">
+                        Complete product catalog with categories, brands, variants, inventory tracking, and advanced
+                        filtering capabilities.
+                    </div>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🛒</div>
+                    <div class="feature-title">Shopping Cart</div>
+                    <div class="feature-description">
+                        Persistent shopping cart for both guest and authenticated users with real-time validation and
+                        cart merging.
+                    </div>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">⭐</div>
+                    <div class="feature-title">Reviews & Ratings</div>
+                    <div class="feature-description">
+                        Customer review system with ratings, moderation, helpfulness voting, and comprehensive
+                        statistics.
+                    </div>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🚀</div>
+                    <div class="feature-title">High Performance</div>
+                    <div class="feature-description">
+                        Optimized with Zod validation, database indexing, caching strategies, and efficient query
+                        patterns.
+                    </div>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🔧</div>
+                    <div class="feature-title">Developer Friendly</div>
+                    <div class="feature-description">
+                        Full TypeScript support, comprehensive API documentation, error handling, and extensive logging.
+                    </div>
+                </div>
+            </div>
+
+            <div class="api-docs">
+                <h2>🔗 API Endpoints</h2>
+
+                <div class="endpoint-group">
+                    <h3>Authentication</h3>
+                    <div class="endpoint">
+                        <span class="method post">POST</span>
+                        <span class="endpoint-path">/api/v1/auth/register</span>
+                    </div>
+                    <div class="endpoint">
+                        <span class="method post">POST</span>
+                        <span class="endpoint-path">/api/v1/auth/login</span>
+                    </div>
+                    <div class="endpoint">
+                        <span class="method get">GET</span>
+                        <span class="endpoint-path">/api/v1/auth/me</span>
+                    </div>
+                </div>
+
+                <div class="endpoint-group">
+                    <h3>Products</h3>
+                    <div class="endpoint">
+                        <span class="method get">GET</span>
+                        <span class="endpoint-path">/api/v1/products</span>
+                    </div>
+                    <div class="endpoint">
+                        <span class="method get">GET</span>
+                        <span class="endpoint-path">/api/v1/products/search</span>
+                    </div>
+                    <div class="endpoint">
+                        <span class="method post">POST</span>
+                        <span class="endpoint-path">/api/v1/products</span>
+                    </div>
+                </div>
+
+                <div class="endpoint-group">
+                    <h3>Shopping Cart</h3>
+                    <div class="endpoint">
+                        <span class="method get">GET</span>
+                        <span class="endpoint-path">/api/v1/cart</span>
+                    </div>
+                    <div class="endpoint">
+                        <span class="method post">POST</span>
+                        <span class="endpoint-path">/api/v1/cart/items</span>
+                    </div>
+                    <div class="endpoint">
+                        <span class="method put">PUT</span>
+                        <span class="endpoint-path">/api/v1/cart/items/:productId</span>
+                    </div>
+                </div>
+
+                <div class="endpoint-group">
+                    <h3>Reviews</h3>
+                    <div class="endpoint">
+                        <span class="method get">GET</span>
+                        <span class="endpoint-path">/api/v1/reviews/product/:productId</span>
+                    </div>
+                    <div class="endpoint">
+                        <span class="method post">POST</span>
+                        <span class="endpoint-path">/api/v1/reviews</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer">
+                <p>Built with ❤️ using TypeScript, Express.js, MongoDB & Zod</p>
+                <p><a href="/api/v1/health">API Health Check</a> | <a href="https://github.com">Documentation</a></p>
+            </div>
+        </div>
+
+        <script>
+            // Add some interactivity
+            document.addEventListener("DOMContentLoaded", function () {
+                const cards = document.querySelectorAll(".feature-card");
+                cards.forEach((card, index) => {
+                    card.style.opacity = "0";
+                    card.style.transform = "translateY(20px)";
+
+                    setTimeout(() => {
+                        card.style.transition = "all 0.6s ease";
+                        card.style.opacity = "1";
+                        card.style.transform = "translateY(0)";
+                    }, index * 100);
+                });
+            });
+        </script>
+    </body>
+</html>

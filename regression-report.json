@@ -1,0 +1,159 @@
+{
+  "timestamp": "2025-08-19T03:17:51.696Z",
+  "fixesVerified": {
+    "passwordValidation": {
+      "status": "PASS",
+      "tests": [
+        {
+          "password": "DebugPassword123!",
+          "description": "Strong password with Debug prefix",
+          "expected": "PASS",
+          "actual": "PASS",
+          "status": "CORRECT",
+          "responseStatus": 201
+        },
+        {
+          "password": "TestPassword123!",
+          "description": "Strong password with Test prefix",
+          "expected": "PASS",
+          "actual": "PASS",
+          "status": "CORRECT",
+          "responseStatus": 201
+        },
+        {
+          "password": "MySecurePass456@",
+          "description": "Strong password with common words",
+          "expected": "PASS",
+          "actual": "PASS",
+          "status": "CORRECT",
+          "responseStatus": 201
+        },
+        {
+          "password": "password123",
+          "description": "Weak password (exact match)",
+          "expected": "FAIL",
+          "actual": "FAIL",
+          "status": "CORRECT",
+          "responseStatus": 400,
+          "error": "Request failed with status code 400"
+        },
+        {
+          "password": "admin1",
+          "description": "Weak password (admin + number)",
+          "expected": "FAIL",
+          "actual": "FAIL",
+          "status": "CORRECT",
+          "responseStatus": 400,
+          "error": "Request failed with status code 400"
+        },
+        {
+          "password": "123456",
+          "description": "Very weak password",
+          "expected": "FAIL",
+          "actual": "FAIL",
+          "status": "CORRECT",
+          "responseStatus": 400,
+          "error": "Request failed with status code 400"
+        }
+      ]
+    },
+    "phoneValidation": {
+      "status": "PASS",
+      "tests": [
+        {
+          "phone": "+1234567890",
+          "description": "International format with +",
+          "expected": "PASS",
+          "actual": "PASS",
+          "status": "CORRECT",
+          "responseStatus": 201
+        },
+        {
+          "phone": "(123) 456-7890",
+          "description": "US format with parentheses",
+          "expected": "PASS",
+          "actual": "PASS",
+          "status": "CORRECT",
+          "responseStatus": 201
+        },
+        {
+          "phone": "123-456-7890",
+          "description": "US format with dashes",
+          "expected": "PASS",
+          "actual": "PASS",
+          "status": "CORRECT",
+          "responseStatus": 201
+        },
+        {
+          "phone": "123.456.7890",
+          "description": "US format with dots",
+          "expected": "PASS",
+          "actual": "PASS",
+          "status": "CORRECT",
+          "responseStatus": 201
+        },
+        {
+          "phone": "1234567890",
+          "description": "Plain 10 digits",
+          "expected": "PASS",
+          "actual": "PASS",
+          "status": "CORRECT",
+          "responseStatus": 201
+        },
+        {
+          "phone": "+44 20 7946 0958",
+          "description": "UK format with spaces",
+          "expected": "PASS",
+          "actual": "PASS",
+          "status": "CORRECT",
+          "responseStatus": 201
+        },
+        {
+          "phone": "123",
+          "description": "Too short",
+          "expected": "FAIL",
+          "actual": "FAIL",
+          "status": "CORRECT",
+          "responseStatus": 400,
+          "error": "Request failed with status code 400"
+        },
+        {
+          "phone": "not-a-phone",
+          "description": "Invalid format",
+          "expected": "FAIL",
+          "actual": "FAIL",
+          "status": "CORRECT",
+          "responseStatus": 400,
+          "error": "Request failed with status code 400"
+        }
+      ]
+    },
+    "authController": {
+      "status": "PASS",
+      "tests": [
+        {
+          "run": 1,
+          "status": "PASS",
+          "responseStatus": 200,
+          "userId": "68a3ece386b73c6b8cd162b0",
+          "userEmail": "authtest1755573475888@example.com"
+        },
+        {
+          "run": 2,
+          "status": "PASS",
+          "responseStatus": 200,
+          "userId": "68a3ece386b73c6b8cd162b0",
+          "userEmail": "authtest1755573475888@example.com"
+        },
+        {
+          "run": 3,
+          "status": "PASS",
+          "responseStatus": 200,
+          "userId": "68a3ece386b73c6b8cd162b0",
+          "userEmail": "authtest1755573475888@example.com"
+        }
+      ]
+    }
+  },
+  "overallStatus": "PASS"
+}

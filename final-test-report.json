@@ -1,0 +1,233 @@
+{
+  "timestamp": "2025-08-19T03:17:42.494Z",
+  "environment": "Development",
+  "baseUrl": "http://localhost:8081/api/v1",
+  "categories": {
+    "authentication": {
+      "passed": 5,
+      "failed": 0,
+      "tests": [
+        {
+          "name": "Server Health Check",
+          "status": "PASS",
+          "duration": "22ms",
+          "details": {
+            "status": 200,
+            "uptime": 102.2185523
+          }
+        },
+        {
+          "name": "User Registration",
+          "status": "PASS",
+          "duration": "455ms",
+          "details": {
+            "status": 201,
+            "userId": "68a3ecd686b73c6b8cd1627d",
+            "tokenReceived": true,
+            "email": "final1755573462517@example.com"
+          }
+        },
+        {
+          "name": "User Login",
+          "status": "PASS",
+          "duration": "561ms",
+          "details": {
+            "status": 200,
+            "tokenReceived": true
+          }
+        },
+        {
+          "name": "Get Current User",
+          "status": "PASS",
+          "duration": "167ms",
+          "details": {
+            "status": 200,
+            "userId": "68a3ecd686b73c6b8cd1627d",
+            "email": "final1755573462517@example.com"
+          }
+        },
+        {
+          "name": "Token Refresh",
+          "status": "PASS",
+          "duration": "58ms",
+          "details": {
+            "status": 401,
+            "expected": true
+          }
+        }
+      ]
+    },
+    "products": {
+      "passed": 5,
+      "failed": 0,
+      "tests": [
+        {
+          "name": "Get All Products",
+          "status": "PASS",
+          "duration": "219ms",
+          "details": {
+            "status": 200,
+            "productCount": 0,
+            "hasProducts": false
+          }
+        },
+        {
+          "name": "Product Search",
+          "status": "PASS",
+          "duration": "219ms",
+          "details": {
+            "status": 200,
+            "searchResults": 0
+          }
+        },
+        {
+          "name": "Product Pagination",
+          "status": "PASS",
+          "duration": "214ms",
+          "details": {
+            "status": 200,
+            "pageSize": 0,
+            "pagination": {
+              "page": 1,
+              "limit": 5,
+              "total": 0,
+              "pages": 0
+            }
+          }
+        },
+        {
+          "name": "Get Categories",
+          "status": "PASS",
+          "duration": "4ms",
+          "details": {
+            "status": 200,
+            "categoryCount": 0
+          }
+        },
+        {
+          "name": "Get Brands",
+          "status": "PASS",
+          "duration": "4ms",
+          "details": {
+            "status": 200,
+            "brandCount": 0
+          }
+        }
+      ]
+    },
+    "cart": {
+      "passed": 3,
+      "failed": 0,
+      "tests": [
+        {
+          "name": "Get Cart (Guest)",
+          "status": "PASS",
+          "duration": "4ms",
+          "details": {
+            "status": 200,
+            "cartType": "guest"
+          }
+        },
+        {
+          "name": "Get Cart (Authenticated)",
+          "status": "PASS",
+          "duration": "3ms",
+          "details": {
+            "status": 200,
+            "cartType": "authenticated",
+            "itemCount": 0
+          }
+        },
+        {
+          "name": "Clear Cart",
+          "status": "PASS",
+          "duration": "5ms",
+          "details": {
+            "status": 200,
+            "cartCleared": true
+          }
+        }
+      ]
+    },
+    "orders": {
+      "passed": 1,
+      "failed": 0,
+      "tests": [
+        {
+          "name": "Get Order History",
+          "status": "PASS",
+          "duration": "108ms",
+          "details": {
+            "status": 200,
+            "orderCount": 0
+          }
+        }
+      ]
+    },
+    "security": {
+      "passed": 4,
+      "failed": 0,
+      "tests": [
+        {
+          "name": "Reject Invalid Login",
+          "status": "PASS",
+          "duration": "109ms",
+          "details": {
+            "status": 401,
+            "securityWorking": true,
+            "reason": "Invalid credentials"
+          }
+        },
+        {
+          "name": "Reject Access Without Token",
+          "status": "PASS",
+          "duration": "2ms",
+          "details": {
+            "status": 401,
+            "securityWorking": true
+          }
+        },
+        {
+          "name": "Reject Invalid Token",
+          "status": "PASS",
+          "duration": "55ms",
+          "details": {
+            "status": 401,
+            "securityWorking": true
+          }
+        },
+        {
+          "name": "Reject Invalid Email Format",
+          "status": "PASS",
+          "duration": "2ms",
+          "details": {
+            "status": 400,
+            "validationWorking": true
+          }
+        }
+      ]
+    },
+    "performance": {
+      "passed": 1,
+      "failed": 0,
+      "tests": [
+        {
+          "name": "Response Time Check",
+          "status": "PASS",
+          "duration": "54ms",
+          "details": {
+            "responseTime": "54ms",
+            "performanceGood": true
+          }
+        }
+      ]
+    }
+  },
+  "summary": {
+    "totalTests": 19,
+    "totalPassed": 19,
+    "totalFailed": 0,
+    "successRate": "100.0",
+    "productionReady": true
+  }
+}

@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>LALA-LYCHEEE - ERROR</title>
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+
+            body {
+                font-family:
+                    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+                background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
+                min-height: 100vh;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: #333;
+            }
+
+            .container {
+                text-align: center;
+                background: white;
+                padding: 3rem 2rem;
+                border-radius: 20px;
+                box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+                max-width: 500px;
+                width: 90%;
+            }
+
+            .error-code {
+                font-size: 8rem;
+                font-weight: 900;
+                color: #ff6b6b;
+                line-height: 1;
+                margin-bottom: 1rem;
+                text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+            }
+
+            .error-title {
+                font-size: 2rem;
+                font-weight: 700;
+                color: #2d3748;
+                margin-bottom: 1rem;
+            }
+
+            .error-message {
+                font-size: 1.1rem;
+                color: #718096;
+                margin-bottom: 2rem;
+                line-height: 1.6;
+            }
+
+            .btn-home {
+                display: inline-block;
+                background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
+                color: white;
+                padding: 12px 30px;
+                text-decoration: none;
+                border-radius: 50px;
+                font-weight: 600;
+                transition: all 0.3s ease;
+                box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
+                margin-right: 1rem;
+            }
+
+            .btn-home:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 6px 20px rgba(255, 107, 107, 0.4);
+            }
+
+            .btn-retry {
+                display: inline-block;
+                background: transparent;
+                color: #ff6b6b;
+                padding: 12px 30px;
+                text-decoration: none;
+                border: 2px solid #ff6b6b;
+                border-radius: 50px;
+                font-weight: 600;
+                transition: all 0.3s ease;
+                cursor: pointer;
+            }
+
+            .btn-retry:hover {
+                background: #ff6b6b;
+                color: white;
+            }
+
+            .illustration {
+                width: 200px;
+                height: 200px;
+                margin: 0 auto 2rem;
+                background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300"><defs><linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:%23ff6b6b;stop-opacity:1" /><stop offset="100%" style="stop-color:%23ee5a24;stop-opacity:1" /></linearGradient></defs><circle cx="200" cy="150" r="100" fill="url(%23grad1)" opacity="0.1"/><path d="M150 120 L250 120 L250 180 L150 180 Z" fill="none" stroke="%23ff6b6b" stroke-width="3"/><path d="M170 140 L230 140" stroke="%23ff6b6b" stroke-width="3" stroke-linecap="round"/><path d="M170 160 L230 160" stroke="%23ff6b6b" stroke-width="3" stroke-linecap="round"/><circle cx="200" cy="200" r="15" fill="%23ff6b6b"/><path d="M195 195 L205 205 M205 195 L195 205" stroke="white" stroke-width="2" stroke-linecap="round"/></svg>')
+                    center/contain no-repeat;
+            }
+
+            .actions {
+                margin-top: 2rem;
+            }
+
+            @media (max-width: 480px) {
+                .error-code {
+                    font-size: 6rem;
+                }
+
+                .error-title {
+                    font-size: 1.5rem;
+                }
+
+                .container {
+                    padding: 2rem 1rem;
+                }
+
+                .btn-home,
+                .btn-retry {
+                    display: block;
+                    margin: 0.5rem auto;
+                    width: 200px;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <div class="illustration"></div>
+            <div class="error-code">500</div>
+            <h1 class="error-title">Server Error</h1>
+            <p class="error-message">
+                Something went wrong on our end. We're working to fix this issue. Please try again in a few moments.
+            </p>
+
+            <div class="actions">
+                <a href="/" class="btn-home">🏠 Back to Home</a>
+                <button class="btn-retry" onclick="window.location.reload()">🔄 Try Again</button>
+            </div>
+        </div>
+
+        <script>
+            // Add some interactivity
+            document.addEventListener("DOMContentLoaded", function () {
+                const container = document.querySelector(".container");
+                container.style.opacity = "0";
+                container.style.transform = "translateY(20px)";
+
+                setTimeout(() => {
+                    container.style.transition = "all 0.6s ease";
+                    container.style.opacity = "1";
+                    container.style.transform = "translateY(0)";
+                }, 100);
+            });
+        </script>
+    </body>
+</html>
