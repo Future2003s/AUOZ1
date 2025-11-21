@@ -1,4 +1,4 @@
-import { FilterQuery, Types } from "mongoose";
+import { FilterQuery, SortOrder, Types } from "mongoose";
 import { Voucher, IVoucher, VoucherStatus } from "../models/Voucher";
 import { AppError } from "../utils/AppError";
 
@@ -181,7 +181,9 @@ export const voucherService = {
         }
 
         const skip = Math.max(page - 1, 0) * limit;
-        const sortOption = sort === "usage" ? { usageCount: -1, updatedAt: -1 } : { createdAt: -1 };
+        const sortOption: Record<string, SortOrder> = sort === "usage"
+            ? { usageCount: -1, updatedAt: -1 }
+            : { createdAt: -1 };
 
         const [items, total] = await Promise.all([Voucher.find(query).sort(sortOption).skip(skip).limit(limit), Voucher.countDocuments(query)]);
 

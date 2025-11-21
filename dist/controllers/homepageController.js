@@ -166,23 +166,26 @@ exports.getDraftHomepageSettings = (0, asyncHandler_1.asyncHandler)(async (req, 
 // @access  Private/Admin
 exports.updateHomepageSettings = (0, asyncHandler_1.asyncHandler)(async (req, res, next) => {
     const userId = req.user?.id;
-    const { status, ...updateData } = req.body;
+    const { status, version, _id, ...updateData } = req.body; // Remove version, _id to avoid conflicts
     // Determine if we're updating draft or publishing
     const targetStatus = status || 'draft';
     let settings;
     if (targetStatus === 'published') {
         // When publishing, we update/create published version
+        // Get current version first to increment properly
+        const current = await HomepageSettings_1.HomepageSettings.findOne({ status: 'published' }).lean();
+        const newVersion = current?.version ? current.version + 1 : 1;
         const updated = await HomepageSettings_1.HomepageSettings.findOneAndUpdate({ status: 'published' }, {
             ...updateData,
             status: 'published',
             publishedAt: new Date(),
             updatedBy: userId,
-            $inc: { version: 1 }
+            version: newVersion
         }, { new: true, upsert: true, setDefaultsOnInsert: true });
         settings = updated ? updated.toObject() : null;
     }
     else {
-        // When saving draft, update/create draft
+        // When saving draft, update/create draft (don't increment version)
         const updated = await HomepageSettings_1.HomepageSettings.findOneAndUpdate({ status: 'draft' }, {
             ...updateData,
             status: 'draft',

@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ProductService = void 0;
+const mongoose_1 = require("mongoose");
 const Product_1 = require("../models/Product");
 const Category_1 = require("../models/Category");
 const Brand_1 = require("../models/Brand");
@@ -77,6 +78,40 @@ class ProductService {
             }
             // Build optimized filter query
             const filterQuery = this.buildProductFilterQuery(filters);
+            // If searching, also search in category and brand names using aggregation
+            if (filters.search && filters.search.trim()) {
+                const searchTerm = filters.search.trim();
+                const escapedTerm = searchTerm.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+                const searchRegex = new RegExp(escapedTerm, 'i');
+                // First, get products that match the main search
+                const mainQuery = Product_1.Product.find(filterQuery).lean();
+                const mainResults = await mainQuery.exec();
+                // Then search in category and brand collections
+                const categoryMatches = await Category_1.Category.find({ name: searchRegex }).select('_id').lean();
+                const brandMatches = await Brand_1.Brand.find({ name: searchRegex }).select('_id').lean();
+                const categoryIds = categoryMatches.map(c => c._id);
+                const brandIds = brandMatches.map(b => b._id);
+                // Get products by category or brand
+                const additionalQuery = {
+                    ...filterQuery,
+                    $or: [
+                        ...(filterQuery.$or || []),
+                        ...(categoryIds.length > 0 ? [{ category: { $in: categoryIds } }] : []),
+                        ...(brandIds.length > 0 ? [{ brand: { $in: brandIds } }] : [])
+                    ]
+                };
+                // If we have additional matches, update the query
+                if (categoryIds.length > 0 || brandIds.length > 0) {
+                    const additionalResults = await Product_1.Product.find(additionalQuery).lean().exec();
+                    const allProductIds = new Set([
+                        ...mainResults.map((p) => p._id.toString()),
+                        ...additionalResults.map((p) => p._id.toString())
+                    ]);
+                    if (allProductIds.size > 0) {
+                        filterQuery._id = { $in: Array.from(allProductIds).map(id => new mongoose_1.Types.ObjectId(id)) };
+                    }
+                }
+            }
             // Create base query with necessary relations populated for admin UI
             const baseQuery = Product_1.Product.find(filterQuery).populate("category", "name").populate("brand", "name");
             // Use optimized pagination
@@ -244,6 +279,7 @@ class ProductService {
      */
     static buildProductFilterQuery(filters) {
         const filterQuery = {};
+        const orConditions = [];
         if (filters.category) {
             filterQuery.category = filters.category;
         }
@@ -276,7 +312,7 @@ class ProductService {
         }
         if (filters.inStock !== undefined) {
             if (filters.inStock) {
-                filterQuery.$or = [{ trackQuantity: false }, { quantity: { $gt: 0 } }, { allowBackorder: true }];
+                orConditions.push({ trackQuantity: false }, { quantity: { $gt: 0 } }, { allowBackorder: true });
             }
             else {
                 filterQuery.trackQuantity = true;
@@ -285,7 +321,43 @@ class ProductService {
             }
         }
         if (filters.search) {
-            filterQuery.$text = { $search: filters.search };
+            const searchTerm = filters.search.trim();
+            if (searchTerm) {
+                // Escape special regex characters
+                const escapedTerm = searchTerm.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+                // Use regex for case-insensitive partial matching
+                const searchRegex = new RegExp(escapedTerm, 'i');
+                // Search in multiple fields: name, description, shortDescription, tags, SKU, barcode
+                // Also search in SEO fields
+                const searchConditions = [
+                    { name: searchRegex },
+                    { description: searchRegex },
+                    { shortDescription: searchRegex },
+                    { tags: { $regex: escapedTerm, $options: 'i' } }, // Search in tags array
+                    { sku: searchRegex },
+                    { barcode: searchRegex },
+                ];
+                // Add SEO fields if they exist
+                searchConditions.push({ 'seo.title': searchRegex }, { 'seo.description': searchRegex }, { 'seo.keywords': { $regex: escapedTerm, $options: 'i' } } // Search in keywords array
+                );
+                // If we already have $or conditions (from inStock), combine them with $and
+                if (orConditions.length > 0) {
+                    // Use $and to combine both conditions
+                    filterQuery.$and = [
+                        { $or: orConditions },
+                        { $or: searchConditions }
+                    ];
+                }
+                else {
+                    filterQuery.$or = searchConditions;
+                }
+            }
+            else if (orConditions.length > 0) {
+                filterQuery.$or = orConditions;
+            }
+        }
+        else if (orConditions.length > 0) {
+            filterQuery.$or = orConditions;
         }
         return filterQuery;
     }

@@ -390,7 +390,7 @@ export class UserService {
             }
 
             // Import rate limit cache
-            const { CacheWrapper } = await import("../utils/performance");
+            const { CacheWrapper } = await import("../utils/performance.js");
             const rateLimitCache = new CacheWrapper("rate_limit", 900);
             
             // Clear login attempts for this user's email
@@ -415,7 +415,7 @@ export class UserService {
             }
 
             // Import rate limit cache
-            const { CacheWrapper } = await import("../utils/performance");
+            const { CacheWrapper } = await import("../utils/performance.js");
             const rateLimitCache = new CacheWrapper("rate_limit", 900);
             
             // Get login attempts for this user's email

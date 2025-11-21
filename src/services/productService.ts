@@ -1,3 +1,4 @@
+import { Types } from "mongoose";
 import { Product, IProduct } from "../models/Product";
 import { Category } from "../models/Category";
 import { Brand } from "../models/Brand";
@@ -207,7 +208,7 @@ export class ProductService {
                     ]);
                     
                     if (allProductIds.size > 0) {
-                        filterQuery._id = { $in: Array.from(allProductIds).map(id => new mongoose.Types.ObjectId(id)) };
+                        filterQuery._id = { $in: Array.from(allProductIds).map(id => new Types.ObjectId(id)) };
                     }
                 }
             }
@@ -477,7 +478,7 @@ export class ProductService {
                 
                 // Search in multiple fields: name, description, shortDescription, tags, SKU, barcode
                 // Also search in SEO fields
-                const searchConditions = [
+                const searchConditions: Record<string, any>[] = [
                     { name: searchRegex },
                     { description: searchRegex },
                     { shortDescription: searchRegex },

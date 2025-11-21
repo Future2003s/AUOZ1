@@ -157,6 +157,10 @@ const OrderSchema = new mongoose_1.Schema({
         min: 0
     },
     discountCode: String,
+    voucher: {
+        type: mongoose_1.Schema.Types.ObjectId,
+        ref: "Voucher"
+    },
     total: {
         type: Number,
         required: true,

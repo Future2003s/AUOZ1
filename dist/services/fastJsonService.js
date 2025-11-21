@@ -6,6 +6,25 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.fastJsonService = void 0;
 const fast_json_stringify_1 = __importDefault(require("fast-json-stringify"));
 const logger_1 = require("../utils/logger");
+const flexibleDataSchema = {
+    anyOf: [
+        {
+            type: "array",
+            items: {
+                type: "object",
+                additionalProperties: true
+            }
+        },
+        {
+            type: "object",
+            additionalProperties: true
+        },
+        { type: "string" },
+        { type: "number" },
+        { type: "boolean" },
+        { type: "null" }
+    ]
+};
 /**
  * Fast JSON Stringify Service
  * Pre-compiled JSON schemas for 10x faster serialization
@@ -133,24 +152,7 @@ class FastJsonService {
             properties: {
                 success: { type: "boolean" },
                 message: { type: "string" },
-                data: {
-                    anyOf: [
-                        {
-                            type: "array",
-                            items: {
-                                type: "object",
-                                additionalProperties: true
-                            }
-                        },
-                        {
-                            type: "object",
-                            additionalProperties: true
-                        },
-                        {
-                            type: ["string", "number", "boolean", "null"]
-                        }
-                    ]
-                },
+                data: flexibleDataSchema,
                 language: { type: "string" },
                 pagination: {
                     type: "object",

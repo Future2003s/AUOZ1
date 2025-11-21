@@ -8,6 +8,7 @@ const Product_1 = require("../models/Product");
 const Cart_1 = require("../models/Cart");
 const AppError_1 = require("../utils/AppError");
 const eventService_1 = require("../services/eventService");
+const voucherService_1 = require("../services/voucherService");
 // @desc    Create new order
 // @route   POST /api/v1/orders
 // @access  Private
@@ -71,11 +72,20 @@ exports.createOrder = (0, asyncHandler_1.asyncHandler)(async (req, res, next) =>
     const tax = 0;
     const shipping = subtotal > 500000 ? 0 : 30000; // Free shipping over 500k VND
     let discount = 0;
-    // Apply coupon if provided (simplified logic)
+    let appliedVoucherId = null;
+    // Apply coupon/voucher if provided
     if (couponCode) {
-        // In real app, validate coupon from database
-        if (couponCode === "DISCOUNT10") {
-            discount = subtotal * 0.1;
+        try {
+            const preview = await voucherService_1.voucherService.preview({
+                code: couponCode,
+                subtotal,
+                userId: userId ? String(userId) : undefined
+            });
+            discount = preview.discountAmount;
+            appliedVoucherId = preview.voucher.id;
+        }
+        catch (error) {
+            return next(error);
         }
     }
     // Use provided amount if available, otherwise calculate
@@ -112,12 +122,23 @@ exports.createOrder = (0, asyncHandler_1.asyncHandler)(async (req, res, next) =>
         shippingCost: shipping,
         discount,
         discountCode: couponCode,
+        voucher: appliedVoucherId,
         total,
         status: "pending",
         customerNotes: notes || customer?.note || description,
         currency: "VND"
     });
     // Product stock already updated in the loop above
+    if (appliedVoucherId) {
+        voucherService_1.voucherService
+            .incrementUsage({
+            voucherId: appliedVoucherId,
+            userId: userId ? String(userId) : undefined
+        })
+            .catch((error) => {
+            console.warn("Failed to update voucher usage", error);
+        });
+    }
     // Clear user's cart after successful order (only for logged-in users)
     if (userId) {
         try {

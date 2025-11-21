@@ -1,5 +1,25 @@
-import fastJson from "fast-json-stringify";
+import fastJson, { Schema } from "fast-json-stringify";
 import { logger } from "../utils/logger";
+
+const flexibleDataSchema = {
+    anyOf: [
+        {
+            type: "array",
+            items: {
+                type: "object",
+                additionalProperties: true
+            }
+        },
+        {
+            type: "object",
+            additionalProperties: true
+        },
+        { type: "string" },
+        { type: "number" },
+        { type: "boolean" },
+        { type: "null" }
+    ]
+} as Schema;
 
 /**
  * Fast JSON Stringify Service
@@ -148,24 +168,7 @@ class FastJsonService {
                 properties: {
                     success: { type: "boolean" },
                     message: { type: "string" },
-                    data: {
-                        anyOf: [
-                            {
-                                type: "array",
-                                items: {
-                                    type: "object",
-                                    additionalProperties: true
-                                }
-                            },
-                            {
-                        type: "object",
-                                additionalProperties: true
-                            },
-                            {
-                                type: ["string", "number", "boolean", "null"]
-                            }
-                        ]
-                    },
+                    data: flexibleDataSchema,
                     language: { type: "string" },
                     pagination: {
                         type: "object",

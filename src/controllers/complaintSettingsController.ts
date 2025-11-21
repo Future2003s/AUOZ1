@@ -27,17 +27,17 @@ const defaultSteps = [
 
 export const getComplaintSettings = asyncHandler(
   async (req: Request, res: Response, next: NextFunction) => {
-    let settings = await ComplaintSettings.findOne().lean();
+    let settings = await ComplaintSettings.findOne();
 
     if (!settings) {
-      settings = (
-        await ComplaintSettings.create({
-          steps: defaultSteps,
-        })
-      ).toObject();
+      settings = await ComplaintSettings.create({
+        steps: defaultSteps,
+      });
     }
 
-    ResponseHandler.success(res, settings);
+    const payload = settings ? settings.toObject() : { steps: defaultSteps };
+
+    ResponseHandler.success(res, payload);
   }
 );
 

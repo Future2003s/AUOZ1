@@ -118,6 +118,9 @@ const HomepageSettingsSchema = new mongoose_1.Schema({
         title: String,
         content: String,
         imageUrl: String,
+        founderName: String,
+        founderTitle: String,
+        founderQuote: String,
         enabled: {
             type: Boolean,
             default: true
@@ -148,9 +151,24 @@ const HomepageSettingsSchema = new mongoose_1.Schema({
         }
     },
     craft: {
-        title: String,
-        description: String,
+        title: {
+            type: String,
+            default: 'Quy Trình Sáng Tạo'
+        },
+        description: {
+            type: String,
+            default: 'Hành trình từ trái vải tươi ngon đến sản phẩm tinh hoa trên tay bạn.'
+        },
         images: [String],
+        steps: [{
+                title: String,
+                description: String,
+                imageUrl: String,
+                order: {
+                    type: Number,
+                    default: 0
+                }
+            }],
         enabled: {
             type: Boolean,
             default: true
