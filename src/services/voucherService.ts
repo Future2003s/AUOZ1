@@ -24,6 +24,15 @@ export interface VoucherUsagePayload {
 
 const normalizeCode = (code: string) => code.trim().toUpperCase();
 
+const normalizeId = (value?: string | null) => {
+    if (!value) return null;
+    const trimmed = String(value).trim();
+    if (!trimmed || trimmed === "undefined" || trimmed === "null") {
+        return null;
+    }
+    return trimmed;
+};
+
 const calculateDiscountAmount = (voucher: IVoucher, subtotal: number): number => {
     if (subtotal <= 0) return 0;
 
@@ -209,6 +218,20 @@ export const voucherService = {
     },
 
     async update(id: string, payload: Partial<IVoucher>, userId?: string) {
+        let targetId = normalizeId(id);
+
+        if (!targetId) {
+            const candidateCode = payload.code ? normalizeCode(payload.code) : null;
+            if (!candidateCode) {
+                throw new AppError("Voucher ID không hợp lệ", 400);
+            }
+            const fallback = await Voucher.findOne({ code: candidateCode });
+            if (!fallback) {
+                throw new AppError("Không tìm thấy voucher để cập nhật", 404);
+            }
+            targetId = String(fallback._id);
+        }
+
         const updateData: any = { ...payload };
 
         if (payload.code) {
@@ -219,7 +242,7 @@ export const voucherService = {
             updateData.updatedBy = new Types.ObjectId(userId);
         }
 
-        const voucher = await Voucher.findByIdAndUpdate(id, updateData, {
+        const voucher = await Voucher.findByIdAndUpdate(targetId, updateData, {
             new: true,
             runValidators: true
         });
