@@ -16,6 +16,7 @@ import advertisementRoutes from "./advertisements";
 import activityRoutes from "./activities";
 import complaintRoutes from "./complaints";
 import voucherRoutes from "./vouchers";
+import newsRoutes from "./news";
 import path from "path";
 import fs from "fs";
 
@@ -91,5 +92,6 @@ router.use("/advertisements", advertisementRoutes);
 router.use("/activities", activityRoutes);
 router.use("/complaints", complaintRoutes);
 router.use("/vouchers", voucherRoutes);
+router.use("/news", newsRoutes);
 
 export default router;
