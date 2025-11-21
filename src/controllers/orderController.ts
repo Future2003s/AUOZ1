@@ -6,6 +6,7 @@ import { Product } from "../models/Product";
 import { Cart } from "../models/Cart";
 import { AppError } from "../utils/AppError";
 import { eventService } from "../services/eventService";
+import { voucherService } from "../services/voucherService";
 
 // @desc    Create new order
 // @route   POST /api/v1/orders
@@ -83,12 +84,20 @@ export const createOrder = asyncHandler(async (req: Request, res: Response, next
     const tax = 0;
     const shipping = subtotal > 500000 ? 0 : 30000; // Free shipping over 500k VND
     let discount = 0;
+    let appliedVoucherId: string | null = null;
 
-    // Apply coupon if provided (simplified logic)
+    // Apply coupon/voucher if provided
     if (couponCode) {
-        // In real app, validate coupon from database
-        if (couponCode === "DISCOUNT10") {
-            discount = subtotal * 0.1;
+        try {
+            const preview = await voucherService.preview({
+                code: couponCode,
+                subtotal,
+                userId: userId ? String(userId) : undefined
+            });
+            discount = preview.discountAmount;
+            appliedVoucherId = preview.voucher.id;
+        } catch (error) {
+            return next(error);
         }
     }
 
@@ -129,6 +138,7 @@ export const createOrder = asyncHandler(async (req: Request, res: Response, next
         shippingCost: shipping,
         discount,
         discountCode: couponCode,
+        voucher: appliedVoucherId,
         total,
         status: "pending",
         customerNotes: notes || customer?.note || description,
@@ -136,6 +146,17 @@ export const createOrder = asyncHandler(async (req: Request, res: Response, next
     });
 
     // Product stock already updated in the loop above
+
+    if (appliedVoucherId) {
+        voucherService
+            .incrementUsage({
+                voucherId: appliedVoucherId,
+                userId: userId ? String(userId) : undefined
+            })
+            .catch((error) => {
+                console.warn("Failed to update voucher usage", error);
+            });
+    }
 
     // Clear user's cart after successful order (only for logged-in users)
     if (userId) {

@@ -12,6 +12,10 @@ import performanceRoutes from "./performance";
 import translationRoutes from "./translations";
 import analyticsRoutes from "./analytics";
 import homepageRoutes from "./homepage";
+import advertisementRoutes from "./advertisements";
+import activityRoutes from "./activities";
+import complaintRoutes from "./complaints";
+import voucherRoutes from "./vouchers";
 import path from "path";
 import fs from "fs";
 
@@ -83,5 +87,9 @@ router.use("/performance", performanceRoutes);
 router.use("/translations", translationRoutes);
 router.use("/analytics", analyticsRoutes);
 router.use("/homepage", homepageRoutes);
+router.use("/advertisements", advertisementRoutes);
+router.use("/activities", activityRoutes);
+router.use("/complaints", complaintRoutes);
+router.use("/vouchers", voucherRoutes);
 
 export default router;

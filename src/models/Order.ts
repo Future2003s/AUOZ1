@@ -56,6 +56,7 @@ export interface IOrder extends Document {
     shippingCost: number;
     discount: number;
     discountCode?: string;
+    voucher?: mongoose.Types.ObjectId;
     total: number;
     currency: string;
 
@@ -222,6 +223,10 @@ const OrderSchema = new Schema<IOrder>(
             min: 0
         },
         discountCode: String,
+        voucher: {
+            type: Schema.Types.ObjectId,
+            ref: "Voucher"
+        },
         total: {
             type: Number,
             required: true,

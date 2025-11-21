@@ -79,11 +79,17 @@ export interface IHomepageSettings extends Document {
         enabled: boolean;
     };
 
-    // Craft Section
+    // Craft Section (Quy trình sáng tạo)
     craft: {
         title: string;
         description: string;
         images: string[];
+        steps?: Array<{
+            title: string;
+            description?: string;
+            imageUrl?: string;
+            order?: number;
+        }>;
         enabled: boolean;
     };
 
@@ -229,9 +235,24 @@ const HomepageSettingsSchema = new Schema<IHomepageSettings>({
         }
     },
     craft: {
-        title: String,
-        description: String,
+        title: {
+            type: String,
+            default: 'Quy Trình Sáng Tạo'
+        },
+        description: {
+            type: String,
+            default: 'Hành trình từ trái vải tươi ngon đến sản phẩm tinh hoa trên tay bạn.'
+        },
         images: [String],
+        steps: [{
+            title: String,
+            description: String,
+            imageUrl: String,
+            order: {
+                type: Number,
+                default: 0
+            }
+        }],
         enabled: {
             type: Boolean,
             default: true
