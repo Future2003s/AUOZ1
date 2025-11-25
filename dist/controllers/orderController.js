@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.updateOrderStatus = exports.getAllOrders = exports.getOrderTracking = exports.cancelOrder = exports.getOrder = exports.getUserOrders = exports.createOrder = void 0;
+exports.streamOrderEvents = exports.updateOrderStatus = exports.getAllOrders = exports.getOrderTracking = exports.cancelOrder = exports.getOrder = exports.getUserOrders = exports.createOrder = void 0;
 const asyncHandler_1 = require("../utils/asyncHandler");
 const response_1 = require("../utils/response");
 const Order_1 = require("../models/Order");
@@ -385,3 +385,47 @@ exports.updateOrderStatus = (0, asyncHandler_1.asyncHandler)(async (req, res, ne
     });
     response_1.ResponseHandler.success(res, order, "Order status updated successfully");
 });
+// @desc    Stream order events (SSE)
+// @route   GET /api/v1/orders/stream
+// @access  Private (Admin)
+const streamOrderEvents = (req, res) => {
+    res.status(200);
+    res.set({
+        "Content-Type": "text/event-stream",
+        "Cache-Control": "no-cache, no-transform",
+        Connection: "keep-alive"
+    });
+    // Flush headers immediately if supported
+    res.flushHeaders?.();
+    const serializePayload = (event) => {
+        const payload = {
+            type: event.action === "created" ? "created" : "updated",
+            id: event.orderId,
+            status: event.metadata?.newStatus || event.action,
+            action: event.action,
+            at: Date.now()
+        };
+        return `event: order\ndata: ${JSON.stringify(payload)}\n\n`;
+    };
+    const sendPing = () => {
+        res.write(`event: ping\ndata: ${Date.now()}\n\n`);
+    };
+    sendPing();
+    const pingInterval = setInterval(sendPing, 30000);
+    const handleOrderEvent = (event) => {
+        try {
+            res.write(serializePayload(event));
+        }
+        catch (error) {
+            clearInterval(pingInterval);
+            eventService_1.eventService.off("order", handleOrderEvent);
+            res.end();
+        }
+    };
+    eventService_1.eventService.on("order", handleOrderEvent);
+    req.on("close", () => {
+        clearInterval(pingInterval);
+        eventService_1.eventService.off("order", handleOrderEvent);
+    });
+};
+exports.streamOrderEvents = streamOrderEvents;

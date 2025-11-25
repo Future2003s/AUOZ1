@@ -1,42 +1,23 @@
 "use strict";
-var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    var desc = Object.getOwnPropertyDescriptor(m, k);
-    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-      desc = { enumerable: true, get: function() { return m[k]; } };
-    }
-    Object.defineProperty(o, k2, desc);
-}) : (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    o[k2] = m[k];
-}));
-var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
-    Object.defineProperty(o, "default", { enumerable: true, value: v });
-}) : function(o, v) {
-    o["default"] = v;
-});
-var __importStar = (this && this.__importStar) || (function () {
-    var ownKeys = function(o) {
-        ownKeys = Object.getOwnPropertyNames || function (o) {
-            var ar = [];
-            for (var k in o) if (Object.prototype.hasOwnProperty.call(o, k)) ar[ar.length] = k;
-            return ar;
-        };
-        return ownKeys(o);
-    };
-    return function (mod) {
-        if (mod && mod.__esModule) return mod;
-        var result = {};
-        if (mod != null) for (var k = ownKeys(mod), i = 0; i < k.length; i++) if (k[i] !== "default") __createBinding(result, mod, k[i]);
-        __setModuleDefault(result, mod);
-        return result;
-    };
-})();
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.rateLimitAnalytics = exports.trustedIPBypass = exports.adaptiveRateLimit = exports.dynamicRateLimit = exports.adminRateLimit = exports.reviewRateLimit = exports.cartRateLimit = exports.searchRateLimit = exports.failedLoginRateLimit = exports.authRateLimit = exports.generalRateLimit = void 0;
-const express_rate_limit_1 = __importStar(require("express-rate-limit"));
+const express_rate_limit_1 = __importDefault(require("express-rate-limit"));
 const redis_1 = require("../config/redis");
 const logger_1 = require("../utils/logger");
+const clientIpKey = (req) => {
+    const forwarded = req.headers["x-forwarded-for"]
+        ?.split(",")
+        .map((ip) => ip.trim())
+        .find(Boolean);
+    return (forwarded ||
+        req.ip ||
+        req.connection?.remoteAddress ||
+        req.socket?.remoteAddress ||
+        "unknown");
+};
 /**
  * Redis-based rate limit store for better performance and persistence
  */
@@ -113,7 +94,7 @@ function createRateLimiter(config) {
         skipSuccessfulRequests: config.skipSuccessfulRequests || false,
         skipFailedRequests: config.skipFailedRequests || false,
         // Use recommended key generator to handle IPv4/IPv6 correctly
-        keyGenerator: config.keyGenerator || ((req) => req.ip || "unknown"),
+        keyGenerator: config.keyGenerator || ((req) => clientIpKey(req)),
         // Custom store implementation
         store: {
             incr: async (key, cb) => {
@@ -135,7 +116,7 @@ function createRateLimiter(config) {
         // Custom handler for rate limit exceeded
         handler: (req, res) => {
             const retryAfter = Math.ceil(config.windowMs / 1000);
-            logger_1.logger.warn(`Rate limit exceeded for ${req.ip} on ${req.originalUrl}`);
+            logger_1.logger.warn(`Rate limit exceeded for ${clientIpKey(req)} on ${req.originalUrl}`);
             res.status(429).json({
                 success: false,
                 error: "Too many requests",
@@ -178,7 +159,7 @@ exports.authRateLimit = createRateLimiter({
     keyGenerator: (req) => {
         // Rate limit by IP + email combination for more precise limiting
         const email = (req.body?.email || "unknown").toLowerCase().trim();
-        return `${(0, express_rate_limit_1.ipKeyGenerator)(req.ip || "unknown")}:${email}`;
+        return `${clientIpKey(req)}:${email}`;
     }
 });
 // Stricter rate limiter for failed login attempts
@@ -189,7 +170,7 @@ exports.failedLoginRateLimit = createRateLimiter({
     skipSuccessfulRequests: true,
     keyGenerator: (req) => {
         const email = req.body?.email || "unknown";
-        return `failed:${(0, express_rate_limit_1.ipKeyGenerator)(req.ip || "unknown")}:${email}`;
+        return `failed:${clientIpKey(req)}:${email}`;
     }
 });
 // Search rate limiter
@@ -279,7 +260,7 @@ exports.adaptiveRateLimit = (() => {
  */
 const trustedIPBypass = (trustedIPs = []) => {
     return (req, res, next) => {
-        const clientIP = req.ip || req.connection.remoteAddress;
+        const clientIP = clientIpKey(req);
         if (clientIP && trustedIPs.includes(clientIP)) {
             return next(); // Skip rate limiting for trusted IPs
         }

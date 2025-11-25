@@ -14,7 +14,8 @@ import {
     cancelOrder,
     getOrderTracking,
     getAllOrders,
-    updateOrderStatus
+    updateOrderStatus,
+    streamOrderEvents
 } from "../controllers/orderController";
 
 const router = Router();
@@ -27,6 +28,7 @@ router.use(protect);
 
 // Customer routes (authentication required)
 router.get("/", validatePagination, getUserOrders);
+router.get("/stream", authorize("admin", "ADMIN"), streamOrderEvents);
 router.get("/:id", validateOrderId, getOrder);
 router.post("/", validateCreateOrder, createOrder);
 router.put("/:id/cancel", validateOrderId, cancelOrder);

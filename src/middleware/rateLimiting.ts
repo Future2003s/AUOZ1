@@ -1,4 +1,4 @@
-import rateLimit, { ipKeyGenerator } from "express-rate-limit";
+import rateLimit from "express-rate-limit";
 import { Request, Response, NextFunction } from "express";
 import { redisCache } from "../config/redis";
 import { logger } from "../utils/logger";
@@ -17,6 +17,21 @@ interface RateLimitConfig {
     skipFailedRequests?: boolean;
     keyGenerator?: (req: Request) => string;
 }
+
+const clientIpKey = (req: Request): string => {
+    const forwarded = (req.headers["x-forwarded-for"] as string | undefined)
+        ?.split(",")
+        .map((ip) => ip.trim())
+        .find(Boolean);
+
+    return (
+        forwarded ||
+        req.ip ||
+        (req.connection as any)?.remoteAddress ||
+        req.socket?.remoteAddress ||
+        "unknown"
+    );
+};
 
 /**
  * Redis-based rate limit store for better performance and persistence
@@ -104,7 +119,7 @@ function createRateLimiter(config: RateLimitConfig) {
         skipFailedRequests: config.skipFailedRequests || false,
 
         // Use recommended key generator to handle IPv4/IPv6 correctly
-        keyGenerator: config.keyGenerator || ((req: Request) => req.ip || "unknown"),
+        keyGenerator: config.keyGenerator || ((req: Request) => clientIpKey(req)),
 
         // Custom store implementation
         store: {
@@ -128,7 +143,7 @@ function createRateLimiter(config: RateLimitConfig) {
         handler: (req: Request, res: Response) => {
             const retryAfter = Math.ceil(config.windowMs / 1000);
 
-            logger.warn(`Rate limit exceeded for ${req.ip} on ${req.originalUrl}`);
+            logger.warn(`Rate limit exceeded for ${clientIpKey(req)} on ${req.originalUrl}`);
 
             res.status(429).json({
                 success: false,
@@ -178,7 +193,7 @@ export const authRateLimit = createRateLimiter({
     keyGenerator: (req: Request) => {
         // Rate limit by IP + email combination for more precise limiting
         const email = (req.body?.email || "unknown").toLowerCase().trim();
-        return `${ipKeyGenerator(req.ip || "unknown")}:${email}`;
+        return `${clientIpKey(req)}:${email}`;
     }
 });
 
@@ -190,7 +205,7 @@ export const failedLoginRateLimit = createRateLimiter({
     skipSuccessfulRequests: true,
     keyGenerator: (req: Request) => {
         const email = req.body?.email || "unknown";
-        return `failed:${ipKeyGenerator(req.ip || "unknown")}:${email}`;
+        return `failed:${clientIpKey(req)}:${email}`;
     }
 });
 
@@ -293,7 +308,7 @@ export const adaptiveRateLimit = (() => {
  */
 export const trustedIPBypass = (trustedIPs: string[] = []) => {
     return (req: Request, res: Response, next: NextFunction) => {
-        const clientIP = req.ip || req.connection.remoteAddress;
+        const clientIP = clientIpKey(req);
 
         if (clientIP && trustedIPs.includes(clientIP)) {
             return next(); // Skip rate limiting for trusted IPs

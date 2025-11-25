@@ -7,6 +7,7 @@ import { Cart } from "../models/Cart";
 import { AppError } from "../utils/AppError";
 import { eventService } from "../services/eventService";
 import { voucherService } from "../services/voucherService";
+import { OrderEvent } from "../types";
 
 // @desc    Create new order
 // @route   POST /api/v1/orders
@@ -459,3 +460,53 @@ export const updateOrderStatus = asyncHandler(async (req: Request, res: Response
 
     ResponseHandler.success(res, order, "Order status updated successfully");
 });
+
+// @desc    Stream order events (SSE)
+// @route   GET /api/v1/orders/stream
+// @access  Private (Admin)
+export const streamOrderEvents = (req: Request, res: Response): void => {
+    res.status(200);
+    res.set({
+        "Content-Type": "text/event-stream",
+        "Cache-Control": "no-cache, no-transform",
+        Connection: "keep-alive"
+    });
+
+    // Flush headers immediately if supported
+    (res as any).flushHeaders?.();
+
+    const serializePayload = (event: OrderEvent) => {
+        const payload = {
+            type: event.action === "created" ? "created" : "updated",
+            id: event.orderId,
+            status: event.metadata?.newStatus || event.action,
+            action: event.action,
+            at: Date.now()
+        };
+        return `event: order\ndata: ${JSON.stringify(payload)}\n\n`;
+    };
+
+    const sendPing = () => {
+        res.write(`event: ping\ndata: ${Date.now()}\n\n`);
+    };
+
+    sendPing();
+    const pingInterval = setInterval(sendPing, 30000);
+
+    const handleOrderEvent = (event: OrderEvent) => {
+        try {
+            res.write(serializePayload(event));
+        } catch (error) {
+            clearInterval(pingInterval);
+            eventService.off("order", handleOrderEvent);
+            res.end();
+        }
+    };
+
+    eventService.on("order", handleOrderEvent);
+
+    req.on("close", () => {
+        clearInterval(pingInterval);
+        eventService.off("order", handleOrderEvent);
+    });
+};
