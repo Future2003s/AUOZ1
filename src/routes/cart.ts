@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { protect } from "../middleware/auth";
+import { optionalAuth, protect } from "../middleware/auth";
 import { cartRateLimit } from "../middleware/rateLimiting";
 import { validateAddToCart, validateUpdateCartItem, validateCartProductId } from "../middleware/unifiedValidation";
 import {
@@ -15,6 +15,9 @@ import {
 } from "../controllers/cartController";
 
 const router = Router();
+
+// Attach user info when Authorization header is present but keep route public
+router.use(optionalAuth);
 
 // Public routes (work with session ID for guest users) with rate limiting
 router.get("/count", cartRateLimit, getCartItemCount);

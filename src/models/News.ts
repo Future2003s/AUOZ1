@@ -2,11 +2,22 @@ import mongoose, { Document, Schema } from "mongoose";
 
 export type NewsStatus = "draft" | "published";
 
+type ContentBlockType = "p" | "h2" | "h3" | "quote" | "ul" | "img";
+
+interface ContentBlock {
+  type: ContentBlockType;
+  content?: any;
+  id?: string;
+  src?: string;
+  caption?: string;
+}
+
 export interface INews extends Document {
   title: string;
   slug: string;
   excerpt: string;
   content: string;
+  contentBlocks?: ContentBlock[];
   coverImage?: string;
   category?: string;
   tags: string[];
@@ -16,6 +27,7 @@ export interface INews extends Document {
   locale: string;
   status: NewsStatus;
   isFeatured: boolean;
+  views: number;
   publishedAt?: Date;
   createdBy?: mongoose.Types.ObjectId;
   updatedBy?: mongoose.Types.ObjectId;
@@ -29,6 +41,18 @@ const NewsSchema = new Schema<INews>(
     slug: { type: String, required: true, unique: true, index: true },
     excerpt: { type: String, required: true, trim: true },
     content: { type: String, required: true },
+    contentBlocks: [
+      {
+        type: {
+          type: String,
+          enum: ["p", "h2", "h3", "quote", "ul", "img"],
+        },
+        content: Schema.Types.Mixed,
+        id: { type: String },
+        src: { type: String },
+        caption: { type: String },
+      },
+    ],
     coverImage: { type: String },
     category: { type: String },
     tags: [{ type: String }],
@@ -43,6 +67,7 @@ const NewsSchema = new Schema<INews>(
       index: true,
     },
     isFeatured: { type: Boolean, default: false },
+    views: { type: Number, default: 0 },
     publishedAt: { type: Date },
     createdBy: { type: Schema.Types.ObjectId, ref: "User" },
     updatedBy: { type: Schema.Types.ObjectId, ref: "User" },

@@ -208,6 +208,36 @@ export const validateCartProductId = [
     handleValidationErrors
 ];
 
+// ===== COMMENT VALIDATION =====
+export const validateCreateComment = [
+    body("productId").isMongoId().withMessage("Valid product ID is required"),
+    body("content")
+        .isString()
+        .trim()
+        .isLength({ min: 1, max: 1000 })
+        .withMessage("Comment must be between 1 and 1000 characters"),
+    body("parentCommentId")
+        .optional()
+        .isMongoId()
+        .withMessage("Parent comment ID must be a valid identifier"),
+    handleValidationErrors
+];
+
+export const validateCommentIdParam = [
+    param("id").isMongoId().withMessage("Invalid comment ID"),
+    handleValidationErrors
+];
+
+export const validateCommentId = [
+    param("commentId").isMongoId().withMessage("Invalid comment ID"),
+    handleValidationErrors
+];
+
+export const validateProductIdParam = [
+    param("productId").isMongoId().withMessage("Invalid product ID"),
+    handleValidationErrors
+];
+
 // ===== ADMIN VALIDATION =====
 export const validateAdminAction = [
     body("action").isIn(["approve", "reject", "suspend", "activate"]).withMessage("Invalid admin action"),

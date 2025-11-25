@@ -14,6 +14,7 @@ import analyticsRoutes from "./analytics";
 import homepageRoutes from "./homepage";
 import advertisementRoutes from "./advertisements";
 import activityRoutes from "./activities";
+import commentRoutes from "./comments";
 import complaintRoutes from "./complaints";
 import voucherRoutes from "./vouchers";
 import newsRoutes from "./news";
@@ -93,5 +94,6 @@ router.use("/activities", activityRoutes);
 router.use("/complaints", complaintRoutes);
 router.use("/vouchers", voucherRoutes);
 router.use("/news", newsRoutes);
+router.use("/comments", commentRoutes);
 
 export default router;

@@ -230,6 +230,13 @@ export const reviewRateLimit = createRateLimiter({
     message: "Too many review submissions, please try again later"
 });
 
+// Comment rate limiter
+export const commentRateLimit = createRateLimiter({
+    windowMs: 1 * 60 * 1000, // 1 minute
+    max: 60, // 60 comment operations per minute
+    message: "Too many comment operations, please slow down"
+});
+
 // Admin operations rate limiter
 export const adminRateLimit = createRateLimiter({
     windowMs: 1 * 60 * 1000, // 1 minute
