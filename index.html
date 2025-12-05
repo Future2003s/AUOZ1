@@ -1,0 +1,326 @@
+<!doctype html>
+<html lang="vi">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Bảng Thông Số Cắt Nơ - Khổ Ngang</title>
+        <script src="https://cdn.tailwindcss.com"></script>
+        <style>
+            /* Cấu hình cho chế độ IN ẤN - KHỔ NGANG */
+            @media print {
+                @page {
+                    size: A4 landscape; /* Quan trọng: Xoay ngang giấy */
+                    margin: 0; /* Loại bỏ lề mặc định của trình duyệt để ta tự căn */
+                }
+                body {
+                    background-color: white;
+                    margin: 0;
+                    padding: 0;
+                    -webkit-print-color-adjust: exact;
+                    print-color-adjust: exact;
+                }
+                .no-print {
+                    display: none !important;
+                }
+                .print-shadow-none {
+                    box-shadow: none !important;
+                    border: none !important;
+                }
+                /* Container khi in sẽ chiếm toàn bộ khổ ngang chính xác */
+                .a4-container {
+                    width: 297mm !important;
+                    height: 210mm !important; /* Chiều cao cố định A4 ngang */
+                    max-width: none !important;
+                    margin: 0 !important;
+                    padding: 10mm !important; /* Căn lề an toàn khi in */
+                    box-shadow: none !important;
+                    border: none !important;
+                    display: flex !important;
+                    flex-direction: column !important;
+                    justify-content: space-between !important; /* Kéo giãn nội dung ra 2 đầu */
+                }
+                /* Ẩn scrollbar nếu có */
+                ::-webkit-scrollbar {
+                    display: none;
+                }
+            }
+
+            body {
+                font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            }
+        </style>
+    </head>
+    <body class="bg-gray-200 min-h-screen p-8 flex flex-col items-center">
+        <!-- KHU VỰC ĐIỀU KHIỂN (Ẩn khi in) -->
+        <div
+            class="no-print w-full max-w-[297mm] mb-6 flex justify-between items-center bg-white p-4 rounded-lg shadow-md border border-gray-300"
+        >
+            <div>
+                <h2 class="text-lg font-bold text-gray-800">Xem trước bản in (Khổ Ngang)</h2>
+                <p class="text-sm text-gray-500">Giao diện màu sắc sinh động</p>
+            </div>
+            <button
+                onclick="window.print()"
+                class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded shadow flex items-center gap-2 transition-colors cursor-pointer"
+            >
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="h-5 w-5"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                >
+                    <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"
+                    />
+                </svg>
+                In Ngay
+            </button>
+        </div>
+
+        <!-- KHUNG GIẤY A4 NGANG (297mm rộng x 210mm cao) -->
+        <div
+            class="a4-container w-[297mm] h-[210mm] bg-white shadow-xl flex flex-col justify-between p-8 relative print-shadow-none overflow-hidden"
+        >
+            <!-- 1. PHẦN ĐẦU TRANG (Đã bỏ dòng Đơn vị: mm) -->
+            <!-- Khoảng trống này sẽ được bảng tận dụng để giãn ra -->
+
+            <!-- 2. PHẦN BẢNG DỮ LIỆU (Tự giãn nở - flex-grow) -->
+            <div class="flex-grow flex flex-col justify-center">
+                <table class="w-full border-collapse border border-gray-800 text-sm shadow-sm">
+                    <thead>
+                        <!-- Header Màu sắc sinh động -->
+                        <tr class="bg-indigo-600 text-white">
+                            <th
+                                class="border border-indigo-700 p-3 text-center w-[12%] font-bold uppercase tracking-wider"
+                            >
+                                LOẠI NƠ
+                            </th>
+                            <th
+                                class="border border-indigo-700 p-3 text-center w-[10%] font-bold uppercase tracking-wider"
+                            >
+                                MÀU
+                            </th>
+                            <th
+                                class="border border-indigo-700 p-3 text-center w-[30%] font-bold uppercase tracking-wider"
+                            >
+                                THÀNH PHẦN & GHI CHÚ
+                            </th>
+                            <th
+                                class="border border-indigo-700 p-3 text-center w-[35%] font-bold uppercase tracking-wider"
+                            >
+                                THÔNG SỐ (mm)
+                            </th>
+                            <th
+                                class="border border-indigo-700 p-3 text-center w-[13%] font-bold uppercase tracking-wider"
+                            >
+                                TỈ LỆ
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody id="table-body">
+                        <!-- Javascript render dữ liệu -->
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- 3. PHẦN CHÂN TRANG (Luôn nằm đáy) -->
+            <div class="flex-none mt-4 pt-2 border-t-2 border-indigo-200">
+                <div class="flex gap-8 items-start">
+                    <div class="flex-1 bg-indigo-50 p-3 rounded border border-indigo-100">
+                        <h3 class="font-bold underline mb-1 uppercase text-xs text-indigo-900">Lưu ý kỹ thuật:</h3>
+                        <ul class="list-disc pl-5 text-xs space-y-1 text-gray-700 font-medium">
+                            <li>
+                                <strong class="text-purple-700 uppercase">Rộng (R)</strong>: Bề ngang ruy băng |
+                                <strong class="text-blue-700 uppercase">Dài (D)</strong>: Độ dài đoạn cắt.
+                            </li>
+                            <li>Đảm bảo lưỡi cắt sắc bén, vết cắt gọn, không tưa mép vải.</li>
+                            <li>Kiểm tra kích thước thực tế với mẫu trước khi cắt hàng loạt.</li>
+                        </ul>
+                    </div>
+
+                    <div class="flex gap-4">
+                        <div class="text-center">
+                            <div
+                                class="w-32 border-2 border-dashed border-gray-300 h-16 flex items-center justify-center text-gray-400 font-bold text-xs bg-white rounded mb-1"
+                            >
+                                (Ký tên)
+                            </div>
+                            <span class="text-[10px] font-bold uppercase text-gray-600">Người cắt</span>
+                        </div>
+                        <div class="text-center">
+                            <div
+                                class="w-32 border-2 border-dashed border-gray-300 h-16 flex items-center justify-center text-gray-400 font-bold text-xs bg-white rounded mb-1"
+                            >
+                                (Ký tên)
+                            </div>
+                            <span class="text-[10px] font-bold uppercase text-gray-600">KCS / Kiểm tra</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SCRIPT -->
+        <script>
+            // Cấu trúc dữ liệu mới: Nhóm theo Loại Nơ -> Màu
+            const data = [
+                {
+                    type: "NƠ ĐẠI",
+                    groups: [
+                        {
+                            color: "ĐỎ",
+                            // Màu nền đỏ nhạt, chữ đỏ đậm
+                            colorClass: "bg-red-50 text-red-700 font-black",
+                            items: [
+                                { name: "Cuộn Đỏ", width: 32, length: 213, ratio: 2, note: "" },
+                                { name: "Cuộn Trắng", width: 40, length: 211, ratio: 1, note: "" }
+                            ]
+                        },
+                        {
+                            color: "ĐEN",
+                            // Màu nền xám, chữ đen đậm
+                            colorClass: "bg-gray-100 text-gray-900 font-black",
+                            items: [
+                                { name: "Cuộn Đen", width: 33, length: 213, ratio: 2, note: "Lưu ý: Rộng 33mm" },
+                                { name: "Cuộn Trắng", width: 40, length: 211, ratio: 1, note: "" }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    type: "NƠ TRUNG",
+                    groups: [
+                        {
+                            color: "ĐỎ",
+                            colorClass: "bg-red-50 text-red-700 font-black",
+                            items: [
+                                { name: "Cuộn Đỏ", width: 28, length: 175, ratio: 2, note: "" },
+                                { name: "Cuộn Trắng", width: 35, length: 173, ratio: 1, note: "" }
+                            ]
+                        },
+                        {
+                            color: "ĐEN",
+                            colorClass: "bg-gray-100 text-gray-900 font-black",
+                            items: [
+                                { name: "Cuộn Đen", width: 28, length: 175, ratio: 2, note: "" },
+                                { name: "Cuộn Trắng", width: 35, length: 173, ratio: 1, note: "" }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    type: "NƠ NHỎ",
+                    groups: [
+                        {
+                            color: "ĐỎ",
+                            colorClass: "bg-red-50 text-red-700 font-black",
+                            items: [
+                                { name: "Cuộn Đỏ", width: 36, length: 148, ratio: 2, note: "Bản màu to hơn bản trắng" },
+                                { name: "Cuộn Trắng", width: 25, length: 146, ratio: 1, note: "" }
+                            ]
+                        },
+                        {
+                            color: "ĐEN",
+                            colorClass: "bg-gray-100 text-gray-900 font-black",
+                            items: [
+                                {
+                                    name: "Cuộn Đen",
+                                    width: 36,
+                                    length: 148,
+                                    ratio: 2,
+                                    note: "Bản màu to hơn bản trắng"
+                                },
+                                { name: "Cuộn Trắng", width: 25, length: 146, ratio: 1, note: "" }
+                            ]
+                        }
+                    ]
+                }
+            ];
+
+            const tbody = document.getElementById("table-body");
+
+            data.forEach((category, catIndex) => {
+                const totalCategoryRows = category.groups.reduce((acc, g) => acc + g.items.length, 0);
+                let categoryFirstRowRendered = false;
+
+                category.groups.forEach((group, groupIndex) => {
+                    group.items.forEach((item, itemIndex) => {
+                        const tr = document.createElement("tr");
+
+                        // Đường kẻ màu xám nhẹ nhàng hơn
+                        let borderClass = "border-b border-gray-200";
+                        if (itemIndex === group.items.length - 1 && groupIndex < category.groups.length - 1) {
+                            // Kẻ phân cách giữa các nhóm màu trong cùng 1 loại
+                            borderClass = "border-b-2 border-gray-400";
+                        }
+                        tr.className = `${borderClass} hover:bg-yellow-50 transition-colors`;
+
+                        let html = "";
+
+                        // Cột 1: LOẠI NƠ
+                        if (!categoryFirstRowRendered) {
+                            html += `
+                                <td rowspan="${totalCategoryRows}" class="border-r border-gray-300 p-2 font-black text-indigo-900 align-middle text-lg bg-white text-center uppercase shadow-inner">
+                                    ${category.type}
+                                </td>
+                            `;
+                            categoryFirstRowRendered = true;
+                        }
+
+                        // Cột 2: MÀU
+                        if (itemIndex === 0) {
+                            html += `
+                                <td rowspan="${group.items.length}" class="border-r border-gray-300 p-2 text-center align-middle ${group.colorClass} shadow-sm">
+                                    ${group.color}
+                                </td>
+                            `;
+                        }
+
+                        // Các cột còn lại (Items)
+                        html += `
+                        <td class="border-r border-gray-300 p-2 align-middle text-center bg-white">
+                            <div class="flex items-center justify-center">
+                                <span class="font-bold text-base text-gray-700">${item.name}</span>
+                                ${item.note ? `<span class="text-[10px] bg-amber-100 text-amber-800 border border-amber-300 px-1 py-0.5 rounded font-bold ml-2">⚠️ ${item.note}</span>` : ""}
+                            </div>
+                        </td>
+                        <td class="border-r border-gray-300 p-1 text-center align-middle bg-white">
+                            <div class="flex items-center justify-center gap-6">
+                                <div class="text-center">
+                                    <div class="text-[9px] text-gray-400 font-bold uppercase tracking-wider">Rộng</div>
+                                    <div class="font-bold text-lg text-purple-600">${item.width}</div>
+                                </div>
+                                <div class="text-gray-300 text-xl font-light">×</div>
+                                <div class="text-center">
+                                    <div class="text-[9px] text-gray-400 font-bold uppercase tracking-wider">Dài</div>
+                                    <div class="font-black text-xl text-blue-600">${item.length}</div>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="p-2 text-center align-middle bg-white">
+                            <span class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-teal-50 text-teal-700 font-bold border border-teal-200 shadow-sm text-sm">
+                                ${item.ratio}
+                            </span>
+                        </td>
+                    `;
+
+                        tr.innerHTML = html;
+                        tbody.appendChild(tr);
+                    });
+                });
+
+                // Kẻ phân cách giữa các Loại Nơ lớn (Màu Indigo đậm)
+                if (catIndex < data.length - 1) {
+                    const separator = document.createElement("tr");
+                    separator.className = "bg-indigo-900 h-[2px]";
+                    separator.innerHTML = '<td colspan="5"></td>';
+                    tbody.appendChild(separator);
+                }
+            });
+        </script>
+    </body>
+</html>

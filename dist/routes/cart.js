@@ -6,6 +6,8 @@ const rateLimiting_1 = require("../middleware/rateLimiting");
 const unifiedValidation_1 = require("../middleware/unifiedValidation");
 const cartController_1 = require("../controllers/cartController");
 const router = (0, express_1.Router)();
+// Attach user info when Authorization header is present but keep route public
+router.use(auth_1.optionalAuth);
 // Public routes (work with session ID for guest users) with rate limiting
 router.get("/count", rateLimiting_1.cartRateLimit, cartController_1.getCartItemCount);
 router.get("/summary", rateLimiting_1.cartRateLimit, cartController_1.getCartSummary);

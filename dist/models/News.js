@@ -40,6 +40,18 @@ const NewsSchema = new mongoose_1.Schema({
     slug: { type: String, required: true, unique: true, index: true },
     excerpt: { type: String, required: true, trim: true },
     content: { type: String, required: true },
+    contentBlocks: [
+        {
+            type: {
+                type: String,
+                enum: ["p", "h2", "h3", "quote", "ul", "img"],
+            },
+            content: mongoose_1.Schema.Types.Mixed,
+            id: { type: String },
+            src: { type: String },
+            caption: { type: String },
+        },
+    ],
     coverImage: { type: String },
     category: { type: String },
     tags: [{ type: String }],
@@ -54,6 +66,7 @@ const NewsSchema = new mongoose_1.Schema({
         index: true,
     },
     isFeatured: { type: Boolean, default: false },
+    views: { type: Number, default: 0 },
     publishedAt: { type: Date },
     createdBy: { type: mongoose_1.Schema.Types.ObjectId, ref: "User" },
     updatedBy: { type: mongoose_1.Schema.Types.ObjectId, ref: "User" },

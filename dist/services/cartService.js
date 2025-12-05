@@ -12,23 +12,28 @@ class CartService {
     static async getOrCreateCart(userId, sessionId) {
         try {
             let cart = null;
+            const normalizedSessionId = sessionId?.trim() || undefined;
+            if (!userId && !normalizedSessionId) {
+                throw new AppError_1.AppError("Session ID is required for guest carts", 400);
+            }
             if (userId) {
                 cart = await Cart_1.Cart.findOne({ user: userId, isActive: true })
                     .populate('items.product', 'name price images sku isInStock finalPrice');
             }
-            else if (sessionId) {
-                cart = await Cart_1.Cart.findOne({ sessionId, isActive: true })
+            else if (normalizedSessionId) {
+                cart = await Cart_1.Cart.findOne({ sessionId: normalizedSessionId, isActive: true })
                     .populate('items.product', 'name price images sku isInStock finalPrice');
             }
             if (!cart) {
                 cart = await Cart_1.Cart.create({
                     user: userId || undefined,
-                    sessionId: sessionId || undefined,
+                    sessionId: normalizedSessionId,
                     items: [],
                     totalItems: 0,
                     totalPrice: 0
                 });
             }
+            await cart.populate('items.product', 'name price images sku isInStock finalPrice');
             return cart;
         }
         catch (error) {

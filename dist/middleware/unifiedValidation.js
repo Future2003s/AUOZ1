@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.noValidation = exports.validatePagination = exports.validateSearchQuery = exports.validateAdminAction = exports.validateCartProductId = exports.validateUpdateCartItem = exports.validateAddToCart = exports.validateBrandId = exports.validateUpdateBrand = exports.validateCreateBrand = exports.validateOrderStatus = exports.validateOrderId = exports.validateCreateOrder = exports.validateBulkTranslations = exports.validateTranslationKey = exports.validateTranslation = exports.validateUserId = exports.validateAddress = exports.validateReviewId = exports.validateReview = exports.validateCategoryId = exports.validateCategory = exports.validateResetPassword = exports.validateForgotPassword = exports.validateChangePassword = exports.validateLogin = exports.validateRegister = exports.validateProductId = exports.validateUpdateProduct = exports.validateCreateProduct = exports.handleValidationErrors = void 0;
+exports.noValidation = exports.validatePagination = exports.validateSearchQuery = exports.validateAdminAction = exports.validateProductIdParam = exports.validateCommentId = exports.validateCommentIdParam = exports.validateCreateComment = exports.validateCartProductId = exports.validateUpdateCartItem = exports.validateAddToCart = exports.validateBrandId = exports.validateUpdateBrand = exports.validateCreateBrand = exports.validateOrderStatus = exports.validateOrderId = exports.validateCreateOrder = exports.validateBulkTranslations = exports.validateTranslationKey = exports.validateTranslation = exports.validateUserId = exports.validateAddress = exports.validateReviewId = exports.validateReview = exports.validateCategoryId = exports.validateCategory = exports.validateResetPassword = exports.validateForgotPassword = exports.validateChangePassword = exports.validateLogin = exports.validateRegister = exports.validateProductId = exports.validateUpdateProduct = exports.validateCreateProduct = exports.handleValidationErrors = void 0;
 const express_validator_1 = require("express-validator");
 // Handle validation errors
 const handleValidationErrors = (req, res, next) => {
@@ -177,6 +177,32 @@ exports.validateUpdateCartItem = [
     exports.handleValidationErrors
 ];
 exports.validateCartProductId = [
+    (0, express_validator_1.param)("productId").isMongoId().withMessage("Invalid product ID"),
+    exports.handleValidationErrors
+];
+// ===== COMMENT VALIDATION =====
+exports.validateCreateComment = [
+    (0, express_validator_1.body)("productId").isMongoId().withMessage("Valid product ID is required"),
+    (0, express_validator_1.body)("content")
+        .isString()
+        .trim()
+        .isLength({ min: 1, max: 1000 })
+        .withMessage("Comment must be between 1 and 1000 characters"),
+    (0, express_validator_1.body)("parentCommentId")
+        .optional()
+        .isMongoId()
+        .withMessage("Parent comment ID must be a valid identifier"),
+    exports.handleValidationErrors
+];
+exports.validateCommentIdParam = [
+    (0, express_validator_1.param)("id").isMongoId().withMessage("Invalid comment ID"),
+    exports.handleValidationErrors
+];
+exports.validateCommentId = [
+    (0, express_validator_1.param)("commentId").isMongoId().withMessage("Invalid comment ID"),
+    exports.handleValidationErrors
+];
+exports.validateProductIdParam = [
     (0, express_validator_1.param)("productId").isMongoId().withMessage("Invalid product ID"),
     exports.handleValidationErrors
 ];

@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.rateLimitAnalytics = exports.trustedIPBypass = exports.adaptiveRateLimit = exports.dynamicRateLimit = exports.adminRateLimit = exports.reviewRateLimit = exports.cartRateLimit = exports.searchRateLimit = exports.failedLoginRateLimit = exports.authRateLimit = exports.generalRateLimit = void 0;
+exports.rateLimitAnalytics = exports.trustedIPBypass = exports.adaptiveRateLimit = exports.dynamicRateLimit = exports.adminRateLimit = exports.commentRateLimit = exports.reviewRateLimit = exports.cartRateLimit = exports.searchRateLimit = exports.failedLoginRateLimit = exports.authRateLimit = exports.generalRateLimit = void 0;
 const express_rate_limit_1 = __importDefault(require("express-rate-limit"));
 const redis_1 = require("../config/redis");
 const logger_1 = require("../utils/logger");
@@ -190,6 +190,12 @@ exports.reviewRateLimit = createRateLimiter({
     windowMs: 60 * 60 * 1000, // 1 hour
     max: 5, // 5 reviews per hour
     message: "Too many review submissions, please try again later"
+});
+// Comment rate limiter
+exports.commentRateLimit = createRateLimiter({
+    windowMs: 1 * 60 * 1000, // 1 minute
+    max: 60, // 60 comment operations per minute
+    message: "Too many comment operations, please slow down"
 });
 // Admin operations rate limiter
 exports.adminRateLimit = createRateLimiter({

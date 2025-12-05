@@ -28,7 +28,7 @@ const buildStatusFilter = (status) => {
     return {};
 };
 exports.createNews = (0, asyncHandler_1.asyncHandler)(async (req, res) => {
-    const { title, excerpt, content, coverImage, category, tags = [], authorName, authorRole, readTime, locale = "vi", status = "draft", isFeatured = false, publishedAt, } = req.body;
+    const { title, excerpt, content, contentBlocks, coverImage, category, tags = [], authorName, authorRole, readTime, locale = "vi", status = "draft", isFeatured = false, publishedAt, views, } = req.body;
     if (!title || !excerpt || !content) {
         return response_1.ResponseHandler.badRequest(res, "Vui lòng nhập đầy đủ tiêu đề, mô tả ngắn và nội dung.");
     }
@@ -44,6 +44,7 @@ exports.createNews = (0, asyncHandler_1.asyncHandler)(async (req, res) => {
         excerpt,
         content,
         coverImage,
+        contentBlocks,
         category,
         tags,
         authorName,
@@ -52,6 +53,7 @@ exports.createNews = (0, asyncHandler_1.asyncHandler)(async (req, res) => {
         locale,
         status,
         isFeatured,
+        views: typeof views === "number" ? views : 0,
         publishedAt: publishedAt || (status === "published" ? new Date() : null),
         createdBy: req.user?._id,
         updatedBy: req.user?._id,
@@ -81,11 +83,11 @@ exports.getPublicNews = (0, asyncHandler_1.asyncHandler)(async (req, res) => {
 exports.getNewsBySlug = (0, asyncHandler_1.asyncHandler)(async (req, res) => {
     const { slug } = req.params;
     const locale = req.query.locale || "vi";
-    const news = await News_1.News.findOne({
+    const news = await News_1.News.findOneAndUpdate({
         slug,
         locale,
         status: "published",
-    }).lean();
+    }, { $inc: { views: 1 } }, { new: true }).lean();
     if (!news) {
         return response_1.ResponseHandler.notFound(res, "Không tìm thấy bài viết");
     }
@@ -114,7 +116,7 @@ exports.getAdminNews = (0, asyncHandler_1.asyncHandler)(async (req, res) => {
 });
 exports.updateNews = (0, asyncHandler_1.asyncHandler)(async (req, res) => {
     const { id } = req.params;
-    const { title, excerpt, content, coverImage, category, tags, authorName, authorRole, readTime, locale, status, isFeatured, publishedAt, } = req.body;
+    const { title, excerpt, content, contentBlocks, coverImage, category, tags, authorName, authorRole, readTime, locale, status, isFeatured, publishedAt, views, } = req.body;
     const update = {
         updatedBy: req.user?._id,
     };
@@ -134,6 +136,8 @@ exports.updateNews = (0, asyncHandler_1.asyncHandler)(async (req, res) => {
         update.content = content;
     if (coverImage !== undefined)
         update.coverImage = coverImage;
+    if (contentBlocks !== undefined)
+        update.contentBlocks = contentBlocks;
     if (category !== undefined)
         update.category = category;
     if (tags !== undefined)
@@ -156,6 +160,9 @@ exports.updateNews = (0, asyncHandler_1.asyncHandler)(async (req, res) => {
     }
     if (publishedAt !== undefined) {
         update.publishedAt = publishedAt;
+    }
+    if (typeof views === "number") {
+        update.views = views;
     }
     const news = await News_1.News.findByIdAndUpdate(id, update, {
         new: true,
