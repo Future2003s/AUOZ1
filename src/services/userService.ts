@@ -1,6 +1,7 @@
 import { User, IUser } from "../models/User";
 import { AppError } from "../utils/AppError";
 import { logger } from "../utils/logger";
+import { CacheWrapper } from "../utils/performance";
 
 const normalizeEmail = (email: string) => email.trim().toLowerCase();
 
@@ -340,7 +341,7 @@ export class UserService {
     /**
      * Update user role (Admin only)
      */
-    static async updateUserRole(userId: string, role: "customer" | "admin" | "seller"): Promise<IUser> {
+    static async updateUserRole(userId: string, role: "customer" | "admin" | "seller" | "employee"): Promise<IUser> {
         try {
             const user = await User.findById(userId);
             if (!user) {
@@ -389,8 +390,7 @@ export class UserService {
                 throw new AppError("User not found", 404);
             }
 
-            // Import rate limit cache
-            const { CacheWrapper } = await import("../utils/performance.js");
+            // Use rate limit cache
             const rateLimitCache = new CacheWrapper("rate_limit", 900);
             
             // Clear login attempts for this user's email
@@ -414,8 +414,7 @@ export class UserService {
                 throw new AppError("User not found", 404);
             }
 
-            // Import rate limit cache
-            const { CacheWrapper } = await import("../utils/performance.js");
+            // Use rate limit cache
             const rateLimitCache = new CacheWrapper("rate_limit", 900);
             
             // Get login attempts for this user's email
@@ -455,7 +454,7 @@ export class UserService {
         lastName: string;
         email: string;
         password: string;
-        role?: "customer" | "admin" | "seller";
+        role?: "customer" | "admin" | "seller" | "employee";
         phone?: string;
     }): Promise<IUser> {
         try {
@@ -493,7 +492,7 @@ export class UserService {
         lastName?: string;
         email?: string;
         phone?: string;
-        role?: "customer" | "admin" | "seller";
+        role?: "customer" | "admin" | "seller" | "employee";
         isActive?: boolean;
     }): Promise<IUser> {
         try {

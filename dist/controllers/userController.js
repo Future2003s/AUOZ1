@@ -156,8 +156,8 @@ exports.updateUser = (0, asyncHandler_1.asyncHandler)(async (req, res, next) => 
 exports.updateUserRole = (0, asyncHandler_1.asyncHandler)(async (req, res, next) => {
     const { id } = req.params;
     const { role } = req.body;
-    if (!role || !["customer", "admin", "seller"].includes(role)) {
-        return response_1.ResponseHandler.badRequest(res, "Valid role is required (customer, admin, seller)");
+    if (!role || !["customer", "admin", "seller", "employee"].includes(role)) {
+        return response_1.ResponseHandler.badRequest(res, "Valid role is required (customer, admin, seller, employee)");
     }
     const user = await userService_1.UserService.updateUserRole(id, role);
     response_1.ResponseHandler.success(res, user, "User role updated successfully");

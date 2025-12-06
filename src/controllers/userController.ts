@@ -203,8 +203,8 @@ export const updateUserRole = asyncHandler(async (req: Request, res: Response, n
     const { id } = req.params;
     const { role } = req.body;
 
-    if (!role || !["customer", "admin", "seller"].includes(role)) {
-        return ResponseHandler.badRequest(res, "Valid role is required (customer, admin, seller)");
+    if (!role || !["customer", "admin", "seller", "employee"].includes(role)) {
+        return ResponseHandler.badRequest(res, "Valid role is required (customer, admin, seller, employee)");
     }
 
     const user = await UserService.updateUserRole(id, role);

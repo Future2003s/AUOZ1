@@ -4,6 +4,7 @@ exports.UserService = void 0;
 const User_1 = require("../models/User");
 const AppError_1 = require("../utils/AppError");
 const logger_1 = require("../utils/logger");
+const performance_1 = require("../utils/performance");
 const normalizeEmail = (email) => email.trim().toLowerCase();
 class UserService {
     /**
@@ -316,9 +317,8 @@ class UserService {
             if (!user) {
                 throw new AppError_1.AppError("User not found", 404);
             }
-            // Import rate limit cache
-            const { CacheWrapper } = await import("../utils/performance.js");
-            const rateLimitCache = new CacheWrapper("rate_limit", 900);
+            // Use rate limit cache
+            const rateLimitCache = new performance_1.CacheWrapper("rate_limit", 900);
             // Clear login attempts for this user's email
             const rateLimitKey = `login_attempts:${normalizeEmail(user.email)}`;
             await rateLimitCache.del(rateLimitKey);
@@ -338,9 +338,8 @@ class UserService {
             if (!user) {
                 throw new AppError_1.AppError("User not found", 404);
             }
-            // Import rate limit cache
-            const { CacheWrapper } = await import("../utils/performance.js");
-            const rateLimitCache = new CacheWrapper("rate_limit", 900);
+            // Use rate limit cache
+            const rateLimitCache = new performance_1.CacheWrapper("rate_limit", 900);
             // Get login attempts for this user's email
             const rateLimitKey = `login_attempts:${normalizeEmail(user.email)}`;
             const attempts = Number((await rateLimitCache.get(rateLimitKey)) || 0);

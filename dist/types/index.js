@@ -27,6 +27,7 @@ var UserRole;
     UserRole["CUSTOMER"] = "customer";
     UserRole["ADMIN"] = "admin";
     UserRole["SELLER"] = "seller";
+    UserRole["EMPLOYEE"] = "employee";
     UserRole["TRANSLATOR"] = "translator";
 })(UserRole || (exports.UserRole = UserRole = {}));
 // ============= NOTIFICATION TYPES =============

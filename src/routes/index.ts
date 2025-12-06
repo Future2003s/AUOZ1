@@ -19,6 +19,8 @@ import complaintRoutes from "./complaints";
 import voucherRoutes from "./vouchers";
 import newsRoutes from "./news";
 import flowerLogRoutes from "./flowerLogs";
+import taskRoutes from "./tasks";
+import storyRoutes from "./story";
 import path from "path";
 import fs from "fs";
 
@@ -97,5 +99,7 @@ router.use("/vouchers", voucherRoutes);
 router.use("/news", newsRoutes);
 router.use("/comments", commentRoutes);
 router.use("/flower-logs", flowerLogRoutes);
+router.use("/tasks", taskRoutes);
+router.use("/story", storyRoutes);
 
 export default router;

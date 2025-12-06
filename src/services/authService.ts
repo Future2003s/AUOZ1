@@ -25,7 +25,7 @@ interface RegisterData {
     password: string;
     phone?: string;
     // Allow role override only in development/testing scenarios
-    role?: "customer" | "admin" | "seller";
+    role?: "customer" | "admin" | "seller" | "employee";
 }
 
 interface LoginData {
