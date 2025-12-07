@@ -5,6 +5,7 @@ import {
   createNews,
   deleteNews,
   getAdminNews,
+  getAdminNewsById,
   getNewsBySlug,
   getPublicNews,
   updateNews,
@@ -20,6 +21,13 @@ router.get(
   authorize("admin"),
   adminRateLimit,
   getAdminNews
+);
+router.get(
+  "/admin/:id",
+  protect,
+  authorize("admin"),
+  adminRateLimit,
+  getAdminNewsById
 );
 router.put(
   "/admin/:id",

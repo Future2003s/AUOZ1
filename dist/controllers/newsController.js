@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteNews = exports.updateNews = exports.getAdminNews = exports.getNewsBySlug = exports.getPublicNews = exports.createNews = void 0;
+exports.deleteNews = exports.updateNews = exports.getAdminNews = exports.getAdminNewsById = exports.getNewsBySlug = exports.getPublicNews = exports.createNews = void 0;
 const asyncHandler_1 = require("../utils/asyncHandler");
 const response_1 = require("../utils/response");
 const News_1 = require("../models/News");
@@ -70,14 +70,26 @@ exports.getPublicNews = (0, asyncHandler_1.asyncHandler)(async (req, res) => {
         locale,
         ...buildSearchFilter(search),
     };
+    // Debug logging
+    console.log("getPublicNews filter:", JSON.stringify(filter, null, 2));
+    // Check total count without filter first
+    const totalAll = await News_1.News.countDocuments({});
+    const totalPublished = await News_1.News.countDocuments({ status: "published" });
+    const totalPublishedLocale = await News_1.News.countDocuments({ status: "published", locale });
+    console.log(`News counts - All: ${totalAll}, Published: ${totalPublished}, Published+Locale(${locale}): ${totalPublishedLocale}`);
     const [items, total] = await Promise.all([
         News_1.News.find(filter)
-            .sort({ isFeatured: -1, publishedAt: -1 })
+            .sort({
+            isFeatured: -1,
+            publishedAt: -1,
+            createdAt: -1 // Fallback sort by createdAt if publishedAt is null
+        })
             .skip((page - 1) * limit)
             .limit(limit)
             .lean(),
         News_1.News.countDocuments(filter),
     ]);
+    console.log(`getPublicNews returning ${items.length} items out of ${total} total`);
     return response_1.ResponseHandler.paginated(res, items, page, limit, total);
 });
 exports.getNewsBySlug = (0, asyncHandler_1.asyncHandler)(async (req, res) => {
@@ -88,6 +100,14 @@ exports.getNewsBySlug = (0, asyncHandler_1.asyncHandler)(async (req, res) => {
         locale,
         status: "published",
     }, { $inc: { views: 1 } }, { new: true }).lean();
+    if (!news) {
+        return response_1.ResponseHandler.notFound(res, "Không tìm thấy bài viết");
+    }
+    return response_1.ResponseHandler.success(res, news);
+});
+exports.getAdminNewsById = (0, asyncHandler_1.asyncHandler)(async (req, res) => {
+    const { id } = req.params;
+    const news = await News_1.News.findById(id).lean();
     if (!news) {
         return response_1.ResponseHandler.notFound(res, "Không tìm thấy bài viết");
     }

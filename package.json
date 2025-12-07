@@ -35,7 +35,8 @@
         "metrics": "curl -s http://localhost:8081/api/v1/performance/metrics",
         "test:redis": "ts-node src/scripts/test-redis.ts",
         "cleanup:indexes": "ts-node src/scripts/cleanup-indexes.ts",
-        "seed:translations": "ts-node src/scripts/seed-translations.ts"
+        "seed:translations": "ts-node src/scripts/seed-translations.ts",
+        "seed:news": "ts-node src/scripts/seed-news.ts"
     },
     "keywords": [],
     "author": "",
