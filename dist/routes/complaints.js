@@ -1,0 +1,14 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const auth_1 = require("../middleware/auth");
+const rateLimiting_1 = require("../middleware/rateLimiting");
+const complaintSettingsController_1 = require("../controllers/complaintSettingsController");
+const complaintController_1 = require("../controllers/complaintController");
+const router = (0, express_1.Router)();
+router.get("/", rateLimiting_1.generalRateLimit, complaintSettingsController_1.getComplaintSettings);
+router.put("/", auth_1.protect, (0, auth_1.authorize)("admin"), rateLimiting_1.adminRateLimit, complaintSettingsController_1.updateComplaintSettings);
+router.post("/requests", rateLimiting_1.generalRateLimit, complaintController_1.createComplaintRequest);
+router.get("/requests", auth_1.protect, (0, auth_1.authorize)("admin"), rateLimiting_1.adminRateLimit, complaintController_1.getComplaintRequests);
+router.patch("/requests/:id", auth_1.protect, (0, auth_1.authorize)("admin"), rateLimiting_1.adminRateLimit, complaintController_1.updateComplaintRequest);
+exports.default = router;

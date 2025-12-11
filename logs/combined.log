@@ -880,3 +880,505 @@
 {"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37mData cached: monitoring:system_stats (TTL: 1800s)\u001b[39m","timestamp":"2025-12-11 17:41:24:4124"}
 {"cache":{"hits":0,"misses":0,"size":1},"cpu":{"system":765000,"user":1984000},"database":{"host":"ac-0yhxqmh-shard-00-01.loq8seh.mongodb.net","readyState":1},"level":"\u001b[37mdebug\u001b[39m","memory":{"external":25,"heapTotal":64,"heapUsed":59,"rss":128},"message":"\u001b[37m📊 System Stats:\u001b[39m","performance":{"averageResponseTime":157,"cacheHitRate":0,"errorRate":0,"requestCount":1},"timestamp":"2025-12-11 17:41:24:4124"}
 {"level":"\u001b[33mwarn\u001b[39m","message":"\u001b[33m⚠️ High memory usage: 59.34MB (92.8%)\u001b[39m","timestamp":"2025-12-11 17:41:47:4147"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mFastJSON schemas initialized: 9 schemas\u001b[39m","timestamp":"2025-12-11 17:42:08:428"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m🔧 Applying optimized middleware stack...\u001b[39m","timestamp":"2025-12-11 17:42:08:428"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m✅ Optimized middleware stack applied\u001b[39m","timestamp":"2025-12-11 17:42:08:428"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m🚀 Starting optimized ShopDev server...\u001b[39m","timestamp":"2025-12-11 17:42:08:428"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m📊 Connecting to database...\u001b[39m","timestamp":"2025-12-11 17:42:08:428"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m✅ MongoDB connected: ac-0yhxqmh-shard-00-01.loq8seh.mongodb.net\u001b[39m","timestamp":"2025-12-11 17:42:09:429"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m📊 Connection pool - Max: 100, Min: 10\u001b[39m","timestamp":"2025-12-11 17:42:09:429"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m🗜️ Compression enabled: zlib\u001b[39m","timestamp":"2025-12-11 17:42:09:429"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m🔗 Connecting to Redis cache...\u001b[39m","timestamp":"2025-12-11 17:42:09:429"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m🔗 Redis connecting...\u001b[39m","timestamp":"2025-12-11 17:42:09:429"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m✅ Redis connected and ready\u001b[39m","timestamp":"2025-12-11 17:42:09:429"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m🏓 Redis ping successful\u001b[39m","timestamp":"2025-12-11 17:42:09:429"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m✅ Redis connected successfully\u001b[39m","timestamp":"2025-12-11 17:42:09:429"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m🔍 Creating optimized database indexes...\u001b[39m","timestamp":"2025-12-11 17:42:09:429"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m🔍 Creating optimized database indexes...\u001b[39m","timestamp":"2025-12-11 17:42:09:429"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m📝 User indexes created\u001b[39m","timestamp":"2025-12-11 17:42:10:4210"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m📦 Product indexes created\u001b[39m","timestamp":"2025-12-11 17:42:11:4211"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m📂 Category indexes created\u001b[39m","timestamp":"2025-12-11 17:42:12:4212"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m🏷️ Brand indexes created\u001b[39m","timestamp":"2025-12-11 17:42:12:4212"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m🛒 Cart indexes created\u001b[39m","timestamp":"2025-12-11 17:42:13:4213"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m📋 Order indexes created\u001b[39m","timestamp":"2025-12-11 17:42:14:4214"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m⭐ Review indexes created\u001b[39m","timestamp":"2025-12-11 17:42:14:4214"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m✅ All database indexes created successfully\u001b[39m","timestamp":"2025-12-11 17:42:14:4214"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m📊 users: 8 indexes created\u001b[39m","timestamp":"2025-12-11 17:42:15:4215"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m📊 products: 20 indexes created\u001b[39m","timestamp":"2025-12-11 17:42:15:4215"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m📊 categories: 9 indexes created\u001b[39m","timestamp":"2025-12-11 17:42:15:4215"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m📊 brands: 7 indexes created\u001b[39m","timestamp":"2025-12-11 17:42:15:4215"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m📊 carts: 7 indexes created\u001b[39m","timestamp":"2025-12-11 17:42:15:4215"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m📊 orders: 11 indexes created\u001b[39m","timestamp":"2025-12-11 17:42:15:4215"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m📊 reviews: 14 indexes created\u001b[39m","timestamp":"2025-12-11 17:42:15:4215"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m✅ Database indexes created successfully\u001b[39m","timestamp":"2025-12-11 17:42:15:4215"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m🔥 Warming up cache...\u001b[39m","timestamp":"2025-12-11 17:42:15:4215"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m🔥 Starting cache warm-up...\u001b[39m","timestamp":"2025-12-11 17:42:15:4215"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m✅ Cache warm-up completed\u001b[39m","timestamp":"2025-12-11 17:42:15:4215"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m✅ Optimized server started successfully!\u001b[39m","timestamp":"2025-12-11 17:42:15:4215"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m🚀 Optimized server running on port 8081\u001b[39m","timestamp":"2025-12-11 17:42:15:4215"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m📊 Environment: development\u001b[39m","timestamp":"2025-12-11 17:42:15:4215"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m🔗 Database: mongodb\u001b[39m","timestamp":"2025-12-11 17:42:15:4215"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m⚡ Redis caching enabled\u001b[39m","timestamp":"2025-12-11 17:42:15:4215"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m🗜️ Compression enabled\u001b[39m","timestamp":"2025-12-11 17:42:15:4215"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m🔒 Security headers enabled\u001b[39m","timestamp":"2025-12-11 17:42:15:4215"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32m📈 Performance monitoring enabled\u001b[39m","timestamp":"2025-12-11 17:42:15:4215"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37mVietnamese characters detected in request body\u001b[39m","timestamp":"2025-12-11 17:42:18:4218"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m❌ Cache MISS: blacklist:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4YTU2OWQxMjVlNzBlZjAwMDY4YjYwZiIsImlhdCI6MTc2NTQ0ODg1MiwiZXhwIjoxNzY1NDQ5NzUyfQ.yIdDhDmChxlNboiDu0X9fjdTsZrp6QHCd7wavlcDPLk\u001b[39m","timestamp":"2025-12-11 17:42:19:4219"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m🎯 Cache HIT: users:user:68a569d125e70ef00068b60f\u001b[39m","timestamp":"2025-12-11 17:42:19:4219"}
+{"ip":"::1","level":"\u001b[31merror\u001b[39m","message":"\u001b[31mError: Order code already exists\u001b[39m","method":"POST","stack":"Error: Order code already exists\n    at D:\\BeLLLC\\src\\controllers\\deliveryController.ts:86:21\n    at processTicksAndRejections (node:internal/process/task_queues:105:5)","timestamp":"2025-12-11 17:42:19:4219","url":"/api/v1/delivery/","userAgent":"PostmanRuntime/7.49.1"}
+{"level":"\u001b[33mwarn\u001b[39m","message":"\u001b[33m🐌 Slow request: POST /api/v1/delivery/ took 155ms\u001b[39m","timestamp":"2025-12-11 17:42:19:4219"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m⚡ POST /api/v1/delivery/ - 156.04ms\u001b[39m","timestamp":"2025-12-11 17:42:19:4219"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37mVietnamese characters detected in request body\u001b[39m","timestamp":"2025-12-11 17:42:24:4224"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m❌ Cache MISS: blacklist:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4YTU2OWQxMjVlNzBlZjAwMDY4YjYwZiIsImlhdCI6MTc2NTQ0ODg1MiwiZXhwIjoxNzY1NDQ5NzUyfQ.yIdDhDmChxlNboiDu0X9fjdTsZrp6QHCd7wavlcDPLk\u001b[39m","timestamp":"2025-12-11 17:42:24:4224"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37mJWT validation cache hit\u001b[39m","timestamp":"2025-12-11 17:42:24:4224"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m🎯 Cache HIT: users:user:68a569d125e70ef00068b60f\u001b[39m","timestamp":"2025-12-11 17:42:24:4224"}
+{"level":"\u001b[33mwarn\u001b[39m","message":"\u001b[33m🐌 Slow request: POST /api/v1/delivery/ took 216ms\u001b[39m","timestamp":"2025-12-11 17:42:24:4224"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m⚡ POST /api/v1/delivery/ - 215.79ms\u001b[39m","timestamp":"2025-12-11 17:42:24:4224"}
+{"level":"\u001b[33mwarn\u001b[39m","message":"\u001b[33m🚨 ALERT [medium]: Low cache hit rate: 50%\u001b[39m","timestamp":"2025-12-11 17:42:38:4238"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37mData cached: monitoring:alert_cache_hit_rate (TTL: 1800s)\u001b[39m","timestamp":"2025-12-11 17:42:38:4238"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37mData cached: monitoring:system_stats (TTL: 1800s)\u001b[39m","timestamp":"2025-12-11 17:42:38:4238"}
+{"cache":{"hits":0,"misses":0,"size":1},"cpu":{"system":468000,"user":1937000},"database":{"host":"ac-0yhxqmh-shard-00-01.loq8seh.mongodb.net","readyState":1},"level":"\u001b[37mdebug\u001b[39m","memory":{"external":25,"heapTotal":67,"heapUsed":62,"rss":129},"message":"\u001b[37m📊 System Stats:\u001b[39m","performance":{"averageResponseTime":186,"cacheHitRate":50,"errorRate":0,"requestCount":2},"timestamp":"2025-12-11 17:42:38:4238"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m⚡ GET /api/v1/homepage - 42.52ms\u001b[39m","timestamp":"2025-12-11 17:43:03:433"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m⚡ OPTIONS /api/v1/categories?isActive=true&sort=order&order=asc - 0.35ms\u001b[39m","timestamp":"2025-12-11 17:43:04:434"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m⚡ GET /api/v1/categories?isActive=true&sort=order&order=asc - 48.92ms\u001b[39m","timestamp":"2025-12-11 17:43:04:434"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m⚡ GET /api/v1/advertisements/active - 42.80ms\u001b[39m","timestamp":"2025-12-11 17:43:04:434"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m⚡ GET /api/v1/cart - 41.66ms\u001b[39m","timestamp":"2025-12-11 17:43:04:434"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m🎯 Cache HIT: products:featured:8\u001b[39m","timestamp":"2025-12-11 17:43:04:434"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mFeatured products cache HIT: Found 2 products\u001b[39m","timestamp":"2025-12-11 17:43:04:434"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m⚡ GET /api/v1/products/featured?limit=8 - 48.72ms\u001b[39m","timestamp":"2025-12-11 17:43:04:434"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m❌ Cache MISS: products:cHJvZHVjdHN8eyJzdGF0dXMiOiJhY3RpdmUiLCJpc1Zpc2libG\u001b[39m","timestamp":"2025-12-11 17:43:04:434"}
+{"level":"\u001b[33mwarn\u001b[39m","message":"\u001b[33m🐌 Slow request: GET /api/v1/news?locale=vi&limit=4&status=published took 158ms\u001b[39m","timestamp":"2025-12-11 17:43:04:434"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m⚡ GET /api/v1/news?locale=vi&limit=4&status=published - 158.11ms\u001b[39m","timestamp":"2025-12-11 17:43:04:434"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m❌ Cache MISS: pagination:cHJvZHVjdHN8eyJzdGF0dXMiOiJhY3RpdmUiLCJpc1Zpc2libG\u001b[39m","timestamp":"2025-12-11 17:43:04:434"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m⚡ GET /api/v1/homepage - 40.10ms\u001b[39m","timestamp":"2025-12-11 17:43:05:435"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m💾 Cache SET: pagination:cHJvZHVjdHN8eyJzdGF0dXMiOiJhY3RpdmUiLCJpc1Zpc2libG\u001b[39m","timestamp":"2025-12-11 17:43:05:435"}
+{"level":"\u001b[33mwarn\u001b[39m","message":"\u001b[33m🐌 Slow pagination query: 133ms, total: 2, page: 1\u001b[39m","timestamp":"2025-12-11 17:43:05:435"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m💾 Cache SET: products:cHJvZHVjdHN8eyJzdGF0dXMiOiJhY3RpdmUiLCJpc1Zpc2libG\u001b[39m","timestamp":"2025-12-11 17:43:05:435"}
+{"level":"\u001b[33mwarn\u001b[39m","message":"\u001b[33m🐌 Slow request: GET /api/v1/products?page=1&limit=50&status=active&isVisible=true took 282ms\u001b[39m","timestamp":"2025-12-11 17:43:05:435"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m⚡ GET /api/v1/products?page=1&limit=50&status=active&isVisible=true - 282.92ms\u001b[39m","timestamp":"2025-12-11 17:43:05:435"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m🎯 Cache HIT: products:featured:8\u001b[39m","timestamp":"2025-12-11 17:43:05:435"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mFeatured products cache HIT: Found 2 products\u001b[39m","timestamp":"2025-12-11 17:43:05:435"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m⚡ GET /api/v1/products/featured?limit=8 - 47.67ms\u001b[39m","timestamp":"2025-12-11 17:43:05:435"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m⚡ GET /api/v1/cart - 39.54ms\u001b[39m","timestamp":"2025-12-11 17:43:05:435"}
+{"level":"\u001b[33mwarn\u001b[39m","message":"\u001b[33m🐌 Slow request: GET /api/v1/news?locale=vi&limit=4&status=published took 159ms\u001b[39m","timestamp":"2025-12-11 17:43:05:435"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m⚡ GET /api/v1/news?locale=vi&limit=4&status=published - 159.37ms\u001b[39m","timestamp":"2025-12-11 17:43:05:435"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m⚡ GET /api/v1/homepage - 40.74ms\u001b[39m","timestamp":"2025-12-11 17:43:05:435"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m🎯 Cache HIT: products:cHJvZHVjdHN8eyJzdGF0dXMiOiJhY3RpdmUiLCJpc1Zpc2libG\u001b[39m","timestamp":"2025-12-11 17:43:05:435"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37mCache hit for products: cHJvZHVjdHN8eyJzdGF0dXMiOiJhY3RpdmUiLCJpc1Zpc2libG\u001b[39m","timestamp":"2025-12-11 17:43:06:436"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m⚡ GET /api/v1/products?page=1&limit=50&status=active&isVisible=true - 54.32ms\u001b[39m","timestamp":"2025-12-11 17:43:06:436"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m🎯 Cache HIT: products:featured:8\u001b[39m","timestamp":"2025-12-11 17:43:06:436"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mFeatured products cache HIT: Found 2 products\u001b[39m","timestamp":"2025-12-11 17:43:06:436"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m⚡ GET /api/v1/products/featured?limit=8 - 47.34ms\u001b[39m","timestamp":"2025-12-11 17:43:06:436"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m⚡ GET /api/v1/cart - 38.45ms\u001b[39m","timestamp":"2025-12-11 17:43:06:436"}
+{"level":"\u001b[33mwarn\u001b[39m","message":"\u001b[33m🐌 Slow request: GET /api/v1/news?locale=vi&limit=4&status=published took 155ms\u001b[39m","timestamp":"2025-12-11 17:43:06:436"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m⚡ GET /api/v1/news?locale=vi&limit=4&status=published - 155.95ms\u001b[39m","timestamp":"2025-12-11 17:43:06:436"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m🎯 Cache HIT: products:cHJvZHVjdHN8eyJzdGF0dXMiOiJhY3RpdmUiLCJpc1Zpc2libG\u001b[39m","timestamp":"2025-12-11 17:43:06:436"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37mCache hit for products: cHJvZHVjdHN8eyJzdGF0dXMiOiJhY3RpdmUiLCJpc1Zpc2libG\u001b[39m","timestamp":"2025-12-11 17:43:06:436"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m⚡ GET /api/v1/products?page=1&limit=50&status=active&isVisible=true - 47.49ms\u001b[39m","timestamp":"2025-12-11 17:43:06:436"}
+{"level":"\u001b[33mwarn\u001b[39m","message":"\u001b[33m⚠️ High memory usage: 65.98MB (91.7%)\u001b[39m","timestamp":"2025-12-11 17:43:08:438"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37mData cached: monitoring:system_stats (TTL: 1800s)\u001b[39m","timestamp":"2025-12-11 17:43:08:438"}
+{"cache":{"hits":0,"misses":0,"size":1},"cpu":{"system":484000,"user":2156000},"database":{"host":"ac-0yhxqmh-shard-00-01.loq8seh.mongodb.net","readyState":1},"level":"\u001b[37mdebug\u001b[39m","memory":{"external":26,"heapTotal":72,"heapUsed":66,"rss":135},"message":"\u001b[37m📊 System Stats:\u001b[39m","performance":{"averageResponseTime":85,"cacheHitRate":63.63636363636363,"errorRate":0,"requestCount":20},"timestamp":"2025-12-11 17:43:08:438"}
+{"level":"\u001b[37mdebug\u001b[39m","memoryUsage":"66.13MB","message":"\u001b[37m📊 Server stats:\u001b[39m","queryCount":0,"slowQueryCount":0,"timestamp":"2025-12-11 17:43:09:439"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m📊 Redis memory usage:\u001b[39m","timestamp":"2025-12-11 17:43:09:439","used_memory_human":"1.67M","used_memory_peak_human":"1.96M"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m⚡ GET /api/v1/homepage - 79.90ms\u001b[39m","timestamp":"2025-12-11 17:43:20:4320"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m⚡ OPTIONS /api/v1/categories?isActive=true&sort=order&order=asc - 0.13ms\u001b[39m","timestamp":"2025-12-11 17:43:22:4322"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m⚡ GET /api/v1/categories?isActive=true&sort=order&order=asc - 69.29ms\u001b[39m","timestamp":"2025-12-11 17:43:22:4322"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m🎯 Cache HIT: products:featured:8\u001b[39m","timestamp":"2025-12-11 17:43:22:4322"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mFeatured products cache HIT: Found 2 products\u001b[39m","timestamp":"2025-12-11 17:43:22:4322"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m⚡ GET /api/v1/products/featured?limit=8 - 54.21ms\u001b[39m","timestamp":"2025-12-11 17:43:22:4322"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m⚡ GET /api/v1/advertisements/active - 42.13ms\u001b[39m","timestamp":"2025-12-11 17:43:22:4322"}
+{"level":"\u001b[33mwarn\u001b[39m","message":"\u001b[33m🐌 Slow request: GET /api/v1/news?locale=vi&limit=4&status=published took 168ms\u001b[39m","timestamp":"2025-12-11 17:43:22:4322"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m⚡ GET /api/v1/news?locale=vi&limit=4&status=published - 172.21ms\u001b[39m","timestamp":"2025-12-11 17:43:22:4322"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m⚡ GET /api/v1/cart - 56.15ms\u001b[39m","timestamp":"2025-12-11 17:43:23:4323"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m🎯 Cache HIT: products:cHJvZHVjdHN8eyJzdGF0dXMiOiJhY3RpdmUiLCJpc1Zpc2libG\u001b[39m","timestamp":"2025-12-11 17:43:23:4323"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37mCache hit for products: cHJvZHVjdHN8eyJzdGF0dXMiOiJhY3RpdmUiLCJpc1Zpc2libG\u001b[39m","timestamp":"2025-12-11 17:43:23:4323"}
+{"level":"\u001b[33mwarn\u001b[39m","message":"\u001b[33m🐌 Slow request: GET /api/v1/products?page=1&limit=50&status=active&isVisible=true took 191ms\u001b[39m","timestamp":"2025-12-11 17:43:23:4323"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m⚡ GET /api/v1/products?page=1&limit=50&status=active&isVisible=true - 214.54ms\u001b[39m","timestamp":"2025-12-11 17:43:23:4323"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m🎯 Cache HIT: products:cHJvZHVjdHN8eyJzdGF0dXMiOiJhY3RpdmUiLCJpc1Zpc2libG\u001b[39m","timestamp":"2025-12-11 17:43:23:4323"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37mCache hit for products: cHJvZHVjdHN8eyJzdGF0dXMiOiJhY3RpdmUiLCJpc1Zpc2libG\u001b[39m","timestamp":"2025-12-11 17:43:24:4324"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m⚡ GET /api/v1/products?page=1&limit=50&status=active&isVisible=true - 66.61ms\u001b[39m","timestamp":"2025-12-11 17:43:24:4324"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m⚡ GET /api/v1/cart - 54.86ms\u001b[39m","timestamp":"2025-12-11 17:43:29:4329"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m🎯 Cache HIT: products:cHJvZHVjdHN8eyJzdGF0dXMiOiJhY3RpdmUiLCJpc1Zpc2libG\u001b[39m","timestamp":"2025-12-11 17:43:30:4330"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37mCache hit for products: cHJvZHVjdHN8eyJzdGF0dXMiOiJhY3RpdmUiLCJpc1Zpc2libG\u001b[39m","timestamp":"2025-12-11 17:43:30:4330"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m⚡ GET /api/v1/products?page=1&limit=50&status=active&isVisible=true - 49.44ms\u001b[39m","timestamp":"2025-12-11 17:43:30:4330"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m❌ Cache MISS: rate_limit:login_attempts:test1@gmail.com\u001b[39m","timestamp":"2025-12-11 17:43:36:4336"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37mUser auth query: test1@gmail.com\u001b[39m","timestamp":"2025-12-11 17:43:36:4336"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m💾 Cache SET: user:6933df10fb9d5bb23bdb526d\u001b[39m","timestamp":"2025-12-11 17:43:36:4336"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m💾 Cache SET: user:email:test1@gmail.com\u001b[39m","timestamp":"2025-12-11 17:43:36:4336"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37mUser cached: 6933df10fb9d5bb23bdb526d\u001b[39m","timestamp":"2025-12-11 17:43:36:4336"}
+{"level":"\u001b[33mwarn\u001b[39m","message":"\u001b[33m🐌 Slow query: User.findByEmailForAuth:test1@gmail.com took 193ms\u001b[39m","timestamp":"2025-12-11 17:43:36:4336"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m💾 Cache SET: auth:session:6933df10fb9d5bb23bdb526d\u001b[39m","timestamp":"2025-12-11 17:43:37:4337"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mUser logged in: test1@gmail.com\u001b[39m","timestamp":"2025-12-11 17:43:37:4337"}
+{"level":"\u001b[33mwarn\u001b[39m","message":"\u001b[33m🐌 Slow query: AuthService.login took 1208ms\u001b[39m","timestamp":"2025-12-11 17:43:37:4337"}
+{"level":"\u001b[33mwarn\u001b[39m","message":"\u001b[33m🐌 Slow request: POST /api/v1/auth/login took 1213ms\u001b[39m","timestamp":"2025-12-11 17:43:37:4337"}
+{"level":"\u001b[33mwarn\u001b[39m","message":"\u001b[33m🐌 Slow response: POST /api/v1/auth/login took 1213.12ms\u001b[39m","timestamp":"2025-12-11 17:43:37:4337"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m⚡ POST /api/v1/auth/login - 1213.12ms\u001b[39m","timestamp":"2025-12-11 17:43:37:4337"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m🗑️ Cache DEL: user:6933df10fb9d5bb23bdb526d\u001b[39m","timestamp":"2025-12-11 17:43:37:4337"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m❌ Cache MISS: blacklist:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5MzNkZjEwZmI5ZDViYjIzYmRiNTI2ZCIsImlhdCI6MTc2NTQ0OTgxNywiZXhwIjoxNzY1NDUwNzE3fQ.kpZ9NBNxw8PvgncF0vr2ejK5RFlwkrByi-0GzNbiZgI\u001b[39m","timestamp":"2025-12-11 17:43:37:4337"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m🗑️ Cache DEL: user:email:test1@gmail.com\u001b[39m","timestamp":"2025-12-11 17:43:37:4337"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37mUser cache invalidated: 6933df10fb9d5bb23bdb526d\u001b[39m","timestamp":"2025-12-11 17:43:37:4337"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m❌ Cache MISS: users:user:6933df10fb9d5bb23bdb526d\u001b[39m","timestamp":"2025-12-11 17:43:37:4337"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m💾 Cache SET: user:6933df10fb9d5bb23bdb526d\u001b[39m","timestamp":"2025-12-11 17:43:37:4337"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m💾 Cache SET: user:email:test1@gmail.com\u001b[39m","timestamp":"2025-12-11 17:43:37:4337"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m💾 Cache SET: users:user:6933df10fb9d5bb23bdb526d\u001b[39m","timestamp":"2025-12-11 17:43:37:4337"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37mUser cached: 6933df10fb9d5bb23bdb526d\u001b[39m","timestamp":"2025-12-11 17:43:37:4337"}
+{"level":"\u001b[33mwarn\u001b[39m","message":"\u001b[33m🐌 Slow request: GET /api/v1/auth/me took 262ms\u001b[39m","timestamp":"2025-12-11 17:43:37:4337"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m⚡ GET /api/v1/auth/me - 262.96ms\u001b[39m","timestamp":"2025-12-11 17:43:37:4337"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37mData cached: monitoring:system_stats (TTL: 1800s)\u001b[39m","timestamp":"2025-12-11 17:43:38:4338"}
+{"cache":{"hits":0,"misses":0,"size":1},"cpu":{"system":546000,"user":3000000},"database":{"host":"ac-0yhxqmh-shard-00-01.loq8seh.mongodb.net","readyState":1},"level":"\u001b[37mdebug\u001b[39m","memory":{"external":26,"heapTotal":71,"heapUsed":68,"rss":137},"message":"\u001b[37m📊 System Stats:\u001b[39m","performance":{"averageResponseTime":122,"cacheHitRate":63.1578947368421,"errorRate":0,"requestCount":33},"timestamp":"2025-12-11 17:43:38:4338"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m❌ Cache MISS: blacklist:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5MzNkZjEwZmI5ZDViYjIzYmRiNTI2ZCIsImlhdCI6MTc2NTQ0OTgxNywiZXhwIjoxNzY1NDUwNzE3fQ.kpZ9NBNxw8PvgncF0vr2ejK5RFlwkrByi-0GzNbiZgI\u001b[39m","timestamp":"2025-12-11 17:43:41:4341"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37mJWT validation cache hit\u001b[39m","timestamp":"2025-12-11 17:43:41:4341"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m🎯 Cache HIT: users:user:6933df10fb9d5bb23bdb526d\u001b[39m","timestamp":"2025-12-11 17:43:41:4341"}
+{"level":"\u001b[33mwarn\u001b[39m","message":"\u001b[33m🐌 Slow request: GET /api/v1/auth/me took 143ms\u001b[39m","timestamp":"2025-12-11 17:43:41:4341"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m⚡ GET /api/v1/auth/me - 143.78ms\u001b[39m","timestamp":"2025-12-11 17:43:41:4341"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m❌ Cache MISS: blacklist:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5MzNkZjEwZmI5ZDViYjIzYmRiNTI2ZCIsImlhdCI6MTc2NTQ0OTgxNywiZXhwIjoxNzY1NDUwNzE3fQ.kpZ9NBNxw8PvgncF0vr2ejK5RFlwkrByi-0GzNbiZgI\u001b[39m","timestamp":"2025-12-11 17:43:41:4341"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37mJWT validation cache hit\u001b[39m","timestamp":"2025-12-11 17:43:41:4341"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m🎯 Cache HIT: users:user:6933df10fb9d5bb23bdb526d\u001b[39m","timestamp":"2025-12-11 17:43:41:4341"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m❌ Cache MISS: blacklist:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5MzNkZjEwZmI5ZDViYjIzYmRiNTI2ZCIsImlhdCI6MTc2NTQ0OTgxNywiZXhwIjoxNzY1NDUwNzE3fQ.kpZ9NBNxw8PvgncF0vr2ejK5RFlwkrByi-0GzNbiZgI\u001b[39m","timestamp":"2025-12-11 17:43:41:4341"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37mJWT validation cache hit\u001b[39m","timestamp":"2025-12-11 17:43:41:4341"}
+{"level":"\u001b[33mwarn\u001b[39m","message":"\u001b[33m🐌 Slow request: GET /api/v1/users/addresses took 135ms\u001b[39m","timestamp":"2025-12-11 17:43:41:4341"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m⚡ GET /api/v1/users/addresses - 134.73ms\u001b[39m","timestamp":"2025-12-11 17:43:41:4341"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m🎯 Cache HIT: users:user:6933df10fb9d5bb23bdb526d\u001b[39m","timestamp":"2025-12-11 17:43:41:4341"}
+{"level":"\u001b[33mwarn\u001b[39m","message":"\u001b[33m🐌 Slow request: GET /api/v1/orders took 195ms\u001b[39m","timestamp":"2025-12-11 17:43:41:4341"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m⚡ GET /api/v1/orders - 196.16ms\u001b[39m","timestamp":"2025-12-11 17:43:41:4341"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m❌ Cache MISS: blacklist:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5MzNkZjEwZmI5ZDViYjIzYmRiNTI2ZCIsImlhdCI6MTc2NTQ0OTgxNywiZXhwIjoxNzY1NDUwNzE3fQ.kpZ9NBNxw8PvgncF0vr2ejK5RFlwkrByi-0GzNbiZgI\u001b[39m","timestamp":"2025-12-11 17:43:46:4346"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37mJWT validation cache hit\u001b[39m","timestamp":"2025-12-11 17:43:46:4346"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m🎯 Cache HIT: users:user:6933df10fb9d5bb23bdb526d\u001b[39m","timestamp":"2025-12-11 17:43:46:4346"}
+{"level":"\u001b[33mwarn\u001b[39m","message":"\u001b[33m🐌 Slow request: GET /api/v1/auth/me took 142ms\u001b[39m","timestamp":"2025-12-11 17:43:46:4346"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m⚡ GET /api/v1/auth/me - 142.35ms\u001b[39m","timestamp":"2025-12-11 17:43:46:4346"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m❌ Cache MISS: blacklist:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5MzNkZjEwZmI5ZDViYjIzYmRiNTI2ZCIsImlhdCI6MTc2NTQ0OTgxNywiZXhwIjoxNzY1NDUwNzE3fQ.kpZ9NBNxw8PvgncF0vr2ejK5RFlwkrByi-0GzNbiZgI\u001b[39m","timestamp":"2025-12-11 17:43:47:4347"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37mJWT validation cache hit\u001b[39m","timestamp":"2025-12-11 17:43:47:4347"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m🎯 Cache HIT: users:user:6933df10fb9d5bb23bdb526d\u001b[39m","timestamp":"2025-12-11 17:43:47:4347"}
+{"level":"\u001b[33mwarn\u001b[39m","message":"\u001b[33m🐌 Slow request: GET /api/v1/auth/me took 142ms\u001b[39m","timestamp":"2025-12-11 17:43:47:4347"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m⚡ GET /api/v1/auth/me - 142.61ms\u001b[39m","timestamp":"2025-12-11 17:43:47:4347"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m❌ Cache MISS: blacklist:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5MzNkZjEwZmI5ZDViYjIzYmRiNTI2ZCIsImlhdCI6MTc2NTQ0OTgxNywiZXhwIjoxNzY1NDUwNzE3fQ.kpZ9NBNxw8PvgncF0vr2ejK5RFlwkrByi-0GzNbiZgI\u001b[39m","timestamp":"2025-12-11 17:43:50:4350"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37mJWT validation cache hit\u001b[39m","timestamp":"2025-12-11 17:43:50:4350"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m🎯 Cache HIT: users:user:6933df10fb9d5bb23bdb526d\u001b[39m","timestamp":"2025-12-11 17:43:50:4350"}
+{"level":"\u001b[33mwarn\u001b[39m","message":"\u001b[33m🐌 Slow request: GET /api/v1/auth/me took 142ms\u001b[39m","timestamp":"2025-12-11 17:43:50:4350"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m⚡ GET /api/v1/auth/me - 142.23ms\u001b[39m","timestamp":"2025-12-11 17:43:50:4350"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m⚡ GET /api/v1/categories - 50.01ms\u001b[39m","timestamp":"2025-12-11 17:43:51:4351"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m❌ Cache MISS: blacklist:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5MzNkZjEwZmI5ZDViYjIzYmRiNTI2ZCIsImlhdCI6MTc2NTQ0OTgxNywiZXhwIjoxNzY1NDUwNzE3fQ.kpZ9NBNxw8PvgncF0vr2ejK5RFlwkrByi-0GzNbiZgI\u001b[39m","timestamp":"2025-12-11 17:43:51:4351"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37mJWT validation cache hit\u001b[39m","timestamp":"2025-12-11 17:43:51:4351"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m⚡ GET /api/v1/categories - 42.39ms\u001b[39m","timestamp":"2025-12-11 17:43:51:4351"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m❌ Cache MISS: blacklist:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5MzNkZjEwZmI5ZDViYjIzYmRiNTI2ZCIsImlhdCI6MTc2NTQ0OTgxNywiZXhwIjoxNzY1NDUwNzE3fQ.kpZ9NBNxw8PvgncF0vr2ejK5RFlwkrByi-0GzNbiZgI\u001b[39m","timestamp":"2025-12-11 17:43:51:4351"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37mJWT validation cache hit\u001b[39m","timestamp":"2025-12-11 17:43:51:4351"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m⚡ GET /api/v1/categories - 50.06ms\u001b[39m","timestamp":"2025-12-11 17:43:52:4352"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m🎯 Cache HIT: users:user:6933df10fb9d5bb23bdb526d\u001b[39m","timestamp":"2025-12-11 17:43:52:4352"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m🎯 Cache HIT: users:user:6933df10fb9d5bb23bdb526d\u001b[39m","timestamp":"2025-12-11 17:43:52:4352"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m⚡ GET /api/v1/categories - 39.66ms\u001b[39m","timestamp":"2025-12-11 17:43:52:4352"}
+{"level":"\u001b[33mwarn\u001b[39m","message":"\u001b[33m🐌 Slow request: GET /api/v1/buyers took 174ms\u001b[39m","timestamp":"2025-12-11 17:43:52:4352"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m⚡ GET /api/v1/buyers - 174.54ms\u001b[39m","timestamp":"2025-12-11 17:43:52:4352"}
+{"level":"\u001b[33mwarn\u001b[39m","message":"\u001b[33m🐌 Slow request: GET /api/v1/buyers took 193ms\u001b[39m","timestamp":"2025-12-11 17:43:52:4352"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m⚡ GET /api/v1/buyers - 193.72ms\u001b[39m","timestamp":"2025-12-11 17:43:52:4352"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m❌ Cache MISS: blacklist:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5MzNkZjEwZmI5ZDViYjIzYmRiNTI2ZCIsImlhdCI6MTc2NTQ0OTgxNywiZXhwIjoxNzY1NDUwNzE3fQ.kpZ9NBNxw8PvgncF0vr2ejK5RFlwkrByi-0GzNbiZgI\u001b[39m","timestamp":"2025-12-11 17:43:54:4354"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37mJWT validation cache hit\u001b[39m","timestamp":"2025-12-11 17:43:54:4354"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m🎯 Cache HIT: users:user:6933df10fb9d5bb23bdb526d\u001b[39m","timestamp":"2025-12-11 17:43:54:4354"}
+{"level":"\u001b[33mwarn\u001b[39m","message":"\u001b[33m🐌 Slow request: GET /api/v1/auth/me took 149ms\u001b[39m","timestamp":"2025-12-11 17:43:54:4354"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m⚡ GET /api/v1/auth/me - 149.91ms\u001b[39m","timestamp":"2025-12-11 17:43:54:4354"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m❌ Cache MISS: blacklist:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5MzNkZjEwZmI5ZDViYjIzYmRiNTI2ZCIsImlhdCI6MTc2NTQ0OTgxNywiZXhwIjoxNzY1NDUwNzE3fQ.kpZ9NBNxw8PvgncF0vr2ejK5RFlwkrByi-0GzNbiZgI\u001b[39m","timestamp":"2025-12-11 17:43:55:4355"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37mJWT validation cache hit\u001b[39m","timestamp":"2025-12-11 17:43:55:4355"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m❌ Cache MISS: blacklist:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5MzNkZjEwZmI5ZDViYjIzYmRiNTI2ZCIsImlhdCI6MTc2NTQ0OTgxNywiZXhwIjoxNzY1NDUwNzE3fQ.kpZ9NBNxw8PvgncF0vr2ejK5RFlwkrByi-0GzNbiZgI\u001b[39m","timestamp":"2025-12-11 17:43:55:4355"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37mJWT validation cache hit\u001b[39m","timestamp":"2025-12-11 17:43:55:4355"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m🎯 Cache HIT: users:user:6933df10fb9d5bb23bdb526d\u001b[39m","timestamp":"2025-12-11 17:43:55:4355"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m🎯 Cache HIT: users:user:6933df10fb9d5bb23bdb526d\u001b[39m","timestamp":"2025-12-11 17:43:55:4355"}
+{"level":"\u001b[33mwarn\u001b[39m","message":"\u001b[33m🐌 Slow request: GET /api/v1/delivery?status=completed&limit=50 took 259ms\u001b[39m","timestamp":"2025-12-11 17:43:55:4355"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m⚡ GET /api/v1/delivery?status=completed&limit=50 - 259.04ms\u001b[39m","timestamp":"2025-12-11 17:43:55:4355"}
+{"level":"\u001b[33mwarn\u001b[39m","message":"\u001b[33m🐌 Slow request: GET /api/v1/delivery?status=completed&limit=50 took 293ms\u001b[39m","timestamp":"2025-12-11 17:43:55:4355"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m⚡ GET /api/v1/delivery?status=completed&limit=50 - 293.26ms\u001b[39m","timestamp":"2025-12-11 17:43:55:4355"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m❌ Cache MISS: blacklist:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5MzNkZjEwZmI5ZDViYjIzYmRiNTI2ZCIsImlhdCI6MTc2NTQ0OTgxNywiZXhwIjoxNzY1NDUwNzE3fQ.kpZ9NBNxw8PvgncF0vr2ejK5RFlwkrByi-0GzNbiZgI\u001b[39m","timestamp":"2025-12-11 17:43:56:4356"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37mJWT validation cache hit\u001b[39m","timestamp":"2025-12-11 17:43:56:4356"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m🎯 Cache HIT: users:user:6933df10fb9d5bb23bdb526d\u001b[39m","timestamp":"2025-12-11 17:43:56:4356"}
+{"level":"\u001b[33mwarn\u001b[39m","message":"\u001b[33m🐌 Slow request: GET /api/v1/auth/me took 133ms\u001b[39m","timestamp":"2025-12-11 17:43:56:4356"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m⚡ GET /api/v1/auth/me - 133.47ms\u001b[39m","timestamp":"2025-12-11 17:43:56:4356"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m❌ Cache MISS: blacklist:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5MzNkZjEwZmI5ZDViYjIzYmRiNTI2ZCIsImlhdCI6MTc2NTQ0OTgxNywiZXhwIjoxNzY1NDUwNzE3fQ.kpZ9NBNxw8PvgncF0vr2ejK5RFlwkrByi-0GzNbiZgI\u001b[39m","timestamp":"2025-12-11 17:43:58:4358"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37mJWT validation cache hit\u001b[39m","timestamp":"2025-12-11 17:43:58:4358"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m❌ Cache MISS: blacklist:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5MzNkZjEwZmI5ZDViYjIzYmRiNTI2ZCIsImlhdCI6MTc2NTQ0OTgxNywiZXhwIjoxNzY1NDUwNzE3fQ.kpZ9NBNxw8PvgncF0vr2ejK5RFlwkrByi-0GzNbiZgI\u001b[39m","timestamp":"2025-12-11 17:43:58:4358"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37mJWT validation cache hit\u001b[39m","timestamp":"2025-12-11 17:43:58:4358"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m🎯 Cache HIT: users:user:6933df10fb9d5bb23bdb526d\u001b[39m","timestamp":"2025-12-11 17:43:58:4358"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m🎯 Cache HIT: users:user:6933df10fb9d5bb23bdb526d\u001b[39m","timestamp":"2025-12-11 17:43:58:4358"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m❌ Cache MISS: blacklist:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5MzNkZjEwZmI5ZDViYjIzYmRiNTI2ZCIsImlhdCI6MTc2NTQ0OTgxNywiZXhwIjoxNzY1NDUwNzE3fQ.kpZ9NBNxw8PvgncF0vr2ejK5RFlwkrByi-0GzNbiZgI\u001b[39m","timestamp":"2025-12-11 17:43:58:4358"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m❌ Cache MISS: blacklist:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5MzNkZjEwZmI5ZDViYjIzYmRiNTI2ZCIsImlhdCI6MTc2NTQ0OTgxNywiZXhwIjoxNzY1NDUwNzE3fQ.kpZ9NBNxw8PvgncF0vr2ejK5RFlwkrByi-0GzNbiZgI\u001b[39m","timestamp":"2025-12-11 17:43:58:4358"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37mJWT validation cache hit\u001b[39m","timestamp":"2025-12-11 17:43:58:4358"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37mJWT validation cache hit\u001b[39m","timestamp":"2025-12-11 17:43:58:4358"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m🎯 Cache HIT: users:user:6933df10fb9d5bb23bdb526d\u001b[39m","timestamp":"2025-12-11 17:43:58:4358"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m🎯 Cache HIT: users:user:6933df10fb9d5bb23bdb526d\u001b[39m","timestamp":"2025-12-11 17:43:58:4358"}
+{"level":"\u001b[33mwarn\u001b[39m","message":"\u001b[33m🐌 Slow request: GET /api/v1/delivery/693aa010fc5036ae2f70579d took 173ms\u001b[39m","timestamp":"2025-12-11 17:43:58:4358"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m⚡ GET /api/v1/delivery/693aa010fc5036ae2f70579d - 173.04ms\u001b[39m","timestamp":"2025-12-11 17:43:58:4358"}
+{"level":"\u001b[33mwarn\u001b[39m","message":"\u001b[33m🐌 Slow request: GET /api/v1/delivery/693aa010fc5036ae2f70579d/upload-proof took 149ms\u001b[39m","timestamp":"2025-12-11 17:43:58:4358"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m⚡ GET /api/v1/delivery/693aa010fc5036ae2f70579d/upload-proof - 149.70ms\u001b[39m","timestamp":"2025-12-11 17:43:58:4358"}
+{"level":"\u001b[33mwarn\u001b[39m","message":"\u001b[33m🐌 Slow request: GET /api/v1/delivery/693aa010fc5036ae2f70579d/upload-proof took 150ms\u001b[39m","timestamp":"2025-12-11 17:43:58:4358"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m⚡ GET /api/v1/delivery/693aa010fc5036ae2f70579d/upload-proof - 150.52ms\u001b[39m","timestamp":"2025-12-11 17:43:58:4358"}
+{"level":"\u001b[33mwarn\u001b[39m","message":"\u001b[33m🐌 Slow request: GET /api/v1/delivery/693aa010fc5036ae2f70579d took 208ms\u001b[39m","timestamp":"2025-12-11 17:43:58:4358"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m⚡ GET /api/v1/delivery/693aa010fc5036ae2f70579d - 207.70ms\u001b[39m","timestamp":"2025-12-11 17:43:58:4358"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m❌ Cache MISS: blacklist:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5MzNkZjEwZmI5ZDViYjIzYmRiNTI2ZCIsImlhdCI6MTc2NTQ0OTgxNywiZXhwIjoxNzY1NDUwNzE3fQ.kpZ9NBNxw8PvgncF0vr2ejK5RFlwkrByi-0GzNbiZgI\u001b[39m","timestamp":"2025-12-11 17:44:01:441"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37mJWT validation cache hit\u001b[39m","timestamp":"2025-12-11 17:44:01:441"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m❌ Cache MISS: blacklist:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5MzNkZjEwZmI5ZDViYjIzYmRiNTI2ZCIsImlhdCI6MTc2NTQ0OTgxNywiZXhwIjoxNzY1NDUwNzE3fQ.kpZ9NBNxw8PvgncF0vr2ejK5RFlwkrByi-0GzNbiZgI\u001b[39m","timestamp":"2025-12-11 17:44:01:441"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37mJWT validation cache hit\u001b[39m","timestamp":"2025-12-11 17:44:01:441"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m🎯 Cache HIT: users:user:6933df10fb9d5bb23bdb526d\u001b[39m","timestamp":"2025-12-11 17:44:01:441"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m🎯 Cache HIT: users:user:6933df10fb9d5bb23bdb526d\u001b[39m","timestamp":"2025-12-11 17:44:01:441"}
+{"level":"\u001b[33mwarn\u001b[39m","message":"\u001b[33m🐌 Slow request: GET /api/v1/delivery?status=completed&limit=50 took 246ms\u001b[39m","timestamp":"2025-12-11 17:44:01:441"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m⚡ GET /api/v1/delivery?status=completed&limit=50 - 246.89ms\u001b[39m","timestamp":"2025-12-11 17:44:01:441"}
+{"level":"\u001b[33mwarn\u001b[39m","message":"\u001b[33m🐌 Slow request: GET /api/v1/delivery?status=completed&limit=50 took 289ms\u001b[39m","timestamp":"2025-12-11 17:44:01:441"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m⚡ GET /api/v1/delivery?status=completed&limit=50 - 289.56ms\u001b[39m","timestamp":"2025-12-11 17:44:01:441"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m❌ Cache MISS: blacklist:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5MzNkZjEwZmI5ZDViYjIzYmRiNTI2ZCIsImlhdCI6MTc2NTQ0OTgxNywiZXhwIjoxNzY1NDUwNzE3fQ.kpZ9NBNxw8PvgncF0vr2ejK5RFlwkrByi-0GzNbiZgI\u001b[39m","timestamp":"2025-12-11 17:44:02:442"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37mJWT validation cache hit\u001b[39m","timestamp":"2025-12-11 17:44:02:442"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m🎯 Cache HIT: users:user:6933df10fb9d5bb23bdb526d\u001b[39m","timestamp":"2025-12-11 17:44:02:442"}
+{"level":"\u001b[33mwarn\u001b[39m","message":"\u001b[33m🐌 Slow request: GET /api/v1/auth/me took 143ms\u001b[39m","timestamp":"2025-12-11 17:44:02:442"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m⚡ GET /api/v1/auth/me - 142.57ms\u001b[39m","timestamp":"2025-12-11 17:44:02:442"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m❌ Cache MISS: blacklist:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5MzNkZjEwZmI5ZDViYjIzYmRiNTI2ZCIsImlhdCI6MTc2NTQ0OTgxNywiZXhwIjoxNzY1NDUwNzE3fQ.kpZ9NBNxw8PvgncF0vr2ejK5RFlwkrByi-0GzNbiZgI\u001b[39m","timestamp":"2025-12-11 17:44:02:442"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37mJWT validation cache hit\u001b[39m","timestamp":"2025-12-11 17:44:02:442"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m❌ Cache MISS: blacklist:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5MzNkZjEwZmI5ZDViYjIzYmRiNTI2ZCIsImlhdCI6MTc2NTQ0OTgxNywiZXhwIjoxNzY1NDUwNzE3fQ.kpZ9NBNxw8PvgncF0vr2ejK5RFlwkrByi-0GzNbiZgI\u001b[39m","timestamp":"2025-12-11 17:44:02:442"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37mJWT validation cache hit\u001b[39m","timestamp":"2025-12-11 17:44:02:442"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m❌ Cache MISS: blacklist:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5MzNkZjEwZmI5ZDViYjIzYmRiNTI2ZCIsImlhdCI6MTc2NTQ0OTgxNywiZXhwIjoxNzY1NDUwNzE3fQ.kpZ9NBNxw8PvgncF0vr2ejK5RFlwkrByi-0GzNbiZgI\u001b[39m","timestamp":"2025-12-11 17:44:02:442"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37mJWT validation cache hit\u001b[39m","timestamp":"2025-12-11 17:44:02:442"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m❌ Cache MISS: blacklist:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5MzNkZjEwZmI5ZDViYjIzYmRiNTI2ZCIsImlhdCI6MTc2NTQ0OTgxNywiZXhwIjoxNzY1NDUwNzE3fQ.kpZ9NBNxw8PvgncF0vr2ejK5RFlwkrByi-0GzNbiZgI\u001b[39m","timestamp":"2025-12-11 17:44:02:442"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37mJWT validation cache hit\u001b[39m","timestamp":"2025-12-11 17:44:02:442"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m🎯 Cache HIT: users:user:6933df10fb9d5bb23bdb526d\u001b[39m","timestamp":"2025-12-11 17:44:02:442"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m🎯 Cache HIT: users:user:6933df10fb9d5bb23bdb526d\u001b[39m","timestamp":"2025-12-11 17:44:02:442"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m🎯 Cache HIT: users:user:6933df10fb9d5bb23bdb526d\u001b[39m","timestamp":"2025-12-11 17:44:02:442"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m🎯 Cache HIT: users:user:6933df10fb9d5bb23bdb526d\u001b[39m","timestamp":"2025-12-11 17:44:02:442"}
+{"level":"\u001b[33mwarn\u001b[39m","message":"\u001b[33m🐌 Slow request: GET /api/v1/delivery/693a9df8395216b9ee09db78/upload-proof took 132ms\u001b[39m","timestamp":"2025-12-11 17:44:02:442"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m⚡ GET /api/v1/delivery/693a9df8395216b9ee09db78/upload-proof - 131.99ms\u001b[39m","timestamp":"2025-12-11 17:44:02:442"}
+{"level":"\u001b[33mwarn\u001b[39m","message":"\u001b[33m🐌 Slow request: GET /api/v1/delivery/693a9df8395216b9ee09db78/upload-proof took 131ms\u001b[39m","timestamp":"2025-12-11 17:44:02:442"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m⚡ GET /api/v1/delivery/693a9df8395216b9ee09db78/upload-proof - 131.55ms\u001b[39m","timestamp":"2025-12-11 17:44:02:442"}
+{"level":"\u001b[33mwarn\u001b[39m","message":"\u001b[33m🐌 Slow request: GET /api/v1/delivery/693a9df8395216b9ee09db78 took 191ms\u001b[39m","timestamp":"2025-12-11 17:44:02:442"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m⚡ GET /api/v1/delivery/693a9df8395216b9ee09db78 - 190.94ms\u001b[39m","timestamp":"2025-12-11 17:44:02:442"}
+{"level":"\u001b[33mwarn\u001b[39m","message":"\u001b[33m🐌 Slow request: GET /api/v1/delivery/693a9df8395216b9ee09db78 took 169ms\u001b[39m","timestamp":"2025-12-11 17:44:02:442"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m⚡ GET /api/v1/delivery/693a9df8395216b9ee09db78 - 169.73ms\u001b[39m","timestamp":"2025-12-11 17:44:02:442"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m❌ Cache MISS: blacklist:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5MzNkZjEwZmI5ZDViYjIzYmRiNTI2ZCIsImlhdCI6MTc2NTQ0OTgxNywiZXhwIjoxNzY1NDUwNzE3fQ.kpZ9NBNxw8PvgncF0vr2ejK5RFlwkrByi-0GzNbiZgI\u001b[39m","timestamp":"2025-12-11 17:44:04:444"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37mJWT validation cache hit\u001b[39m","timestamp":"2025-12-11 17:44:04:444"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m❌ Cache MISS: blacklist:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5MzNkZjEwZmI5ZDViYjIzYmRiNTI2ZCIsImlhdCI6MTc2NTQ0OTgxNywiZXhwIjoxNzY1NDUwNzE3fQ.kpZ9NBNxw8PvgncF0vr2ejK5RFlwkrByi-0GzNbiZgI\u001b[39m","timestamp":"2025-12-11 17:44:04:444"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37mJWT validation cache hit\u001b[39m","timestamp":"2025-12-11 17:44:04:444"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m🎯 Cache HIT: users:user:6933df10fb9d5bb23bdb526d\u001b[39m","timestamp":"2025-12-11 17:44:04:444"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m🎯 Cache HIT: users:user:6933df10fb9d5bb23bdb526d\u001b[39m","timestamp":"2025-12-11 17:44:04:444"}
+{"level":"\u001b[33mwarn\u001b[39m","message":"\u001b[33m🐌 Slow request: GET /api/v1/delivery?status=completed&limit=50 took 246ms\u001b[39m","timestamp":"2025-12-11 17:44:04:444"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m⚡ GET /api/v1/delivery?status=completed&limit=50 - 246.35ms\u001b[39m","timestamp":"2025-12-11 17:44:04:444"}
+{"level":"\u001b[33mwarn\u001b[39m","message":"\u001b[33m🐌 Slow request: GET /api/v1/delivery?status=completed&limit=50 took 289ms\u001b[39m","timestamp":"2025-12-11 17:44:04:444"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m⚡ GET /api/v1/delivery?status=completed&limit=50 - 288.73ms\u001b[39m","timestamp":"2025-12-11 17:44:04:444"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m❌ Cache MISS: blacklist:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5MzNkZjEwZmI5ZDViYjIzYmRiNTI2ZCIsImlhdCI6MTc2NTQ0OTgxNywiZXhwIjoxNzY1NDUwNzE3fQ.kpZ9NBNxw8PvgncF0vr2ejK5RFlwkrByi-0GzNbiZgI\u001b[39m","timestamp":"2025-12-11 17:44:04:444"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37mJWT validation cache hit\u001b[39m","timestamp":"2025-12-11 17:44:04:444"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m⚡ GET /api/v1/categories - 40.63ms\u001b[39m","timestamp":"2025-12-11 17:44:04:444"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m❌ Cache MISS: blacklist:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5MzNkZjEwZmI5ZDViYjIzYmRiNTI2ZCIsImlhdCI6MTc2NTQ0OTgxNywiZXhwIjoxNzY1NDUwNzE3fQ.kpZ9NBNxw8PvgncF0vr2ejK5RFlwkrByi-0GzNbiZgI\u001b[39m","timestamp":"2025-12-11 17:44:04:444"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37mJWT validation cache hit\u001b[39m","timestamp":"2025-12-11 17:44:04:444"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m⚡ GET /api/v1/categories - 49.57ms\u001b[39m","timestamp":"2025-12-11 17:44:04:444"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m🎯 Cache HIT: users:user:6933df10fb9d5bb23bdb526d\u001b[39m","timestamp":"2025-12-11 17:44:04:444"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m🎯 Cache HIT: users:user:6933df10fb9d5bb23bdb526d\u001b[39m","timestamp":"2025-12-11 17:44:04:444"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m⚡ GET /api/v1/categories - 38.59ms\u001b[39m","timestamp":"2025-12-11 17:44:04:444"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m⚡ GET /api/v1/categories - 49.60ms\u001b[39m","timestamp":"2025-12-11 17:44:04:444"}
+{"level":"\u001b[33mwarn\u001b[39m","message":"\u001b[33m🐌 Slow request: GET /api/v1/buyers took 170ms\u001b[39m","timestamp":"2025-12-11 17:44:05:445"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m⚡ GET /api/v1/buyers - 170.74ms\u001b[39m","timestamp":"2025-12-11 17:44:05:445"}
+{"level":"\u001b[33mwarn\u001b[39m","message":"\u001b[33m🐌 Slow request: GET /api/v1/buyers took 172ms\u001b[39m","timestamp":"2025-12-11 17:44:05:445"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m⚡ GET /api/v1/buyers - 172.28ms\u001b[39m","timestamp":"2025-12-11 17:44:05:445"}
+{"level":"\u001b[33mwarn\u001b[39m","message":"\u001b[33m⚠️ High memory usage: 67.12MB (89.0%)\u001b[39m","timestamp":"2025-12-11 17:44:08:448"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37mData cached: monitoring:system_stats (TTL: 1800s)\u001b[39m","timestamp":"2025-12-11 17:44:08:448"}
+{"cache":{"hits":0,"misses":0,"size":1},"cpu":{"system":578000,"user":3328000},"database":{"host":"ac-0yhxqmh-shard-00-01.loq8seh.mongodb.net","readyState":1},"level":"\u001b[37mdebug\u001b[39m","memory":{"external":26,"heapTotal":75,"heapUsed":67,"rss":140},"message":"\u001b[37m📊 System Stats:\u001b[39m","performance":{"averageResponseTime":137,"cacheHitRate":53.42465753424658,"errorRate":0,"requestCount":68},"timestamp":"2025-12-11 17:44:08:448"}
+{"level":"\u001b[37mdebug\u001b[39m","memoryUsage":"67.21MB","message":"\u001b[37m📊 Server stats:\u001b[39m","queryCount":0,"slowQueryCount":0,"timestamp":"2025-12-11 17:44:09:449"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m📊 Redis memory usage:\u001b[39m","timestamp":"2025-12-11 17:44:09:449","used_memory_human":"1.67M","used_memory_peak_human":"1.96M"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m🎯 Cache HIT: products:cHJvZHVjdHN8eyJzdGF0dXMiOiJhY3RpdmUiLCJpc1Zpc2libG\u001b[39m","timestamp":"2025-12-11 17:44:10:4410"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37mCache hit for products: cHJvZHVjdHN8eyJzdGF0dXMiOiJhY3RpdmUiLCJpc1Zpc2libG\u001b[39m","timestamp":"2025-12-11 17:44:10:4410"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m⚡ GET /api/v1/products?page=1&limit=20&status=active&isVisible=true - 48.06ms\u001b[39m","timestamp":"2025-12-11 17:44:10:4410"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m❌ Cache MISS: blacklist:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5MzNkZjEwZmI5ZDViYjIzYmRiNTI2ZCIsImlhdCI6MTc2NTQ0OTgxNywiZXhwIjoxNzY1NDUwNzE3fQ.kpZ9NBNxw8PvgncF0vr2ejK5RFlwkrByi-0GzNbiZgI\u001b[39m","timestamp":"2025-12-11 17:44:16:4416"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37mJWT validation cache hit\u001b[39m","timestamp":"2025-12-11 17:44:16:4416"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m🎯 Cache HIT: users:user:6933df10fb9d5bb23bdb526d\u001b[39m","timestamp":"2025-12-11 17:44:16:4416"}
+{"level":"\u001b[33mwarn\u001b[39m","message":"\u001b[33m🐌 Slow request: POST /api/v1/uploads took 2060ms\u001b[39m","timestamp":"2025-12-11 17:44:18:4418"}
+{"level":"\u001b[33mwarn\u001b[39m","message":"\u001b[33m🐌 Slow response: POST /api/v1/uploads took 2059.54ms\u001b[39m","timestamp":"2025-12-11 17:44:18:4418"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m⚡ POST /api/v1/uploads - 2059.54ms\u001b[39m","timestamp":"2025-12-11 17:44:18:4418"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37mVietnamese characters detected in request body\u001b[39m","timestamp":"2025-12-11 17:44:21:4421"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m❌ Cache MISS: blacklist:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5MzNkZjEwZmI5ZDViYjIzYmRiNTI2ZCIsImlhdCI6MTc2NTQ0OTgxNywiZXhwIjoxNzY1NDUwNzE3fQ.kpZ9NBNxw8PvgncF0vr2ejK5RFlwkrByi-0GzNbiZgI\u001b[39m","timestamp":"2025-12-11 17:44:21:4421"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37mJWT validation cache hit\u001b[39m","timestamp":"2025-12-11 17:44:21:4421"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m🎯 Cache HIT: users:user:6933df10fb9d5bb23bdb526d\u001b[39m","timestamp":"2025-12-11 17:44:21:4421"}
+{"level":"\u001b[33mwarn\u001b[39m","message":"\u001b[33m🐌 Slow request: POST /api/v1/delivery took 193ms\u001b[39m","timestamp":"2025-12-11 17:44:21:4421"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m⚡ POST /api/v1/delivery - 193.48ms\u001b[39m","timestamp":"2025-12-11 17:44:21:4421"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m❌ Cache MISS: blacklist:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5MzNkZjEwZmI5ZDViYjIzYmRiNTI2ZCIsImlhdCI6MTc2NTQ0OTgxNywiZXhwIjoxNzY1NDUwNzE3fQ.kpZ9NBNxw8PvgncF0vr2ejK5RFlwkrByi-0GzNbiZgI\u001b[39m","timestamp":"2025-12-11 17:44:21:4421"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37mJWT validation cache hit\u001b[39m","timestamp":"2025-12-11 17:44:21:4421"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m🎯 Cache HIT: users:user:6933df10fb9d5bb23bdb526d\u001b[39m","timestamp":"2025-12-11 17:44:21:4421"}
+{"ip":"::1","level":"\u001b[31merror\u001b[39m","message":"\u001b[31mError: Cannot destructure property 'customerId' of 'req.body' as it is undefined.\u001b[39m","method":"POST","stack":"TypeError: Cannot destructure property 'customerId' of 'req.body' as it is undefined.\n    at fn (D:\\BeLLLC\\src\\controllers\\invoiceController.ts:66:13)\n    at D:\\BeLLLC\\src\\utils\\asyncHandler.ts:7:25\n    at Layer.handleRequest (D:\\BeLLLC\\node_modules\\router\\lib\\layer.js:152:17)\n    at next (D:\\BeLLLC\\node_modules\\router\\lib\\route.js:157:13)\n    at Route.dispatch (D:\\BeLLLC\\node_modules\\router\\lib\\route.js:117:3)\n    at handle (D:\\BeLLLC\\node_modules\\router\\index.js:435:11)\n    at Layer.handleRequest (D:\\BeLLLC\\node_modules\\router\\lib\\layer.js:152:17)\n    at D:\\BeLLLC\\node_modules\\router\\index.js:295:15\n    at processParams (D:\\BeLLLC\\node_modules\\router\\index.js:582:12)\n    at next (D:\\BeLLLC\\node_modules\\router\\index.js:291:5)","timestamp":"2025-12-11 17:44:21:4421","url":"/api/v1/invoice","userAgent":"node"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m⚡ POST /api/v1/invoice - 95.48ms\u001b[39m","timestamp":"2025-12-11 17:44:21:4421"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m❌ Cache MISS: blacklist:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5MzNkZjEwZmI5ZDViYjIzYmRiNTI2ZCIsImlhdCI6MTc2NTQ0OTgxNywiZXhwIjoxNzY1NDUwNzE3fQ.kpZ9NBNxw8PvgncF0vr2ejK5RFlwkrByi-0GzNbiZgI\u001b[39m","timestamp":"2025-12-11 17:44:21:4421"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37mJWT validation cache hit\u001b[39m","timestamp":"2025-12-11 17:44:21:4421"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m🎯 Cache HIT: users:user:6933df10fb9d5bb23bdb526d\u001b[39m","timestamp":"2025-12-11 17:44:21:4421"}
+{"ip":"::1","level":"\u001b[31merror\u001b[39m","message":"\u001b[31mError: Cannot destructure property 'customerId' of 'req.body' as it is undefined.\u001b[39m","method":"POST","stack":"TypeError: Cannot destructure property 'customerId' of 'req.body' as it is undefined.\n    at fn (D:\\BeLLLC\\src\\controllers\\debtController.ts:77:13)\n    at D:\\BeLLLC\\src\\utils\\asyncHandler.ts:7:25\n    at Layer.handleRequest (D:\\BeLLLC\\node_modules\\router\\lib\\layer.js:152:17)\n    at next (D:\\BeLLLC\\node_modules\\router\\lib\\route.js:157:13)\n    at Route.dispatch (D:\\BeLLLC\\node_modules\\router\\lib\\route.js:117:3)\n    at handle (D:\\BeLLLC\\node_modules\\router\\index.js:435:11)\n    at Layer.handleRequest (D:\\BeLLLC\\node_modules\\router\\lib\\layer.js:152:17)\n    at D:\\BeLLLC\\node_modules\\router\\index.js:295:15\n    at processParams (D:\\BeLLLC\\node_modules\\router\\index.js:582:12)\n    at next (D:\\BeLLLC\\node_modules\\router\\index.js:291:5)","timestamp":"2025-12-11 17:44:21:4421","url":"/api/v1/debt","userAgent":"node"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m⚡ POST /api/v1/debt - 94.74ms\u001b[39m","timestamp":"2025-12-11 17:44:21:4421"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m❌ Cache MISS: blacklist:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5MzNkZjEwZmI5ZDViYjIzYmRiNTI2ZCIsImlhdCI6MTc2NTQ0OTgxNywiZXhwIjoxNzY1NDUwNzE3fQ.kpZ9NBNxw8PvgncF0vr2ejK5RFlwkrByi-0GzNbiZgI\u001b[39m","timestamp":"2025-12-11 17:44:23:4423"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37mJWT validation cache hit\u001b[39m","timestamp":"2025-12-11 17:44:23:4423"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m🎯 Cache HIT: users:user:6933df10fb9d5bb23bdb526d\u001b[39m","timestamp":"2025-12-11 17:44:23:4423"}
+{"level":"\u001b[33mwarn\u001b[39m","message":"\u001b[33m🐌 Slow request: GET /api/v1/auth/me took 131ms\u001b[39m","timestamp":"2025-12-11 17:44:23:4423"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m⚡ GET /api/v1/auth/me - 131.31ms\u001b[39m","timestamp":"2025-12-11 17:44:23:4423"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m❌ Cache MISS: blacklist:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5MzNkZjEwZmI5ZDViYjIzYmRiNTI2ZCIsImlhdCI6MTc2NTQ0OTgxNywiZXhwIjoxNzY1NDUwNzE3fQ.kpZ9NBNxw8PvgncF0vr2ejK5RFlwkrByi-0GzNbiZgI\u001b[39m","timestamp":"2025-12-11 17:44:23:4423"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37mJWT validation cache hit\u001b[39m","timestamp":"2025-12-11 17:44:23:4423"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m❌ Cache MISS: blacklist:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5MzNkZjEwZmI5ZDViYjIzYmRiNTI2ZCIsImlhdCI6MTc2NTQ0OTgxNywiZXhwIjoxNzY1NDUwNzE3fQ.kpZ9NBNxw8PvgncF0vr2ejK5RFlwkrByi-0GzNbiZgI\u001b[39m","timestamp":"2025-12-11 17:44:23:4423"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37mJWT validation cache hit\u001b[39m","timestamp":"2025-12-11 17:44:23:4423"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m🎯 Cache HIT: users:user:6933df10fb9d5bb23bdb526d\u001b[39m","timestamp":"2025-12-11 17:44:23:4423"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m🎯 Cache HIT: users:user:6933df10fb9d5bb23bdb526d\u001b[39m","timestamp":"2025-12-11 17:44:23:4423"}
+{"level":"\u001b[33mwarn\u001b[39m","message":"\u001b[33m🐌 Slow request: GET /api/v1/delivery?status=completed&limit=50 took 245ms\u001b[39m","timestamp":"2025-12-11 17:44:23:4423"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m⚡ GET /api/v1/delivery?status=completed&limit=50 - 245.58ms\u001b[39m","timestamp":"2025-12-11 17:44:23:4423"}
+{"level":"\u001b[33mwarn\u001b[39m","message":"\u001b[33m🐌 Slow request: GET /api/v1/delivery?status=completed&limit=50 took 245ms\u001b[39m","timestamp":"2025-12-11 17:44:23:4423"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m⚡ GET /api/v1/delivery?status=completed&limit=50 - 245.56ms\u001b[39m","timestamp":"2025-12-11 17:44:23:4423"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m❌ Cache MISS: blacklist:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5MzNkZjEwZmI5ZDViYjIzYmRiNTI2ZCIsImlhdCI6MTc2NTQ0OTgxNywiZXhwIjoxNzY1NDUwNzE3fQ.kpZ9NBNxw8PvgncF0vr2ejK5RFlwkrByi-0GzNbiZgI\u001b[39m","timestamp":"2025-12-11 17:44:24:4424"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37mJWT validation cache hit\u001b[39m","timestamp":"2025-12-11 17:44:24:4424"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m🎯 Cache HIT: users:user:6933df10fb9d5bb23bdb526d\u001b[39m","timestamp":"2025-12-11 17:44:24:4424"}
+{"level":"\u001b[33mwarn\u001b[39m","message":"\u001b[33m🐌 Slow request: GET /api/v1/auth/me took 131ms\u001b[39m","timestamp":"2025-12-11 17:44:24:4424"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m⚡ GET /api/v1/auth/me - 131.15ms\u001b[39m","timestamp":"2025-12-11 17:44:24:4424"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m❌ Cache MISS: blacklist:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5MzNkZjEwZmI5ZDViYjIzYmRiNTI2ZCIsImlhdCI6MTc2NTQ0OTgxNywiZXhwIjoxNzY1NDUwNzE3fQ.kpZ9NBNxw8PvgncF0vr2ejK5RFlwkrByi-0GzNbiZgI\u001b[39m","timestamp":"2025-12-11 17:44:24:4424"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37mJWT validation cache hit\u001b[39m","timestamp":"2025-12-11 17:44:24:4424"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m❌ Cache MISS: blacklist:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5MzNkZjEwZmI5ZDViYjIzYmRiNTI2ZCIsImlhdCI6MTc2NTQ0OTgxNywiZXhwIjoxNzY1NDUwNzE3fQ.kpZ9NBNxw8PvgncF0vr2ejK5RFlwkrByi-0GzNbiZgI\u001b[39m","timestamp":"2025-12-11 17:44:24:4424"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37mJWT validation cache hit\u001b[39m","timestamp":"2025-12-11 17:44:24:4424"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m❌ Cache MISS: blacklist:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5MzNkZjEwZmI5ZDViYjIzYmRiNTI2ZCIsImlhdCI6MTc2NTQ0OTgxNywiZXhwIjoxNzY1NDUwNzE3fQ.kpZ9NBNxw8PvgncF0vr2ejK5RFlwkrByi-0GzNbiZgI\u001b[39m","timestamp":"2025-12-11 17:44:24:4424"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37mJWT validation cache hit\u001b[39m","timestamp":"2025-12-11 17:44:24:4424"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m❌ Cache MISS: blacklist:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5MzNkZjEwZmI5ZDViYjIzYmRiNTI2ZCIsImlhdCI6MTc2NTQ0OTgxNywiZXhwIjoxNzY1NDUwNzE3fQ.kpZ9NBNxw8PvgncF0vr2ejK5RFlwkrByi-0GzNbiZgI\u001b[39m","timestamp":"2025-12-11 17:44:24:4424"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37mJWT validation cache hit\u001b[39m","timestamp":"2025-12-11 17:44:24:4424"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m🎯 Cache HIT: users:user:6933df10fb9d5bb23bdb526d\u001b[39m","timestamp":"2025-12-11 17:44:24:4424"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m🎯 Cache HIT: users:user:6933df10fb9d5bb23bdb526d\u001b[39m","timestamp":"2025-12-11 17:44:24:4424"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m🎯 Cache HIT: users:user:6933df10fb9d5bb23bdb526d\u001b[39m","timestamp":"2025-12-11 17:44:24:4424"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m🎯 Cache HIT: users:user:6933df10fb9d5bb23bdb526d\u001b[39m","timestamp":"2025-12-11 17:44:24:4424"}
+{"level":"\u001b[33mwarn\u001b[39m","message":"\u001b[33m🐌 Slow request: GET /api/v1/delivery/693aa085fc5036ae2f705802/upload-proof took 132ms\u001b[39m","timestamp":"2025-12-11 17:44:24:4424"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m⚡ GET /api/v1/delivery/693aa085fc5036ae2f705802/upload-proof - 131.68ms\u001b[39m","timestamp":"2025-12-11 17:44:24:4424"}
+{"level":"\u001b[33mwarn\u001b[39m","message":"\u001b[33m🐌 Slow request: GET /api/v1/delivery/693aa085fc5036ae2f705802/upload-proof took 130ms\u001b[39m","timestamp":"2025-12-11 17:44:24:4424"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m⚡ GET /api/v1/delivery/693aa085fc5036ae2f705802/upload-proof - 130.94ms\u001b[39m","timestamp":"2025-12-11 17:44:24:4424"}
+{"level":"\u001b[33mwarn\u001b[39m","message":"\u001b[33m🐌 Slow request: GET /api/v1/delivery/693aa085fc5036ae2f705802 took 169ms\u001b[39m","timestamp":"2025-12-11 17:44:24:4424"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m⚡ GET /api/v1/delivery/693aa085fc5036ae2f705802 - 168.72ms\u001b[39m","timestamp":"2025-12-11 17:44:24:4424"}
+{"level":"\u001b[33mwarn\u001b[39m","message":"\u001b[33m🐌 Slow request: GET /api/v1/delivery/693aa085fc5036ae2f705802 took 192ms\u001b[39m","timestamp":"2025-12-11 17:44:24:4424"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m⚡ GET /api/v1/delivery/693aa085fc5036ae2f705802 - 192.60ms\u001b[39m","timestamp":"2025-12-11 17:44:24:4424"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m❌ Cache MISS: blacklist:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5MzNkZjEwZmI5ZDViYjIzYmRiNTI2ZCIsImlhdCI6MTc2NTQ0OTgxNywiZXhwIjoxNzY1NDUwNzE3fQ.kpZ9NBNxw8PvgncF0vr2ejK5RFlwkrByi-0GzNbiZgI\u001b[39m","timestamp":"2025-12-11 17:44:27:4427"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37mJWT validation cache hit\u001b[39m","timestamp":"2025-12-11 17:44:27:4427"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m🎯 Cache HIT: users:user:6933df10fb9d5bb23bdb526d\u001b[39m","timestamp":"2025-12-11 17:44:27:4427"}
+{"level":"\u001b[33mwarn\u001b[39m","message":"\u001b[33m🐌 Slow request: GET /api/v1/auth/me took 147ms\u001b[39m","timestamp":"2025-12-11 17:44:27:4427"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m⚡ GET /api/v1/auth/me - 146.41ms\u001b[39m","timestamp":"2025-12-11 17:44:27:4427"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m❌ Cache MISS: blacklist:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5MzNkZjEwZmI5ZDViYjIzYmRiNTI2ZCIsImlhdCI6MTc2NTQ0OTgxNywiZXhwIjoxNzY1NDUwNzE3fQ.kpZ9NBNxw8PvgncF0vr2ejK5RFlwkrByi-0GzNbiZgI\u001b[39m","timestamp":"2025-12-11 17:44:28:4428"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37mJWT validation cache hit\u001b[39m","timestamp":"2025-12-11 17:44:28:4428"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m❌ Cache MISS: blacklist:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5MzNkZjEwZmI5ZDViYjIzYmRiNTI2ZCIsImlhdCI6MTc2NTQ0OTgxNywiZXhwIjoxNzY1NDUwNzE3fQ.kpZ9NBNxw8PvgncF0vr2ejK5RFlwkrByi-0GzNbiZgI\u001b[39m","timestamp":"2025-12-11 17:44:28:4428"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37mJWT validation cache hit\u001b[39m","timestamp":"2025-12-11 17:44:28:4428"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m🎯 Cache HIT: users:user:6933df10fb9d5bb23bdb526d\u001b[39m","timestamp":"2025-12-11 17:44:28:4428"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m🎯 Cache HIT: users:user:6933df10fb9d5bb23bdb526d\u001b[39m","timestamp":"2025-12-11 17:44:28:4428"}
+{"level":"\u001b[33mwarn\u001b[39m","message":"\u001b[33m🐌 Slow request: GET /api/v1/delivery?status=completed&limit=50 took 244ms\u001b[39m","timestamp":"2025-12-11 17:44:28:4428"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m⚡ GET /api/v1/delivery?status=completed&limit=50 - 244.86ms\u001b[39m","timestamp":"2025-12-11 17:44:28:4428"}
+{"level":"\u001b[33mwarn\u001b[39m","message":"\u001b[33m🐌 Slow request: GET /api/v1/delivery?status=completed&limit=50 took 287ms\u001b[39m","timestamp":"2025-12-11 17:44:28:4428"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m⚡ GET /api/v1/delivery?status=completed&limit=50 - 286.85ms\u001b[39m","timestamp":"2025-12-11 17:44:28:4428"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m⚡ GET /api/v1/homepage - 49.50ms\u001b[39m","timestamp":"2025-12-11 17:44:38:4438"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37mData cached: monitoring:system_stats (TTL: 1800s)\u001b[39m","timestamp":"2025-12-11 17:44:38:4438"}
+{"cache":{"hits":0,"misses":0,"size":1},"cpu":{"system":640000,"user":3625000},"database":{"host":"ac-0yhxqmh-shard-00-01.loq8seh.mongodb.net","readyState":1},"level":"\u001b[37mdebug\u001b[39m","memory":{"external":26,"heapTotal":73,"heapUsed":70,"rss":143},"message":"\u001b[37m📊 System Stats:\u001b[39m","performance":{"averageResponseTime":164,"cacheHitRate":52.88461538461539,"errorRate":0,"requestCount":85},"timestamp":"2025-12-11 17:44:38:4438"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m🎯 Cache HIT: products:featured:8\u001b[39m","timestamp":"2025-12-11 17:44:39:4439"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mFeatured products cache HIT: Found 2 products\u001b[39m","timestamp":"2025-12-11 17:44:39:4439"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m⚡ GET /api/v1/products/featured?limit=8 - 49.69ms\u001b[39m","timestamp":"2025-12-11 17:44:39:4439"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m❌ Cache MISS: blacklist:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5MzNkZjEwZmI5ZDViYjIzYmRiNTI2ZCIsImlhdCI6MTc2NTQ0OTgxNywiZXhwIjoxNzY1NDUwNzE3fQ.kpZ9NBNxw8PvgncF0vr2ejK5RFlwkrByi-0GzNbiZgI\u001b[39m","timestamp":"2025-12-11 17:44:39:4439"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37mJWT validation cache hit\u001b[39m","timestamp":"2025-12-11 17:44:39:4439"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m⚡ GET /api/v1/advertisements/active - 50.24ms\u001b[39m","timestamp":"2025-12-11 17:44:39:4439"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m🎯 Cache HIT: users:user:6933df10fb9d5bb23bdb526d\u001b[39m","timestamp":"2025-12-11 17:44:39:4439"}
+{"level":"\u001b[33mwarn\u001b[39m","message":"\u001b[33m🐌 Slow request: GET /api/v1/auth/me took 131ms\u001b[39m","timestamp":"2025-12-11 17:44:39:4439"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m⚡ GET /api/v1/auth/me - 132.00ms\u001b[39m","timestamp":"2025-12-11 17:44:39:4439"}
+{"level":"\u001b[33mwarn\u001b[39m","message":"\u001b[33m🐌 Slow request: GET /api/v1/news?locale=vi&limit=4&status=published took 157ms\u001b[39m","timestamp":"2025-12-11 17:44:39:4439"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m⚡ GET /api/v1/news?locale=vi&limit=4&status=published - 157.05ms\u001b[39m","timestamp":"2025-12-11 17:44:39:4439"}
+{"level":"\u001b[33mwarn\u001b[39m","message":"\u001b[33m🐌 Slow request: GET /api/v1/cart took 101ms\u001b[39m","timestamp":"2025-12-11 17:44:39:4439"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m⚡ GET /api/v1/cart - 101.41ms\u001b[39m","timestamp":"2025-12-11 17:44:39:4439"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m❌ Cache MISS: blacklist:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5MzNkZjEwZmI5ZDViYjIzYmRiNTI2ZCIsImlhdCI6MTc2NTQ0OTgxNywiZXhwIjoxNzY1NDUwNzE3fQ.kpZ9NBNxw8PvgncF0vr2ejK5RFlwkrByi-0GzNbiZgI\u001b[39m","timestamp":"2025-12-11 17:44:39:4439"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37mJWT validation cache hit\u001b[39m","timestamp":"2025-12-11 17:44:39:4439"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m🎯 Cache HIT: users:user:6933df10fb9d5bb23bdb526d\u001b[39m","timestamp":"2025-12-11 17:44:39:4439"}
+{"level":"\u001b[33mwarn\u001b[39m","message":"\u001b[33m🐌 Slow request: POST /api/v1/cart/merge took 231ms\u001b[39m","timestamp":"2025-12-11 17:44:39:4439"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m⚡ POST /api/v1/cart/merge - 230.73ms\u001b[39m","timestamp":"2025-12-11 17:44:39:4439"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m🎯 Cache HIT: products:cHJvZHVjdHN8eyJzdGF0dXMiOiJhY3RpdmUiLCJpc1Zpc2libG\u001b[39m","timestamp":"2025-12-11 17:44:40:4440"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37mCache hit for products: cHJvZHVjdHN8eyJzdGF0dXMiOiJhY3RpdmUiLCJpc1Zpc2libG\u001b[39m","timestamp":"2025-12-11 17:44:40:4440"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m⚡ GET /api/v1/products?page=1&limit=50&status=active&isVisible=true - 47.98ms\u001b[39m","timestamp":"2025-12-11 17:44:40:4440"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m🎯 Cache HIT: products:cHJvZHVjdHN8eyJzdGF0dXMiOiJhY3RpdmUiLCJpc1Zpc2libG\u001b[39m","timestamp":"2025-12-11 17:44:40:4440"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37mCache hit for products: cHJvZHVjdHN8eyJzdGF0dXMiOiJhY3RpdmUiLCJpc1Zpc2libG\u001b[39m","timestamp":"2025-12-11 17:44:40:4440"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m⚡ GET /api/v1/products?page=1&limit=50&status=active&isVisible=true - 48.23ms\u001b[39m","timestamp":"2025-12-11 17:44:40:4440"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m⚡ GET /api/v1/cart - 99.41ms\u001b[39m","timestamp":"2025-12-11 17:44:40:4440"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m⚡ GET /api/v1/homepage - 49.98ms\u001b[39m","timestamp":"2025-12-11 17:44:42:4442"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m⚡ OPTIONS /api/v1/categories?isActive=true&sort=order&order=asc - 0.13ms\u001b[39m","timestamp":"2025-12-11 17:44:42:4442"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m⚡ GET /api/v1/categories?isActive=true&sort=order&order=asc - 49.68ms\u001b[39m","timestamp":"2025-12-11 17:44:43:4443"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m🎯 Cache HIT: products:featured:8\u001b[39m","timestamp":"2025-12-11 17:44:43:4443"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mFeatured products cache HIT: Found 2 products\u001b[39m","timestamp":"2025-12-11 17:44:43:4443"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m⚡ GET /api/v1/products/featured?limit=8 - 48.12ms\u001b[39m","timestamp":"2025-12-11 17:44:43:4443"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m⚡ GET /api/v1/advertisements/active - 38.90ms\u001b[39m","timestamp":"2025-12-11 17:44:43:4443"}
+{"level":"\u001b[33mwarn\u001b[39m","message":"\u001b[33m🐌 Slow request: GET /api/v1/cart took 117ms\u001b[39m","timestamp":"2025-12-11 17:44:43:4443"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m⚡ GET /api/v1/cart - 116.84ms\u001b[39m","timestamp":"2025-12-11 17:44:43:4443"}
+{"level":"\u001b[33mwarn\u001b[39m","message":"\u001b[33m🐌 Slow request: GET /api/v1/news?locale=vi&limit=4&status=published took 228ms\u001b[39m","timestamp":"2025-12-11 17:44:43:4443"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m⚡ GET /api/v1/news?locale=vi&limit=4&status=published - 228.59ms\u001b[39m","timestamp":"2025-12-11 17:44:43:4443"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m🎯 Cache HIT: products:cHJvZHVjdHN8eyJzdGF0dXMiOiJhY3RpdmUiLCJpc1Zpc2libG\u001b[39m","timestamp":"2025-12-11 17:44:43:4443"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37mCache hit for products: cHJvZHVjdHN8eyJzdGF0dXMiOiJhY3RpdmUiLCJpc1Zpc2libG\u001b[39m","timestamp":"2025-12-11 17:44:43:4443"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m⚡ GET /api/v1/products?page=1&limit=50&status=active&isVisible=true - 48.12ms\u001b[39m","timestamp":"2025-12-11 17:44:43:4443"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m❌ Cache MISS: rate_limit:login_attempts:phamsang1210z9@gmail.com\u001b[39m","timestamp":"2025-12-11 17:45:06:456"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37mUser auth query: phamsang1210z9@gmail.com\u001b[39m","timestamp":"2025-12-11 17:45:06:456"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m💾 Cache SET: user:68a569d125e70ef00068b60f\u001b[39m","timestamp":"2025-12-11 17:45:06:456"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m💾 Cache SET: user:email:phamsang1210z9@gmail.com\u001b[39m","timestamp":"2025-12-11 17:45:06:456"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37mUser cached: 68a569d125e70ef00068b60f\u001b[39m","timestamp":"2025-12-11 17:45:06:456"}
+{"level":"\u001b[33mwarn\u001b[39m","message":"\u001b[33m🐌 Slow query: User.findByEmailForAuth:phamsang1210z9@gmail.com took 143ms\u001b[39m","timestamp":"2025-12-11 17:45:06:456"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m💾 Cache SET: auth:session:68a569d125e70ef00068b60f\u001b[39m","timestamp":"2025-12-11 17:45:06:456"}
+{"level":"\u001b[32minfo\u001b[39m","message":"\u001b[32mUser logged in: phamsang1210z9@gmail.com\u001b[39m","timestamp":"2025-12-11 17:45:06:456"}
+{"level":"\u001b[33mwarn\u001b[39m","message":"\u001b[33m🐌 Slow query: AuthService.login took 522ms\u001b[39m","timestamp":"2025-12-11 17:45:06:456"}
+{"level":"\u001b[33mwarn\u001b[39m","message":"\u001b[33m🐌 Slow request: POST /api/v1/auth/login took 529ms\u001b[39m","timestamp":"2025-12-11 17:45:06:456"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m⚡ POST /api/v1/auth/login - 529.52ms\u001b[39m","timestamp":"2025-12-11 17:45:06:456"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m🗑️ Cache DEL: user:68a569d125e70ef00068b60f\u001b[39m","timestamp":"2025-12-11 17:45:06:456"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m❌ Cache MISS: blacklist:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4YTU2OWQxMjVlNzBlZjAwMDY4YjYwZiIsImlhdCI6MTc2NTQ0OTkwNiwiZXhwIjoxNzY1NDUwODA2fQ.QSrLheRYSBPn08Wl5Hptya7PXCbxbTuxLRZODVdHKBI\u001b[39m","timestamp":"2025-12-11 17:45:06:456"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m🗑️ Cache DEL: user:email:phamsang1210z9@gmail.com\u001b[39m","timestamp":"2025-12-11 17:45:06:456"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37mUser cache invalidated: 68a569d125e70ef00068b60f\u001b[39m","timestamp":"2025-12-11 17:45:06:456"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m❌ Cache MISS: users:user:68a569d125e70ef00068b60f\u001b[39m","timestamp":"2025-12-11 17:45:06:456"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m💾 Cache SET: user:68a569d125e70ef00068b60f\u001b[39m","timestamp":"2025-12-11 17:45:06:456"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m💾 Cache SET: user:email:phamsang1210z9@gmail.com\u001b[39m","timestamp":"2025-12-11 17:45:07:457"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37mUser cached: 68a569d125e70ef00068b60f\u001b[39m","timestamp":"2025-12-11 17:45:07:457"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m💾 Cache SET: users:user:68a569d125e70ef00068b60f\u001b[39m","timestamp":"2025-12-11 17:45:07:457"}
+{"level":"\u001b[33mwarn\u001b[39m","message":"\u001b[33m🐌 Slow request: GET /api/v1/auth/me took 216ms\u001b[39m","timestamp":"2025-12-11 17:45:07:457"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m⚡ GET /api/v1/auth/me - 216.86ms\u001b[39m","timestamp":"2025-12-11 17:45:07:457"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m❌ Cache MISS: blacklist:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4YTU2OWQxMjVlNzBlZjAwMDY4YjYwZiIsImlhdCI6MTc2NTQ0OTkwNiwiZXhwIjoxNzY1NDUwODA2fQ.QSrLheRYSBPn08Wl5Hptya7PXCbxbTuxLRZODVdHKBI\u001b[39m","timestamp":"2025-12-11 17:45:07:457"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37mJWT validation cache hit\u001b[39m","timestamp":"2025-12-11 17:45:07:457"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m🎯 Cache HIT: users:user:68a569d125e70ef00068b60f\u001b[39m","timestamp":"2025-12-11 17:45:07:457"}
+{"level":"\u001b[33mwarn\u001b[39m","message":"\u001b[33m🐌 Slow request: GET /api/v1/auth/me took 142ms\u001b[39m","timestamp":"2025-12-11 17:45:07:457"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m⚡ GET /api/v1/auth/me - 142.12ms\u001b[39m","timestamp":"2025-12-11 17:45:07:457"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m❌ Cache MISS: blacklist:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4YTU2OWQxMjVlNzBlZjAwMDY4YjYwZiIsImlhdCI6MTc2NTQ0OTkwNiwiZXhwIjoxNzY1NDUwODA2fQ.QSrLheRYSBPn08Wl5Hptya7PXCbxbTuxLRZODVdHKBI\u001b[39m","timestamp":"2025-12-11 17:45:08:458"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37mJWT validation cache hit\u001b[39m","timestamp":"2025-12-11 17:45:08:458"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m🎯 Cache HIT: users:user:68a569d125e70ef00068b60f\u001b[39m","timestamp":"2025-12-11 17:45:08:458"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m❌ Cache MISS: blacklist:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4YTU2OWQxMjVlNzBlZjAwMDY4YjYwZiIsImlhdCI6MTc2NTQ0OTkwNiwiZXhwIjoxNzY1NDUwODA2fQ.QSrLheRYSBPn08Wl5Hptya7PXCbxbTuxLRZODVdHKBI\u001b[39m","timestamp":"2025-12-11 17:45:08:458"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37mJWT validation cache hit\u001b[39m","timestamp":"2025-12-11 17:45:08:458"}
+{"level":"\u001b[33mwarn\u001b[39m","message":"\u001b[33m🐌 Slow request: GET /api/v1/users/addresses took 132ms\u001b[39m","timestamp":"2025-12-11 17:45:08:458"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m⚡ GET /api/v1/users/addresses - 132.12ms\u001b[39m","timestamp":"2025-12-11 17:45:08:458"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m🎯 Cache HIT: users:user:68a569d125e70ef00068b60f\u001b[39m","timestamp":"2025-12-11 17:45:08:458"}
+{"level":"\u001b[33mwarn\u001b[39m","message":"\u001b[33m🐌 Slow request: GET /api/v1/orders took 176ms\u001b[39m","timestamp":"2025-12-11 17:45:08:458"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m⚡ GET /api/v1/orders - 175.93ms\u001b[39m","timestamp":"2025-12-11 17:45:08:458"}
+{"level":"\u001b[33mwarn\u001b[39m","message":"\u001b[33m⚠️ High memory usage: 64.88MB (87.4%)\u001b[39m","timestamp":"2025-12-11 17:45:08:458"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37mData cached: monitoring:system_stats (TTL: 1800s)\u001b[39m","timestamp":"2025-12-11 17:45:08:458"}
+{"cache":{"hits":0,"misses":0,"size":1},"cpu":{"system":703000,"user":4062000},"database":{"host":"ac-0yhxqmh-shard-00-01.loq8seh.mongodb.net","readyState":1},"level":"\u001b[37mdebug\u001b[39m","memory":{"external":25,"heapTotal":74,"heapUsed":65,"rss":142},"message":"\u001b[37m📊 System Stats:\u001b[39m","performance":{"averageResponseTime":155,"cacheHitRate":53.65853658536586,"errorRate":0,"requestCount":107},"timestamp":"2025-12-11 17:45:08:458"}
+{"level":"\u001b[37mdebug\u001b[39m","memoryUsage":"64.97MB","message":"\u001b[37m📊 Server stats:\u001b[39m","queryCount":0,"slowQueryCount":0,"timestamp":"2025-12-11 17:45:09:459"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m📊 Redis memory usage:\u001b[39m","timestamp":"2025-12-11 17:45:09:459","used_memory_human":"1.67M","used_memory_peak_human":"1.96M"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m❌ Cache MISS: blacklist:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4YTU2OWQxMjVlNzBlZjAwMDY4YjYwZiIsImlhdCI6MTc2NTQ0OTkwNiwiZXhwIjoxNzY1NDUwODA2fQ.QSrLheRYSBPn08Wl5Hptya7PXCbxbTuxLRZODVdHKBI\u001b[39m","timestamp":"2025-12-11 17:45:10:4510"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37mJWT validation cache hit\u001b[39m","timestamp":"2025-12-11 17:45:10:4510"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m🎯 Cache HIT: users:user:68a569d125e70ef00068b60f\u001b[39m","timestamp":"2025-12-11 17:45:10:4510"}
+{"level":"\u001b[33mwarn\u001b[39m","message":"\u001b[33m🐌 Slow request: GET /api/v1/auth/me took 142ms\u001b[39m","timestamp":"2025-12-11 17:45:10:4510"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m⚡ GET /api/v1/auth/me - 142.69ms\u001b[39m","timestamp":"2025-12-11 17:45:10:4510"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m❌ Cache MISS: blacklist:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4YTU2OWQxMjVlNzBlZjAwMDY4YjYwZiIsImlhdCI6MTc2NTQ0OTkwNiwiZXhwIjoxNzY1NDUwODA2fQ.QSrLheRYSBPn08Wl5Hptya7PXCbxbTuxLRZODVdHKBI\u001b[39m","timestamp":"2025-12-11 17:45:11:4511"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37mJWT validation cache hit\u001b[39m","timestamp":"2025-12-11 17:45:11:4511"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m🎯 Cache HIT: users:user:68a569d125e70ef00068b60f\u001b[39m","timestamp":"2025-12-11 17:45:11:4511"}
+{"level":"\u001b[33mwarn\u001b[39m","message":"\u001b[33m🐌 Slow request: GET /api/v1/auth/me took 141ms\u001b[39m","timestamp":"2025-12-11 17:45:11:4511"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m⚡ GET /api/v1/auth/me - 141.75ms\u001b[39m","timestamp":"2025-12-11 17:45:11:4511"}
+{"ip":"::1","level":"\u001b[31merror\u001b[39m","message":"\u001b[31mError: API endpoint /api/v1/reports/dashboard?range=30d not found\u001b[39m","method":"GET","stack":"Error: API endpoint /api/v1/reports/dashboard?range=30d not found\n    at notFoundHandler (D:\\BeLLLC\\src\\middleware\\notFoundHandler.ts:9:23)\n    at Layer.handleRequest (D:\\BeLLLC\\node_modules\\router\\lib\\layer.js:152:17)\n    at trimPrefix (D:\\BeLLLC\\node_modules\\router\\index.js:342:13)\n    at D:\\BeLLLC\\node_modules\\router\\index.js:297:9\n    at processParams (D:\\BeLLLC\\node_modules\\router\\index.js:582:12)\n    at next (D:\\BeLLLC\\node_modules\\router\\index.js:291:5)\n    at D:\\BeLLLC\\node_modules\\router\\index.js:688:15\n    at next (D:\\BeLLLC\\node_modules\\router\\index.js:276:14)\n    at Function.handle (D:\\BeLLLC\\node_modules\\router\\index.js:186:3)\n    at router (D:\\BeLLLC\\node_modules\\router\\index.js:60:12)","timestamp":"2025-12-11 17:45:11:4511","url":"/api/v1/reports/dashboard?range=30d","userAgent":"node"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m⚡ GET /api/v1/reports/dashboard?range=30d - 3.08ms\u001b[39m","timestamp":"2025-12-11 17:45:11:4511"}
+{"ip":"::1","level":"\u001b[31merror\u001b[39m","message":"\u001b[31mError: API endpoint /api/v1/reports/dashboard?range=30d not found\u001b[39m","method":"GET","stack":"Error: API endpoint /api/v1/reports/dashboard?range=30d not found\n    at notFoundHandler (D:\\BeLLLC\\src\\middleware\\notFoundHandler.ts:9:23)\n    at Layer.handleRequest (D:\\BeLLLC\\node_modules\\router\\lib\\layer.js:152:17)\n    at trimPrefix (D:\\BeLLLC\\node_modules\\router\\index.js:342:13)\n    at D:\\BeLLLC\\node_modules\\router\\index.js:297:9\n    at processParams (D:\\BeLLLC\\node_modules\\router\\index.js:582:12)\n    at next (D:\\BeLLLC\\node_modules\\router\\index.js:291:5)\n    at D:\\BeLLLC\\node_modules\\router\\index.js:688:15\n    at next (D:\\BeLLLC\\node_modules\\router\\index.js:276:14)\n    at Function.handle (D:\\BeLLLC\\node_modules\\router\\index.js:186:3)\n    at router (D:\\BeLLLC\\node_modules\\router\\index.js:60:12)","timestamp":"2025-12-11 17:45:11:4511","url":"/api/v1/reports/dashboard?range=30d","userAgent":"node"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m⚡ GET /api/v1/reports/dashboard?range=30d - 1.19ms\u001b[39m","timestamp":"2025-12-11 17:45:11:4511"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m❌ Cache MISS: blacklist:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4YTU2OWQxMjVlNzBlZjAwMDY4YjYwZiIsImlhdCI6MTc2NTQ0OTkwNiwiZXhwIjoxNzY1NDUwODA2fQ.QSrLheRYSBPn08Wl5Hptya7PXCbxbTuxLRZODVdHKBI\u001b[39m","timestamp":"2025-12-11 17:45:11:4511"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m❌ Cache MISS: blacklist:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4YTU2OWQxMjVlNzBlZjAwMDY4YjYwZiIsImlhdCI6MTc2NTQ0OTkwNiwiZXhwIjoxNzY1NDUwODA2fQ.QSrLheRYSBPn08Wl5Hptya7PXCbxbTuxLRZODVdHKBI\u001b[39m","timestamp":"2025-12-11 17:45:11:4511"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37mJWT validation cache hit\u001b[39m","timestamp":"2025-12-11 17:45:11:4511"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37mJWT validation cache hit\u001b[39m","timestamp":"2025-12-11 17:45:11:4511"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m🎯 Cache HIT: users:user:68a569d125e70ef00068b60f\u001b[39m","timestamp":"2025-12-11 17:45:12:4512"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m🎯 Cache HIT: users:user:68a569d125e70ef00068b60f\u001b[39m","timestamp":"2025-12-11 17:45:12:4512"}
+{"level":"\u001b[33mwarn\u001b[39m","message":"\u001b[33m🐌 Slow request: GET /api/v1/orders/admin/all?page=1&limit=5 took 221ms\u001b[39m","timestamp":"2025-12-11 17:45:12:4512"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m⚡ GET /api/v1/orders/admin/all?page=1&limit=5 - 220.93ms\u001b[39m","timestamp":"2025-12-11 17:45:12:4512"}
+{"level":"\u001b[33mwarn\u001b[39m","message":"\u001b[33m🐌 Slow request: GET /api/v1/orders/admin/all?page=1&limit=5 took 248ms\u001b[39m","timestamp":"2025-12-11 17:45:12:4512"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m⚡ GET /api/v1/orders/admin/all?page=1&limit=5 - 247.86ms\u001b[39m","timestamp":"2025-12-11 17:45:12:4512"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m❌ Cache MISS: blacklist:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4YTU2OWQxMjVlNzBlZjAwMDY4YjYwZiIsImlhdCI6MTc2NTQ0OTkwNiwiZXhwIjoxNzY1NDUwODA2fQ.QSrLheRYSBPn08Wl5Hptya7PXCbxbTuxLRZODVdHKBI\u001b[39m","timestamp":"2025-12-11 17:45:14:4514"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37mJWT validation cache hit\u001b[39m","timestamp":"2025-12-11 17:45:14:4514"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m🎯 Cache HIT: users:user:68a569d125e70ef00068b60f\u001b[39m","timestamp":"2025-12-11 17:45:14:4514"}
+{"level":"\u001b[33mwarn\u001b[39m","message":"\u001b[33m🐌 Slow request: GET /api/v1/auth/me took 171ms\u001b[39m","timestamp":"2025-12-11 17:45:14:4514"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m⚡ GET /api/v1/auth/me - 172.04ms\u001b[39m","timestamp":"2025-12-11 17:45:14:4514"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m❌ Cache MISS: blacklist:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4YTU2OWQxMjVlNzBlZjAwMDY4YjYwZiIsImlhdCI6MTc2NTQ0OTkwNiwiZXhwIjoxNzY1NDUwODA2fQ.QSrLheRYSBPn08Wl5Hptya7PXCbxbTuxLRZODVdHKBI\u001b[39m","timestamp":"2025-12-11 17:45:16:4516"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37mJWT validation cache hit\u001b[39m","timestamp":"2025-12-11 17:45:16:4516"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m❌ Cache MISS: blacklist:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4YTU2OWQxMjVlNzBlZjAwMDY4YjYwZiIsImlhdCI6MTc2NTQ0OTkwNiwiZXhwIjoxNzY1NDUwODA2fQ.QSrLheRYSBPn08Wl5Hptya7PXCbxbTuxLRZODVdHKBI\u001b[39m","timestamp":"2025-12-11 17:45:16:4516"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37mJWT validation cache hit\u001b[39m","timestamp":"2025-12-11 17:45:16:4516"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m🎯 Cache HIT: users:user:68a569d125e70ef00068b60f\u001b[39m","timestamp":"2025-12-11 17:45:16:4516"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m🎯 Cache HIT: users:user:68a569d125e70ef00068b60f\u001b[39m","timestamp":"2025-12-11 17:45:16:4516"}
+{"level":"\u001b[33mwarn\u001b[39m","message":"\u001b[33m🐌 Slow request: GET /api/v1/orders/admin/all?page=1&limit=10 took 227ms\u001b[39m","timestamp":"2025-12-11 17:45:16:4516"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m⚡ GET /api/v1/orders/admin/all?page=1&limit=10 - 228.30ms\u001b[39m","timestamp":"2025-12-11 17:45:16:4516"}
+{"level":"\u001b[33mwarn\u001b[39m","message":"\u001b[33m🐌 Slow request: GET /api/v1/orders/admin/all?page=1&limit=10 took 248ms\u001b[39m","timestamp":"2025-12-11 17:45:16:4516"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m⚡ GET /api/v1/orders/admin/all?page=1&limit=10 - 248.32ms\u001b[39m","timestamp":"2025-12-11 17:45:16:4516"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m❌ Cache MISS: blacklist:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4YTU2OWQxMjVlNzBlZjAwMDY4YjYwZiIsImlhdCI6MTc2NTQ0OTkwNiwiZXhwIjoxNzY1NDUwODA2fQ.QSrLheRYSBPn08Wl5Hptya7PXCbxbTuxLRZODVdHKBI\u001b[39m","timestamp":"2025-12-11 17:45:16:4516"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37mJWT validation cache hit\u001b[39m","timestamp":"2025-12-11 17:45:16:4516"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37m🎯 Cache HIT: users:user:68a569d125e70ef00068b60f\u001b[39m","timestamp":"2025-12-11 17:45:16:4516"}
+{"level":"\u001b[37mdebug\u001b[39m","message":"\u001b[37mData cached: monitoring:system_stats (TTL: 1800s)\u001b[39m","timestamp":"2025-12-11 17:45:38:4538"}
+{"cache":{"hits":0,"misses":0,"size":1},"cpu":{"system":750000,"user":4468000},"database":{"host":"ac-0yhxqmh-shard-00-01.loq8seh.mongodb.net","readyState":1},"level":"\u001b[37mdebug\u001b[39m","memory":{"external":26,"heapTotal":78,"heapUsed":68,"rss":144},"message":"\u001b[37m📊 System Stats:\u001b[39m","performance":{"averageResponseTime":155,"cacheHitRate":53.23741007194245,"errorRate":0,"requestCount":116},"timestamp":"2025-12-11 17:45:38:4538"}
