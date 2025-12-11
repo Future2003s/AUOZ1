@@ -22,6 +22,12 @@ import newsRoutes from "./news";
 import flowerLogRoutes from "./flowerLogs";
 import taskRoutes from "./tasks";
 import storyRoutes from "./story";
+import debtRoutes from "./debt";
+import invoiceRoutes from "./invoice";
+import shippingRoutes from "./shipping";
+import deliveryRoutes from "./delivery";
+import buyerRoutes from "./buyers";
+import uploadRoutes from "./uploads";
 import path from "path";
 import fs from "fs";
 
@@ -103,5 +109,11 @@ router.use("/comments", commentRoutes);
 router.use("/flower-logs", flowerLogRoutes);
 router.use("/tasks", taskRoutes);
 router.use("/story", storyRoutes);
+router.use("/debt", debtRoutes);
+router.use("/invoice", invoiceRoutes);
+router.use("/shipping", shippingRoutes);
+router.use("/delivery", deliveryRoutes);
+router.use("/buyers", buyerRoutes);
+router.use("/uploads", uploadRoutes);
 
 export default router;

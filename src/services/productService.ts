@@ -10,7 +10,7 @@ import { paginateQuery, optimizedPagination } from "../utils/pagination";
 
 interface CreateProductData {
     name: string;
-    description: string;
+    description?: string;
     shortDescription?: string;
     price: number;
     comparePrice?: number;

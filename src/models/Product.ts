@@ -2,7 +2,7 @@ import mongoose, { Document, Schema } from 'mongoose';
 
 export interface IProduct extends Document {
     name: string;
-    description: string;
+    description?: string;
     shortDescription?: string;
     price: number;
     comparePrice?: number;
@@ -88,7 +88,8 @@ const ProductSchema = new Schema<IProduct>({
     },
     description: {
         type: String,
-        required: [true, 'Product description is required'],
+        required: false,
+        default: '',
         maxlength: [5000, 'Description cannot exceed 5000 characters']
     },
     shortDescription: {

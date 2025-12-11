@@ -33,9 +33,9 @@ router.get("/brand/:brandId", staticDataCache(600), getProductsByBrand); // Cach
 router.get("/", generalRateLimit, getProducts);
 router.get("/:id", staticDataCache(300), getProduct); // Cache individual products
 
-// Protected routes (Admin/Seller only) with rate limiting
-router.post("/images", protect, authorize("admin", "seller"), adminRateLimit, uploadProductImageMiddleware, uploadProductImage);
-router.post("/", protect, authorize("admin", "seller"), adminRateLimit, validateCreateProduct, createProduct);
+// Protected routes (Admin/Seller/Employee only) with rate limiting
+router.post("/images", protect, authorize("admin", "seller", "employee"), adminRateLimit, uploadProductImageMiddleware, uploadProductImage);
+router.post("/", protect, authorize("admin", "seller", "employee"), adminRateLimit, validateCreateProduct, createProduct);
 router.put(
     "/:id",
     protect,
