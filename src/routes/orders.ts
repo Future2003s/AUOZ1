@@ -34,9 +34,28 @@ router.post("/", validateCreateOrder, createOrder);
 router.put("/:id/cancel", validateOrderId, cancelOrder);
 router.get("/:id/tracking", validateOrderId, getOrderTracking);
 
-// Admin routes
-router.get("/admin/all", authorize("admin", "ADMIN"), validatePagination, getAllOrders);
-router.put("/:id/status", authorize("admin", "ADMIN"), validateOrderId, validateOrderStatus, updateOrderStatus);
+// Admin/Employee routes - check role in uppercase
+router.get("/admin/all", (req, res, next) => {
+    if (!req.user) {
+        return res.status(401).json({ success: false, message: "Not authorized" });
+    }
+    const userRole = (req.user.role || "").toUpperCase();
+    if (!["ADMIN", "EMPLOYEE"].includes(userRole)) {
+        return res.status(403).json({ success: false, message: "Access denied" });
+    }
+    next();
+}, validatePagination, getAllOrders);
+
+router.put("/:id/status", (req, res, next) => {
+    if (!req.user) {
+        return res.status(401).json({ success: false, message: "Not authorized" });
+    }
+    const userRole = (req.user.role || "").toUpperCase();
+    if (!["ADMIN", "EMPLOYEE"].includes(userRole)) {
+        return res.status(403).json({ success: false, message: "Access denied" });
+    }
+    next();
+}, validateOrderId, validateOrderStatus, updateOrderStatus);
 
 // Get order history
 router.get("/:id/history", authorize("admin", "ADMIN"), (req, res) => {

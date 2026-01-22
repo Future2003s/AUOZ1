@@ -17,9 +17,27 @@ router.get("/:id", unifiedValidation_1.validateOrderId, orderController_1.getOrd
 router.post("/", unifiedValidation_1.validateCreateOrder, orderController_1.createOrder);
 router.put("/:id/cancel", unifiedValidation_1.validateOrderId, orderController_1.cancelOrder);
 router.get("/:id/tracking", unifiedValidation_1.validateOrderId, orderController_1.getOrderTracking);
-// Admin routes
-router.get("/admin/all", (0, auth_1.authorize)("admin", "ADMIN"), unifiedValidation_1.validatePagination, orderController_1.getAllOrders);
-router.put("/:id/status", (0, auth_1.authorize)("admin", "ADMIN"), unifiedValidation_1.validateOrderId, unifiedValidation_1.validateOrderStatus, orderController_1.updateOrderStatus);
+// Admin/Employee routes - check role in uppercase
+router.get("/admin/all", (req, res, next) => {
+    if (!req.user) {
+        return res.status(401).json({ success: false, message: "Not authorized" });
+    }
+    const userRole = (req.user.role || "").toUpperCase();
+    if (!["ADMIN", "EMPLOYEE"].includes(userRole)) {
+        return res.status(403).json({ success: false, message: "Access denied" });
+    }
+    next();
+}, unifiedValidation_1.validatePagination, orderController_1.getAllOrders);
+router.put("/:id/status", (req, res, next) => {
+    if (!req.user) {
+        return res.status(401).json({ success: false, message: "Not authorized" });
+    }
+    const userRole = (req.user.role || "").toUpperCase();
+    if (!["ADMIN", "EMPLOYEE"].includes(userRole)) {
+        return res.status(403).json({ success: false, message: "Access denied" });
+    }
+    next();
+}, unifiedValidation_1.validateOrderId, unifiedValidation_1.validateOrderStatus, orderController_1.updateOrderStatus);
 // Get order history
 router.get("/:id/history", (0, auth_1.authorize)("admin", "ADMIN"), (req, res) => {
     try {

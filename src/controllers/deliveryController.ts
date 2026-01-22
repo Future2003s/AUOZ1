@@ -169,11 +169,27 @@ export const getAllDeliveryOrders = asyncHandler(async (req: Request, res: Respo
         }
     }
 
-    if (isShipped !== undefined) {
+    if (isShipped !== undefined && isShipped !== null && isShipped !== "") {
         query.isShipped = isShipped === "true";
     }
 
     const skip = (page - 1) * limit;
+
+    // Log for debugging
+    console.log("[Delivery Controller] Query params:", {
+        page,
+        limit,
+        search,
+        buyerName,
+        startDate,
+        endDate,
+        isShipped,
+        query,
+    });
+
+    // Check total count before filtering
+    const totalBeforeFilter = await DeliveryOrder.countDocuments({});
+    console.log("[Delivery Controller] Total delivery orders in DB:", totalBeforeFilter);
 
     const deliveryOrders = await DeliveryOrder.find(query)
         .populate("createdBy", "firstName lastName email")
@@ -183,6 +199,8 @@ export const getAllDeliveryOrders = asyncHandler(async (req: Request, res: Respo
         .lean();
 
     const total = await DeliveryOrder.countDocuments(query);
+
+    console.log("[Delivery Controller] Found delivery orders:", deliveryOrders.length, "Total matching query:", total);
 
     ResponseHandler.paginated(res, deliveryOrders, page, limit, total, "Delivery orders retrieved successfully");
 });

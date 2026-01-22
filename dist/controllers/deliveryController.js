@@ -135,10 +135,24 @@ exports.getAllDeliveryOrders = (0, asyncHandler_1.asyncHandler)(async (req, res,
             query.deliveryDate.$lte = new Date(endDate);
         }
     }
-    if (isShipped !== undefined) {
+    if (isShipped !== undefined && isShipped !== null && isShipped !== "") {
         query.isShipped = isShipped === "true";
     }
     const skip = (page - 1) * limit;
+    // Log for debugging
+    console.log("[Delivery Controller] Query params:", {
+        page,
+        limit,
+        search,
+        buyerName,
+        startDate,
+        endDate,
+        isShipped,
+        query,
+    });
+    // Check total count before filtering
+    const totalBeforeFilter = await DeliveryOrder_1.DeliveryOrder.countDocuments({});
+    console.log("[Delivery Controller] Total delivery orders in DB:", totalBeforeFilter);
     const deliveryOrders = await DeliveryOrder_1.DeliveryOrder.find(query)
         .populate("createdBy", "firstName lastName email")
         .sort({ createdAt: -1 })
@@ -146,6 +160,7 @@ exports.getAllDeliveryOrders = (0, asyncHandler_1.asyncHandler)(async (req, res,
         .limit(limit)
         .lean();
     const total = await DeliveryOrder_1.DeliveryOrder.countDocuments(query);
+    console.log("[Delivery Controller] Found delivery orders:", deliveryOrders.length, "Total matching query:", total);
     response_1.ResponseHandler.paginated(res, deliveryOrders, page, limit, total, "Delivery orders retrieved successfully");
 });
 // @desc    Get delivery order by ID
