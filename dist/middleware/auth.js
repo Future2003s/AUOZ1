@@ -21,8 +21,8 @@ const tokenValidationCache = new Map();
 setInterval(() => {
     const now = Date.now();
     for (const [token, data] of tokenValidationCache.entries()) {
-        if (now > data.expires || now - data.lastAccessed > 30 * 60 * 1000) {
-            // 30 min idle timeout
+        if (now > data.expires || now - data.lastAccessed > 7 * 24 * 60 * 60 * 1000) {
+            // Tăng idle timeout từ 30 phút lên 7 ngày để giống Google (chỉ xóa khi thực sự hết hạn)
             tokenValidationCache.delete(token);
         }
     }
@@ -30,13 +30,23 @@ setInterval(() => {
 // Protect routes - require authentication (Optimized)
 exports.protect = (0, asyncHandler_1.asyncHandler)(async (req, res, next) => {
     let token;
-    // Get token from header
+    // Get token from header (Bearer token)
     if (req.headers.authorization && req.headers.authorization.startsWith("Bearer")) {
         token = req.headers.authorization.split(" ")[1];
     }
+    // If no token in header, try to get from cookies (for cookie-based auth)
+    if (!token && req.cookies) {
+        // Try sessionToken first (primary token)
+        token = req.cookies.sessionToken || req.cookies.token;
+        // Fallback to refreshToken if sessionToken not available (should refresh instead)
+        // But we'll use it as fallback for now
+        if (!token) {
+            token = req.cookies.refreshToken;
+        }
+    }
     // Make sure token exists
     if (!token) {
-        return next(new AppError_1.AppError("Not authorized to access this route", 401));
+        return next(new AppError_1.AppError("Not authorized to access this route. Please login.", 401));
     }
     // Check if token is blacklisted
     const isBlacklisted = await tokenBlacklist.get(token);

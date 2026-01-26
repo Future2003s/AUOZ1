@@ -9,6 +9,8 @@ export interface ITask extends Document {
   tag: string;
   status: TaskStatus;
   description?: string;
+  deadline?: string; // YYYY-MM-DD format - thời hạn công việc đến bao giờ
+  progressNotes?: string; // ghi chú tiến độ công việc
   createdBy?: mongoose.Types.ObjectId;
   updatedBy?: mongoose.Types.ObjectId;
   createdAt: Date;
@@ -48,6 +50,15 @@ const TaskSchema = new Schema<ITask>(
       type: String,
       trim: true,
     },
+    deadline: {
+      type: String,
+      trim: true,
+      index: true,
+    },
+    progressNotes: {
+      type: String,
+      trim: true,
+    },
     createdBy: {
       type: Schema.Types.ObjectId,
       ref: "User",
@@ -64,6 +75,7 @@ const TaskSchema = new Schema<ITask>(
 TaskSchema.index({ date: 1, status: 1 });
 TaskSchema.index({ createdBy: 1 });
 TaskSchema.index({ assignee: 1 });
+TaskSchema.index({ deadline: 1 });
 
 export const Task = mongoose.model<ITask>("Task", TaskSchema);
 

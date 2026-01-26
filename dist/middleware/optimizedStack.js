@@ -6,6 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.OptimizedMiddlewareStack = void 0;
 const helmet_1 = __importDefault(require("helmet"));
 const cors_1 = __importDefault(require("cors"));
+const cookie_parser_1 = __importDefault(require("cookie-parser"));
 const compression_1 = require("./compression");
 const performance_1 = require("../utils/performance");
 const rateLimiting_1 = require("./rateLimiting");
@@ -53,7 +54,9 @@ class OptimizedMiddlewareStack {
         }
         // 6. Response optimization
         this.app.use(compression_1.responseOptimizationMiddleware);
-        // 7. Request parsing middleware (optimized order)
+        // 7. Cookie parser (needed for cookie-based authentication)
+        this.app.use((0, cookie_parser_1.default)());
+        // 8. Request parsing middleware (optimized order)
         this.applyParsingMiddleware();
         // 8. Custom middleware for API optimization
         this.applyCustomMiddleware();

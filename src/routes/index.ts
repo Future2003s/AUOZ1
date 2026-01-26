@@ -29,6 +29,7 @@ import deliveryRoutes from "./delivery";
 import buyerRoutes from "./buyers";
 import uploadRoutes from "./uploads";
 import employeeRoutes from "./employee";
+import inventoryRoutes from "./inventory";
 import path from "path";
 import fs from "fs";
 
@@ -117,5 +118,6 @@ router.use("/delivery", deliveryRoutes);
 router.use("/buyers", buyerRoutes);
 router.use("/uploads", uploadRoutes);
 router.use("/employee", employeeRoutes);
+router.use("/inventory", inventoryRoutes);
 
 export default router;

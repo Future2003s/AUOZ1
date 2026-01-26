@@ -1,6 +1,7 @@
 import { Application, Request, Response, NextFunction } from "express";
 import helmet from "helmet";
 import cors from "cors";
+import cookieParser from "cookie-parser";
 import { compressionMiddleware, responseOptimizationMiddleware, performanceTimingMiddleware } from "./compression";
 import { performanceMiddleware } from "../utils/performance";
 import { generalRateLimit } from "./rateLimiting";
@@ -73,7 +74,10 @@ export class OptimizedMiddlewareStack {
         // 6. Response optimization
         this.app.use(responseOptimizationMiddleware);
 
-        // 7. Request parsing middleware (optimized order)
+        // 7. Cookie parser (needed for cookie-based authentication)
+        this.app.use(cookieParser());
+
+        // 8. Request parsing middleware (optimized order)
         this.applyParsingMiddleware();
 
         // 8. Custom middleware for API optimization

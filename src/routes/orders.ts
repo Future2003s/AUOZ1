@@ -35,7 +35,7 @@ router.put("/:id/cancel", validateOrderId, cancelOrder);
 router.get("/:id/tracking", validateOrderId, getOrderTracking);
 
 // Admin/Employee routes - check role in uppercase
-router.get("/admin/all", (req, res, next) => {
+router.get("/admin/all", (req: any, res: any, next: any) => {
     if (!req.user) {
         return res.status(401).json({ success: false, message: "Not authorized" });
     }
@@ -46,7 +46,7 @@ router.get("/admin/all", (req, res, next) => {
     next();
 }, validatePagination, getAllOrders);
 
-router.put("/:id/status", (req, res, next) => {
+router.put("/:id/status", (req: any, res: any, next: any) => {
     if (!req.user) {
         return res.status(401).json({ success: false, message: "Not authorized" });
     }

@@ -38,7 +38,8 @@ class ResponseHandler {
                 page,
                 limit,
                 total,
-                pages: Math.ceil(total / limit)
+                pages: Math.ceil(total / limit),
+                totalPages: Math.ceil(total / limit) // Add totalPages for frontend compatibility
             }
         };
         return res.status(200).json(response);

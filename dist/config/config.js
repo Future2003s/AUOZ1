@@ -44,9 +44,9 @@ exports.config = {
     },
     jwt: {
         secret: process.env.JWT_SECRET || "your-super-secret-jwt-key",
-        expiresIn: process.env.JWT_EXPIRES_IN || "1d",
+        expiresIn: process.env.JWT_EXPIRES_IN || "30d", // Tăng từ 1d lên 30d để giống Google
         refreshSecret: process.env.JWT_REFRESH_SECRET || "your-refresh-secret-key",
-        refreshExpiresIn: process.env.JWT_REFRESH_EXPIRES_IN || "7d"
+        refreshExpiresIn: process.env.JWT_REFRESH_EXPIRES_IN || "365d" // Tăng từ 7d lên 365d (1 năm) để giống Google
     },
     email: {
         host: process.env.EMAIL_HOST || "smtp.gmail.com",

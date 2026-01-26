@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { protect, authorize } from "../middleware/auth";
+import { protect } from "../middleware/auth";
 import {
     getEmployeeMetrics,
     getIncompleteInvoices,
@@ -7,6 +7,10 @@ import {
     getUnpaidOrders,
     getOrdersNotInDebt
 } from "../controllers/employeeMetricsController";
+import {
+    getEmployeeNavUsage,
+    recordEmployeeNavUsage
+} from "../controllers/employeeNavController";
 
 const router = Router();
 
@@ -23,12 +27,16 @@ router.use((req, res, next) => {
     next();
 });
 
-// Routes
+// Metrics routes
 router.get("/metrics", getEmployeeMetrics);
 router.get("/metrics/incomplete-invoices", getIncompleteInvoices);
 router.get("/metrics/undelivered-orders", getUndeliveredOrders);
 router.get("/metrics/unpaid-orders", getUnpaidOrders);
 router.get("/metrics/not-in-debt", getOrdersNotInDebt);
+
+// Navigation usage routes
+router.get("/nav-usage", getEmployeeNavUsage);
+router.post("/nav-usage", recordEmployeeNavUsage);
 
 export default router;
 

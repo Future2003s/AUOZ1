@@ -8,7 +8,7 @@ import { AppError } from "../utils/AppError";
 // @route   POST /api/v1/tasks
 // @access  Private (Employee/Admin)
 export const createTask = asyncHandler(async (req: Request, res: Response) => {
-  const { date, title, assignee, tag, status, description } = req.body as Partial<ITask>;
+  const { date, title, assignee, tag, status, description, deadline, progressNotes } = req.body as Partial<ITask>;
 
   if (!date || !title) {
     return ResponseHandler.badRequest(
@@ -26,6 +26,14 @@ export const createTask = asyncHandler(async (req: Request, res: Response) => {
     );
   }
 
+  // Validate deadline format if provided
+  if (deadline && !dateRegex.test(deadline)) {
+    return ResponseHandler.badRequest(
+      res,
+      "Định dạng thời hạn không hợp lệ. Vui lòng sử dụng định dạng YYYY-MM-DD."
+    );
+  }
+
   const task = await Task.create({
     date,
     title,
@@ -33,6 +41,8 @@ export const createTask = asyncHandler(async (req: Request, res: Response) => {
     tag: tag || "Chung",
     status: (status as TaskStatus) || "todo",
     description: description || "",
+    deadline: deadline || undefined,
+    progressNotes: progressNotes || "",
     createdBy: (req as any).user?._id,
     updatedBy: (req as any).user?._id,
   });
@@ -179,7 +189,7 @@ export const getTaskById = asyncHandler(async (req: Request, res: Response) => {
 // @access  Private (Employee/Admin)
 export const updateTask = asyncHandler(async (req: Request, res: Response) => {
   const { id } = req.params;
-  const { date, title, assignee, tag, status, description } = req.body as Partial<ITask>;
+  const { date, title, assignee, tag, status, description, deadline, progressNotes } = req.body as Partial<ITask>;
 
   const filter: Record<string, any> = { _id: id };
 
@@ -207,8 +217,8 @@ export const updateTask = asyncHandler(async (req: Request, res: Response) => {
   }
 
   // Validate date format if provided
+  const dateRegex = /^\d{4}-\d{2}-\d{2}$/;
   if (date) {
-    const dateRegex = /^\d{4}-\d{2}-\d{2}$/;
     if (!dateRegex.test(date)) {
       return ResponseHandler.badRequest(
         res,
@@ -218,6 +228,17 @@ export const updateTask = asyncHandler(async (req: Request, res: Response) => {
     task.date = date;
   }
 
+  // Validate deadline format if provided
+  if (deadline !== undefined) {
+    if (deadline && !dateRegex.test(deadline)) {
+      return ResponseHandler.badRequest(
+        res,
+        "Định dạng thời hạn không hợp lệ. Vui lòng sử dụng định dạng YYYY-MM-DD."
+      );
+    }
+    task.deadline = deadline || undefined;
+  }
+
   if (title) task.title = title;
   if (assignee !== undefined) task.assignee = assignee || "Chưa chỉ định";
   if (tag !== undefined) task.tag = tag || "Chung";
@@ -225,6 +246,7 @@ export const updateTask = asyncHandler(async (req: Request, res: Response) => {
     task.status = status as TaskStatus;
   }
   if (description !== undefined) task.description = description || "";
+  if (progressNotes !== undefined) task.progressNotes = progressNotes || "";
   task.updatedBy = user?._id;
 
   await task.save();
