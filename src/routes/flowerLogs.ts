@@ -6,6 +6,10 @@ import {
     updateFlowerLog,
     deleteFlowerLog
 } from "../controllers/flowerLogController";
+import {
+    getFlowerLogCatalog,
+    upsertFlowerLogCatalog
+} from "../controllers/flowerLogCatalogController";
 import { generalRateLimit } from "../middleware/rateLimiting";
 
 const router = Router();
@@ -21,6 +25,9 @@ router.get("/test", (req, res) => {
 
 // Public routes with rate limiting (NO AUTHENTICATION REQUIRED)
 router.get("/", generalRateLimit, getFlowerLogs);
+// Catalog routes MUST be before "/:id"
+router.get("/catalog", generalRateLimit, getFlowerLogCatalog);
+router.put("/catalog", generalRateLimit, upsertFlowerLogCatalog);
 router.get("/:id", generalRateLimit, getFlowerLog);
 router.post("/", generalRateLimit, createFlowerLog);
 router.put("/:id", generalRateLimit, updateFlowerLog);

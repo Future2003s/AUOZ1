@@ -42,9 +42,9 @@ class InventoryService {
             const sortOptions = {};
             sortOptions[sort] = order === "asc" ? 1 : -1;
             // Build query
-            const query = Inventory_1.Inventory.find(filterQuery).sort(sortOptions);
+            const mongoQuery = Inventory_1.Inventory.find(filterQuery).sort(sortOptions);
             // Execute query with pagination
-            const result = await (0, pagination_1.paginateQuery)(query, {
+            const result = await (0, pagination_1.paginateQuery)(mongoQuery, {
                 page,
                 limit,
                 sort,
@@ -233,9 +233,9 @@ class InventoryService {
             const sortOptions = {};
             sortOptions[sort] = order === "asc" ? 1 : -1;
             // Build query
-            const query = InventoryHistory_1.InventoryHistory.find(filterQuery).sort(sortOptions);
+            const mongoQuery = InventoryHistory_1.InventoryHistory.find(filterQuery).sort(sortOptions);
             // Execute query with pagination
-            const result = await (0, pagination_1.paginateQuery)(query, {
+            const result = await (0, pagination_1.paginateQuery)(mongoQuery, {
                 page,
                 limit,
                 sort,

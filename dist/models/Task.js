@@ -67,6 +67,15 @@ const TaskSchema = new mongoose_1.Schema({
         type: String,
         trim: true,
     },
+    deadline: {
+        type: String,
+        trim: true,
+        index: true,
+    },
+    progressNotes: {
+        type: String,
+        trim: true,
+    },
     createdBy: {
         type: mongoose_1.Schema.Types.ObjectId,
         ref: "User",
@@ -80,4 +89,5 @@ const TaskSchema = new mongoose_1.Schema({
 TaskSchema.index({ date: 1, status: 1 });
 TaskSchema.index({ createdBy: 1 });
 TaskSchema.index({ assignee: 1 });
+TaskSchema.index({ deadline: 1 });
 exports.Task = mongoose_1.default.model("Task", TaskSchema);

@@ -8,7 +8,7 @@ const Task_1 = require("../models/Task");
 // @route   POST /api/v1/tasks
 // @access  Private (Employee/Admin)
 exports.createTask = (0, asyncHandler_1.asyncHandler)(async (req, res) => {
-    const { date, title, assignee, tag, status, description } = req.body;
+    const { date, title, assignee, tag, status, description, deadline, progressNotes } = req.body;
     if (!date || !title) {
         return response_1.ResponseHandler.badRequest(res, "Vui lòng nhập đầy đủ ngày và tiêu đề công việc.");
     }
@@ -17,6 +17,10 @@ exports.createTask = (0, asyncHandler_1.asyncHandler)(async (req, res) => {
     if (!dateRegex.test(date)) {
         return response_1.ResponseHandler.badRequest(res, "Định dạng ngày không hợp lệ. Vui lòng sử dụng định dạng YYYY-MM-DD.");
     }
+    // Validate deadline format if provided
+    if (deadline && !dateRegex.test(deadline)) {
+        return response_1.ResponseHandler.badRequest(res, "Định dạng thời hạn không hợp lệ. Vui lòng sử dụng định dạng YYYY-MM-DD.");
+    }
     const task = await Task_1.Task.create({
         date,
         title,
@@ -24,6 +28,8 @@ exports.createTask = (0, asyncHandler_1.asyncHandler)(async (req, res) => {
         tag: tag || "Chung",
         status: status || "todo",
         description: description || "",
+        deadline: deadline || undefined,
+        progressNotes: progressNotes || "",
         createdBy: req.user?._id,
         updatedBy: req.user?._id,
     });
@@ -144,7 +150,7 @@ exports.getTaskById = (0, asyncHandler_1.asyncHandler)(async (req, res) => {
 // @access  Private (Employee/Admin)
 exports.updateTask = (0, asyncHandler_1.asyncHandler)(async (req, res) => {
     const { id } = req.params;
-    const { date, title, assignee, tag, status, description } = req.body;
+    const { date, title, assignee, tag, status, description, deadline, progressNotes } = req.body;
     const filter = { _id: id };
     // For employee: can update tasks they created OR tasks assigned to them
     // For admin: can update all tasks
@@ -166,12 +172,19 @@ exports.updateTask = (0, asyncHandler_1.asyncHandler)(async (req, res) => {
         return response_1.ResponseHandler.notFound(res, "Không tìm thấy công việc");
     }
     // Validate date format if provided
+    const dateRegex = /^\d{4}-\d{2}-\d{2}$/;
     if (date) {
-        const dateRegex = /^\d{4}-\d{2}-\d{2}$/;
         if (!dateRegex.test(date)) {
             return response_1.ResponseHandler.badRequest(res, "Định dạng ngày không hợp lệ. Vui lòng sử dụng định dạng YYYY-MM-DD.");
         }
         task.date = date;
+    }
+    // Validate deadline format if provided
+    if (deadline !== undefined) {
+        if (deadline && !dateRegex.test(deadline)) {
+            return response_1.ResponseHandler.badRequest(res, "Định dạng thời hạn không hợp lệ. Vui lòng sử dụng định dạng YYYY-MM-DD.");
+        }
+        task.deadline = deadline || undefined;
     }
     if (title)
         task.title = title;
@@ -184,6 +197,8 @@ exports.updateTask = (0, asyncHandler_1.asyncHandler)(async (req, res) => {
     }
     if (description !== undefined)
         task.description = description || "";
+    if (progressNotes !== undefined)
+        task.progressNotes = progressNotes || "";
     task.updatedBy = user?._id;
     await task.save();
     return response_1.ResponseHandler.updated(res, task, "Cập nhật công việc thành công");
