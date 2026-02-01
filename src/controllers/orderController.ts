@@ -7,6 +7,7 @@ import { Cart } from "../models/Cart";
 import { AppError } from "../utils/AppError";
 import { eventService } from "../services/eventService";
 import { voucherService } from "../services/voucherService";
+import { notificationService } from "../services/notificationService";
 import { OrderEvent } from "../types";
 
 // @desc    Create new order
@@ -187,6 +188,21 @@ export const createOrder = asyncHandler(async (req: Request, res: Response, next
         }
     });
 
+    // Create notification in database
+    try {
+        await notificationService.createOrderNotification({
+            orderId: (order._id as string).toString(),
+            orderNumber,
+            total,
+            itemCount: orderItems.length,
+            userId: userId || undefined,
+            isGuest: !userId
+        });
+    } catch (error) {
+        // Don't fail the order creation if notification fails
+        console.warn("Failed to create notification:", error);
+    }
+
     ResponseHandler.created(res, populatedOrder, "Order created successfully");
 });
 
@@ -242,11 +258,11 @@ export const getUserOrders = asyncHandler(async (req: Request, res: Response, ne
 export const getOrder = asyncHandler(async (req: Request, res: Response, next: NextFunction) => {
     const orderId = req.params.id;
     const userId = (req as any).user.id;
-    const userRole = (req as any).user.role;
+    const userRole = (req as any).user.role?.toUpperCase();
 
-    // Build filter - users can only see their own orders, admins can see all
+    // Build filter - users can only see their own orders, admins and employees can see all
     const filter: any = { _id: orderId };
-    if (userRole !== "admin") {
+    if (userRole !== "ADMIN" && userRole !== "EMPLOYEE") {
         filter.user = userId;
     }
 

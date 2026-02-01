@@ -1,4 +1,5 @@
 import express from "express";
+import { createServer } from "http";
 import { config } from "./config/config";
 import { connectDatabase } from "./config/database";
 import { redisCache } from "./config/redis";
@@ -11,13 +12,16 @@ import { logger } from "./utils/logger";
 import { cacheService } from "./services/cacheService";
 import { performanceMonitor } from "./utils/performance";
 import { apiI18nMiddleware } from "./middleware/i18n";
+import { initializeSocketIO } from "./config/socket";
 
 class OptimizedApp {
     public app: express.Application;
+    public httpServer: ReturnType<typeof createServer>;
     private middlewareStack: OptimizedMiddlewareStack;
 
     constructor() {
         this.app = express();
+        this.httpServer = createServer(this.app);
         this.middlewareStack = new OptimizedMiddlewareStack(this.app, {
             enableCompression: true,
             enableRateLimit: true,
@@ -103,9 +107,14 @@ class OptimizedApp {
                 // Add your warm-up functions here when you have data
             ]);
 
-            // 5. Start server
+            // 5. Initialize Socket.IO
+            logger.info("🔌 Initializing Socket.IO server...");
+            initializeSocketIO(this.httpServer);
+            logger.info("✅ Socket.IO server initialized");
+
+            // 6. Start server
             const port = config.port;
-            this.app.listen(port, () => {
+            this.httpServer.listen(port, () => {
                 logger.info(`🚀 Optimized server running on port ${port}`);
                 logger.info(`📊 Environment: ${config.nodeEnv}`);
                 logger.info(`🔗 Database: ${config.database.type}`);
@@ -113,6 +122,7 @@ class OptimizedApp {
                 logger.info(`🗜️ Compression enabled`);
                 logger.info(`🔒 Security headers enabled`);
                 logger.info(`📈 Performance monitoring enabled`);
+                logger.info(`🔌 Socket.IO enabled`);
             });
 
             // 6. Log performance stats periodically in development
