@@ -10,9 +10,19 @@ let io: SocketIOServer | null = null;
  * Initialize Socket.IO server
  */
 export function initializeSocketIO(httpServer: HttpServer): SocketIOServer {
+    // Default CORS origins - include both FeLLC (3000) and OrderFe (3001)
+    const defaultOrigins = [
+        "http://localhost:3000",  // FeLLC - Employee dashboard
+        "http://localhost:3001"   // OrderFe - Customer order page
+    ];
+    
+    const corsOrigins = process.env.CORS_ORIGIN 
+        ? process.env.CORS_ORIGIN.split(",").map(origin => origin.trim())
+        : defaultOrigins;
+
     io = new SocketIOServer(httpServer, {
         cors: {
-            origin: process.env.CORS_ORIGIN?.split(",") || ["http://localhost:3000"],
+            origin: corsOrigins,
             methods: ["GET", "POST"],
             credentials: true
         },

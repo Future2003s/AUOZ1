@@ -2,11 +2,13 @@ import mongoose, { Document, Schema } from 'mongoose';
 
 export interface IProduct extends Document {
     name: string;
+    slug?: string; // URL-friendly identifier
     description?: string;
     shortDescription?: string;
     price: number;
     comparePrice?: number;
     costPrice?: number;
+    currency?: string; // VND, USD, etc.
     sku: string;
     barcode?: string;
     trackQuantity: boolean;
@@ -19,6 +21,20 @@ export interface IProduct extends Document {
         height: number;
         unit: 'cm' | 'in';
     };
+    
+    // Product details
+    ingredients?: string; // Thành phần
+    nutrition?: {
+        energyKcal?: number;
+        proteinG?: number;
+        fatG?: number;
+        totalSugarG?: number;
+        sugarRangeG?: string; // "15-16"
+        sodiumMg?: number;
+    };
+    volumeMl?: number; // Dung tích (ml)
+    supervisedBy?: string; // Giám sát bởi
+    claims?: string[]; // Tiêu chí (3 Không)
     
     // Category and Brand
     category: mongoose.Types.ObjectId;
@@ -86,6 +102,14 @@ const ProductSchema = new Schema<IProduct>({
         trim: true,
         maxlength: [200, 'Product name cannot exceed 200 characters']
     },
+    slug: {
+        type: String,
+        unique: true,
+        sparse: true,
+        trim: true,
+        lowercase: true,
+        index: true
+    },
     description: {
         type: String,
         required: false,
@@ -109,6 +133,35 @@ const ProductSchema = new Schema<IProduct>({
         type: Number,
         min: [0, 'Cost price cannot be negative']
     },
+    currency: {
+        type: String,
+        default: 'VND',
+        uppercase: true
+    },
+    ingredients: {
+        type: String,
+        trim: true
+    },
+    nutrition: {
+        energyKcal: { type: Number, min: 0 },
+        proteinG: { type: Number, min: 0 },
+        fatG: { type: Number, min: 0 },
+        totalSugarG: { type: Number, min: 0 },
+        sugarRangeG: String, // "15-16"
+        sodiumMg: { type: Number, min: 0 }
+    },
+    volumeMl: {
+        type: Number,
+        min: [0, 'Volume cannot be negative']
+    },
+    supervisedBy: {
+        type: String,
+        trim: true
+    },
+    claims: [{
+        type: String,
+        trim: true
+    }],
     sku: {
         type: String,
         required: [true, 'SKU is required'],
@@ -266,6 +319,7 @@ ProductSchema.virtual('stockStatus').get(function() {
 
 // Indexes for better performance
 ProductSchema.index({ name: 'text', description: 'text', tags: 'text' });
+ProductSchema.index({ slug: 1 }, { unique: true, sparse: true });
 ProductSchema.index({ category: 1 });
 ProductSchema.index({ brand: 1 });
 ProductSchema.index({ price: 1 });

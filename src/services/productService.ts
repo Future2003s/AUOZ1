@@ -171,6 +171,19 @@ export class ProductService {
 
             // Build optimized filter query
             const filterQuery = this.buildProductFilterQuery(filters);
+            
+            // Exclude honey products (mật ong) by default unless explicitly requested
+            // This ensures only nước ép vải products are shown
+            const searchTerm = filters.search?.toLowerCase() || "";
+            const isHoneySearch = searchTerm.includes("mật ong") || searchTerm.includes("mat ong") || searchTerm.includes("honey");
+            
+            if (!isHoneySearch) {
+                // Add exclusion for honey products
+                filterQuery.$and = filterQuery.$and || [];
+                filterQuery.$and.push({
+                    name: { $not: { $regex: /mật ong|mat ong|honey/i } }
+                });
+            }
 
             // If searching, also search in category and brand names using aggregation
             if (filters.search && filters.search.trim()) {
@@ -250,9 +263,17 @@ export class ProductService {
 
     /**
      * Get product by ID (with caching)
+     * Only accepts valid MongoDB ObjectId
      */
     static async getProductById(productId: string): Promise<IProduct> {
         try {
+            // Strict validation: ObjectId must be exactly 24 hex characters
+            const objectIdPattern = /^[0-9a-fA-F]{24}$/;
+            if (!objectIdPattern.test(productId)) {
+                logger.warn(`getProductById called with non-ObjectId: ${productId}`);
+                throw new AppError(`Invalid product ID format: "${productId}". Expected 24-character hexadecimal ObjectId. Use getProductBySlug() for slug lookup.`, 400);
+            }
+
             // Try cache first
             const cacheKey = `product:${productId}`;
             const cached = await this.cache.get<IProduct>(cacheKey);
@@ -260,6 +281,7 @@ export class ProductService {
                 return cached;
             }
 
+            // Use findById only after validation - this will throw if productId is invalid
             const product = await Product.findById(productId)
                 .populate("category", "name slug description")
                 .populate("brand", "name slug logo website")
@@ -280,30 +302,167 @@ export class ProductService {
     }
 
     /**
-     * Get product by slug (with caching)
+     * Get product by slug (with caching and alias support)
+     * Supports backward compatibility with old slugs
      */
     static async getProductBySlug(slug: string): Promise<IProduct> {
         try {
+            // Validate slug is not an ObjectId (to prevent confusion)
+            const objectIdPattern = /^[0-9a-fA-F]{24}$/;
+            if (objectIdPattern.test(slug)) {
+                logger.warn(`getProductBySlug called with ObjectId: ${slug}. Use getProductById() instead.`);
+                // Still try to find by slug first, but also suggest using getProductById
+            }
+
             const cacheKey = `product:slug:${slug}`;
             const cached = await this.cache.get<IProduct>(cacheKey);
             if (cached) {
+                logger.debug(`Cache HIT for slug: ${slug}`);
                 return cached;
             }
+            
+            logger.debug(`Cache MISS for slug: ${slug}, querying database...`);
 
-            const product = await Product.findOne({ slug })
+            // Slug alias mapping for backward compatibility
+            const SLUG_ALIASES: Record<string, string> = {
+                "nuoc-cot-vai-100": "nuoc-ep-vai-thieu"
+            };
+
+            // Resolve alias if exists
+            const resolvedSlug = SLUG_ALIASES[slug] || slug;
+
+            // Try to find product with active status first
+            let product = await Product.findOne({ slug: resolvedSlug, status: "active", isVisible: true })
                 .populate("category", "name slug description")
                 .populate("brand", "name slug logo website")
                 .populate("createdBy", "firstName lastName")
                 .lean();
 
+            // If not found with active status, try without status filter (for draft products)
             if (!product) {
-                throw new AppError("Product not found", 404);
+                product = await Product.findOne({ slug: resolvedSlug })
+                    .populate("category", "name slug description")
+                    .populate("brand", "name slug logo website")
+                    .populate("createdBy", "firstName lastName")
+                    .lean();
+            }
+
+            // If not found and original slug was an alias, try original slug
+            if (!product && SLUG_ALIASES[slug]) {
+                product = await Product.findOne({ slug, status: "active", isVisible: true })
+                    .populate("category", "name slug description")
+                    .populate("brand", "name slug logo website")
+                    .populate("createdBy", "firstName lastName")
+                    .lean();
+                
+                // If still not found, try without status filter
+                if (!product) {
+                    product = await Product.findOne({ slug })
+                        .populate("category", "name slug description")
+                        .populate("brand", "name slug logo website")
+                        .populate("createdBy", "firstName lastName")
+                        .lean();
+                }
+            }
+
+            if (!product) {
+                throw new AppError(`Product with slug "${slug}" not found`, 404);
             }
 
             await this.cache.set(cacheKey, product, CACHE_TTL.MEDIUM);
             return product as IProduct;
         } catch (error) {
             logger.error("Get product by slug error:", error);
+            throw error;
+        }
+    }
+
+    /**
+     * Get "Nước Cốt Vải 100% Thanh Hà" product specifically for OrderFe
+     * This is a dedicated endpoint for the specific product
+     */
+    static async getNuocCotVai100Product(): Promise<IProduct> {
+        try {
+            const cacheKey = "product:nuoc-cot-vai-100";
+            const cached = await this.cache.get<IProduct>(cacheKey);
+            if (cached) {
+                return cached;
+            }
+
+            // Try multiple search patterns to find the product
+            // Note: Product model doesn't have slug field, so we search by name and tags only
+            const searchPatterns = [
+                { name: { $regex: /nước cốt vải.*100.*thanh hà/i } },
+                { name: { $regex: /nuoc cot vai.*100.*thanh ha/i } },
+                { name: { $regex: /nước ép vải.*100.*thanh hà/i } },
+                { name: { $regex: /nuoc ep vai.*100.*thanh ha/i } },
+                { name: { $regex: /100.*nước.*vải.*thanh hà/i } },
+                { name: { $regex: /100.*nuoc.*vai.*thanh ha/i } },
+                { name: { $regex: /nước cốt vải.*thanh hà/i } },
+                { name: { $regex: /nuoc cot vai.*thanh ha/i } },
+                { name: { $regex: /nước ép vải.*thanh hà/i } },
+                { tags: { $in: ["nuoc-cot-vai-100", "nước cốt vải 100", "thanh hà", "nuoc-cot-vai", "nước cốt vải"] } },
+                // More flexible search - find any product with "vải" and "100" or "thanh hà"
+                { 
+                    $and: [
+                        { name: { $regex: /vải|vai/i } },
+                        { $or: [
+                            { name: { $regex: /100/i } },
+                            { name: { $regex: /thanh hà|thanh ha/i } }
+                        ]}
+                    ]
+                }
+            ];
+
+            let product = null;
+            for (const pattern of searchPatterns) {
+                try {
+                    product = await Product.findOne({
+                        ...pattern,
+                        status: "active",
+                        isVisible: true
+                    })
+                        .populate("category", "name slug description")
+                        .populate("brand", "name slug logo website")
+                        .populate("createdBy", "firstName lastName")
+                        .lean();
+
+                    if (product) {
+                        logger.info(`Found Nuoc Cot Vai 100 product with pattern: ${JSON.stringify(pattern)}`);
+                        break;
+                    }
+                } catch (patternError) {
+                    // Skip invalid patterns and continue
+                    logger.warn(`Pattern search failed: ${JSON.stringify(pattern)}`, patternError);
+                    continue;
+                }
+            }
+
+            // If still not found, try a broader search for any product with "vải" in name
+            if (!product) {
+                logger.warn("Nuoc Cot Vai 100 product not found with specific patterns, trying broader search...");
+                product = await Product.findOne({
+                    name: { $regex: /vải|vai/i },
+                    status: "active",
+                    isVisible: true
+                })
+                    .populate("category", "name slug description")
+                    .populate("brand", "name slug logo website")
+                    .populate("createdBy", "firstName lastName")
+                    .sort({ createdAt: -1 }) // Get the most recent one
+                    .lean();
+            }
+
+            if (!product) {
+                logger.error("No product found matching 'Nước Cốt Vải 100% Thanh Hà' or any similar product");
+                throw new AppError("Nước Cốt Vải 100% Thanh Hà product not found. Please create this product in the database first.", 404);
+            }
+
+            // Cache the result for longer since this is a specific product
+            await this.cache.set(cacheKey, product, CACHE_TTL.LONG);
+            return product as IProduct;
+        } catch (error) {
+            logger.error("Get Nuoc Cot Vai 100 product error:", error);
             throw error;
         }
     }
@@ -554,23 +713,33 @@ export class ProductService {
 
             logger.info("Featured products cache MISS: Fetching from database");
 
+            // Exclude honey products (mật ong) from featured products
+            const excludeHoneyQuery = {
+                name: { $not: { $regex: /mật ong|mat ong|honey/i } },
+                description: { $not: { $regex: /mật ong|mat ong|honey/i } },
+                tags: { $not: { $in: [/mật ong|mat ong|honey/i] } }
+            };
+
             // Debug: Check counts
             const totalFeatured = await Product.countDocuments({ isFeatured: true });
             const activeFeatured = await Product.countDocuments({ isFeatured: true, status: "active" });
             const visibleActiveFeatured = await Product.countDocuments({
                 isFeatured: true,
                 status: "active",
-                isVisible: true
+                isVisible: true,
+                ...excludeHoneyQuery
             });
 
             logger.info(
                 `Featured products debug: total with isFeatured=true: ${totalFeatured}, active: ${activeFeatured}, visible+active: ${visibleActiveFeatured}`
             );
 
+            // Exclude honey products from featured products
             const products = await Product.find({
                 isFeatured: true,
                 status: "active",
-                isVisible: true
+                isVisible: true,
+                name: { $not: { $regex: /mật ong|mat ong|honey/i } }
             })
                 .populate("category", "name slug")
                 .populate("brand", "name slug logo")

@@ -15,7 +15,8 @@ import {
     getOrderTracking,
     getAllOrders,
     updateOrderStatus,
-    streamOrderEvents
+    streamOrderEvents,
+    deleteOrder
 } from "../controllers/orderController";
 
 const router = Router();
@@ -56,6 +57,17 @@ router.put("/:id/status", (req: any, res: any, next: any) => {
     }
     next();
 }, validateOrderId, validateOrderStatus, updateOrderStatus);
+
+router.delete("/:id", (req: any, res: any, next: any) => {
+    if (!req.user) {
+        return res.status(401).json({ success: false, message: "Not authorized" });
+    }
+    const userRole = (req.user.role || "").toUpperCase();
+    if (!["ADMIN", "EMPLOYEE"].includes(userRole)) {
+        return res.status(403).json({ success: false, message: "Access denied" });
+    }
+    next();
+}, validateOrderId, deleteOrder);
 
 // Get order history
 router.get("/:id/history", authorize("admin", "ADMIN"), (req, res) => {

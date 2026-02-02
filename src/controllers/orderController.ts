@@ -180,6 +180,7 @@ export const createOrder = asyncHandler(async (req: Request, res: Response, next
         orderId: (order._id as string).toString(),
         userId: userId || "guest",
         action: "created",
+        orderValue: total, // Add orderValue for compatibility
         metadata: {
             orderNumber,
             total,
@@ -280,6 +281,21 @@ export const getOrder = asyncHandler(async (req: Request, res: Response, next: N
 // @desc    Cancel order
 // @route   PUT /api/v1/orders/:id/cancel
 // @access  Private
+// @desc    Delete order
+// @route   DELETE /api/v1/orders/:id
+// @access  Private (Admin/Employee only)
+export const deleteOrder = asyncHandler(async (req: Request, res: Response, next: NextFunction) => {
+    const { id } = req.params;
+
+    const order = await Order.findByIdAndDelete(id);
+
+    if (!order) {
+        return next(new AppError("Order not found", 404));
+    }
+
+    ResponseHandler.success(res, null, "Order deleted successfully");
+});
+
 export const cancelOrder = asyncHandler(async (req: Request, res: Response, next: NextFunction) => {
     const orderId = req.params.id;
     const userId = (req as any).user.id;

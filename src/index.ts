@@ -1,5 +1,7 @@
 import express from "express";
 import { createServer } from "http";
+import path from "path";
+import fs from "fs";
 import { config } from "./config/config";
 import { connectDatabase } from "./config/database";
 import { redisCache } from "./config/redis";
@@ -8,6 +10,7 @@ import { OptimizedMiddlewareStack } from "./middleware/optimizedStack";
 import { errorHandler } from "./middleware/errorHandler";
 import { notFoundHandler } from "./middleware/notFoundHandler";
 import routes from "./routes";
+import productsCrudRoutes from "./routes/products-crud";
 import { logger } from "./utils/logger";
 import { cacheService } from "./services/cacheService";
 import { performanceMonitor } from "./utils/performance";
@@ -63,6 +66,19 @@ class OptimizedApp {
                 uptime: process.uptime()
             });
         });
+
+        // Products Management UI
+        this.app.get("/products-management", (req, res) => {
+            const productsManagementPath = path.join(__dirname, "../views/products-management.html");
+            if (fs.existsSync(productsManagementPath)) {
+                const html = fs.readFileSync(productsManagementPath, "utf8");
+                return res.type("html").send(html);
+            }
+            res.status(404).send("Products management page not found");
+        });
+
+        // Products CRUD routes at /products (dedicated route for product management)
+        this.app.use("/products", productsCrudRoutes);
 
         // API routes
         this.app.use("/api/v1", routes);
