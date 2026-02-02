@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.streamOrderEvents = exports.updateOrderStatus = exports.getAllOrders = exports.getOrderTracking = exports.cancelOrder = exports.getOrder = exports.getUserOrders = exports.createOrder = void 0;
+exports.streamOrderEvents = exports.updateOrderStatus = exports.getAllOrders = exports.getOrderTracking = exports.cancelOrder = exports.deleteOrder = exports.getOrder = exports.getUserOrders = exports.createOrder = void 0;
 const asyncHandler_1 = require("../utils/asyncHandler");
 const response_1 = require("../utils/response");
 const Order_1 = require("../models/Order");
@@ -9,6 +9,7 @@ const Cart_1 = require("../models/Cart");
 const AppError_1 = require("../utils/AppError");
 const eventService_1 = require("../services/eventService");
 const voucherService_1 = require("../services/voucherService");
+const notificationService_1 = require("../services/notificationService");
 // @desc    Create new order
 // @route   POST /api/v1/orders
 // @access  Private
@@ -158,6 +159,7 @@ exports.createOrder = (0, asyncHandler_1.asyncHandler)(async (req, res, next) =>
         orderId: order._id.toString(),
         userId: userId || "guest",
         action: "created",
+        orderValue: total, // Add orderValue for compatibility
         metadata: {
             orderNumber,
             total,
@@ -165,6 +167,21 @@ exports.createOrder = (0, asyncHandler_1.asyncHandler)(async (req, res, next) =>
             isGuest: !userId
         }
     });
+    // Create notification in database
+    try {
+        await notificationService_1.notificationService.createOrderNotification({
+            orderId: order._id.toString(),
+            orderNumber,
+            total,
+            itemCount: orderItems.length,
+            userId: userId || undefined,
+            isGuest: !userId
+        });
+    }
+    catch (error) {
+        // Don't fail the order creation if notification fails
+        console.warn("Failed to create notification:", error);
+    }
     response_1.ResponseHandler.created(res, populatedOrder, "Order created successfully");
 });
 // @desc    Get user orders
@@ -209,10 +226,10 @@ exports.getUserOrders = (0, asyncHandler_1.asyncHandler)(async (req, res, next) 
 exports.getOrder = (0, asyncHandler_1.asyncHandler)(async (req, res, next) => {
     const orderId = req.params.id;
     const userId = req.user.id;
-    const userRole = req.user.role;
-    // Build filter - users can only see their own orders, admins can see all
+    const userRole = req.user.role?.toUpperCase();
+    // Build filter - users can only see their own orders, admins and employees can see all
     const filter = { _id: orderId };
-    if (userRole !== "admin") {
+    if (userRole !== "ADMIN" && userRole !== "EMPLOYEE") {
         filter.user = userId;
     }
     const order = await Order_1.Order.findOne(filter)
@@ -226,6 +243,17 @@ exports.getOrder = (0, asyncHandler_1.asyncHandler)(async (req, res, next) => {
 // @desc    Cancel order
 // @route   PUT /api/v1/orders/:id/cancel
 // @access  Private
+// @desc    Delete order
+// @route   DELETE /api/v1/orders/:id
+// @access  Private (Admin/Employee only)
+exports.deleteOrder = (0, asyncHandler_1.asyncHandler)(async (req, res, next) => {
+    const { id } = req.params;
+    const order = await Order_1.Order.findByIdAndDelete(id);
+    if (!order) {
+        return next(new AppError_1.AppError("Order not found", 404));
+    }
+    response_1.ResponseHandler.success(res, null, "Order deleted successfully");
+});
 exports.cancelOrder = (0, asyncHandler_1.asyncHandler)(async (req, res, next) => {
     const orderId = req.params.id;
     const userId = req.user.id;

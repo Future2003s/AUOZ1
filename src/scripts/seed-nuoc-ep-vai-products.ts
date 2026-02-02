@@ -207,7 +207,7 @@ async function seedProducts() {
                     }
                 );
                 logger.info(`✅ Migrated old product from ${oldSlug} to ${newSlug}`);
-            } else if (oldProduct && newProduct && oldProduct._id.toString() !== newProduct._id.toString()) {
+            } else if (oldProduct && newProduct && (oldProduct._id as mongoose.Types.ObjectId).toString() !== (newProduct._id as mongoose.Types.ObjectId).toString()) {
                 // Archive old product
                 await Product.findByIdAndUpdate(
                     oldProduct._id,

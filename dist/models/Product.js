@@ -42,6 +42,14 @@ const ProductSchema = new mongoose_1.Schema({
         trim: true,
         maxlength: [200, 'Product name cannot exceed 200 characters']
     },
+    slug: {
+        type: String,
+        unique: true,
+        sparse: true,
+        trim: true,
+        lowercase: true,
+        index: true
+    },
     description: {
         type: String,
         required: false,
@@ -65,6 +73,35 @@ const ProductSchema = new mongoose_1.Schema({
         type: Number,
         min: [0, 'Cost price cannot be negative']
     },
+    currency: {
+        type: String,
+        default: 'VND',
+        uppercase: true
+    },
+    ingredients: {
+        type: String,
+        trim: true
+    },
+    nutrition: {
+        energyKcal: { type: Number, min: 0 },
+        proteinG: { type: Number, min: 0 },
+        fatG: { type: Number, min: 0 },
+        totalSugarG: { type: Number, min: 0 },
+        sugarRangeG: String, // "15-16"
+        sodiumMg: { type: Number, min: 0 }
+    },
+    volumeMl: {
+        type: Number,
+        min: [0, 'Volume cannot be negative']
+    },
+    supervisedBy: {
+        type: String,
+        trim: true
+    },
+    claims: [{
+            type: String,
+            trim: true
+        }],
     sku: {
         type: String,
         required: [true, 'SKU is required'],
@@ -213,6 +250,7 @@ ProductSchema.virtual('stockStatus').get(function () {
 });
 // Indexes for better performance
 ProductSchema.index({ name: 'text', description: 'text', tags: 'text' });
+ProductSchema.index({ slug: 1 }, { unique: true, sparse: true });
 ProductSchema.index({ category: 1 });
 ProductSchema.index({ brand: 1 });
 ProductSchema.index({ price: 1 });

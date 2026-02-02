@@ -4,6 +4,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
+const http_1 = require("http");
+const path_1 = __importDefault(require("path"));
+const fs_1 = __importDefault(require("fs"));
 const config_1 = require("./config/config");
 const database_1 = require("./config/database");
 const redis_1 = require("./config/redis");
@@ -12,15 +15,19 @@ const optimizedStack_1 = require("./middleware/optimizedStack");
 const errorHandler_1 = require("./middleware/errorHandler");
 const notFoundHandler_1 = require("./middleware/notFoundHandler");
 const routes_1 = __importDefault(require("./routes"));
+const products_crud_1 = __importDefault(require("./routes/products-crud"));
 const logger_1 = require("./utils/logger");
 const cacheService_1 = require("./services/cacheService");
 const performance_1 = require("./utils/performance");
 const i18n_1 = require("./middleware/i18n");
+const socket_1 = require("./config/socket");
 class OptimizedApp {
     app;
+    httpServer;
     middlewareStack;
     constructor() {
         this.app = (0, express_1.default)();
+        this.httpServer = (0, http_1.createServer)(this.app);
         this.middlewareStack = new optimizedStack_1.OptimizedMiddlewareStack(this.app, {
             enableCompression: true,
             enableRateLimit: true,
@@ -54,6 +61,17 @@ class OptimizedApp {
                 uptime: process.uptime()
             });
         });
+        // Products Management UI
+        this.app.get("/products-management", (req, res) => {
+            const productsManagementPath = path_1.default.join(__dirname, "../views/products-management.html");
+            if (fs_1.default.existsSync(productsManagementPath)) {
+                const html = fs_1.default.readFileSync(productsManagementPath, "utf8");
+                return res.type("html").send(html);
+            }
+            res.status(404).send("Products management page not found");
+        });
+        // Products CRUD routes at /products (dedicated route for product management)
+        this.app.use("/products", products_crud_1.default);
         // API routes
         this.app.use("/api/v1", routes_1.default);
     }
@@ -92,9 +110,13 @@ class OptimizedApp {
             await cacheService_1.cacheService.warmUp([
             // Add your warm-up functions here when you have data
             ]);
-            // 5. Start server
+            // 5. Initialize Socket.IO
+            logger_1.logger.info("🔌 Initializing Socket.IO server...");
+            (0, socket_1.initializeSocketIO)(this.httpServer);
+            logger_1.logger.info("✅ Socket.IO server initialized");
+            // 6. Start server
             const port = config_1.config.port;
-            this.app.listen(port, () => {
+            this.httpServer.listen(port, () => {
                 logger_1.logger.info(`🚀 Optimized server running on port ${port}`);
                 logger_1.logger.info(`📊 Environment: ${config_1.config.nodeEnv}`);
                 logger_1.logger.info(`🔗 Database: ${config_1.config.database.type}`);
@@ -102,6 +124,7 @@ class OptimizedApp {
                 logger_1.logger.info(`🗜️ Compression enabled`);
                 logger_1.logger.info(`🔒 Security headers enabled`);
                 logger_1.logger.info(`📈 Performance monitoring enabled`);
+                logger_1.logger.info(`🔌 Socket.IO enabled`);
             });
             // 6. Log performance stats periodically in development
             if (config_1.config.nodeEnv === "development") {

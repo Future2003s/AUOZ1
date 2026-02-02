@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.uploadProductImage = exports.getProductsByBrand = exports.getProductsByCategory = exports.updateProductStock = exports.searchProducts = exports.getFeaturedProducts = exports.deleteProduct = exports.updateProduct = exports.createProduct = exports.getProduct = exports.getProducts = void 0;
+exports.getNuocCotVai100Product = exports.uploadProductImage = exports.getProductsByBrand = exports.getProductsByCategory = exports.updateProductStock = exports.searchProducts = exports.getFeaturedProducts = exports.deleteProduct = exports.updateProduct = exports.createProduct = exports.getProduct = exports.getProducts = void 0;
 const productService_1 = require("../services/productService");
 const asyncHandler_1 = require("../utils/asyncHandler");
 const response_1 = require("../utils/response");
@@ -8,6 +8,7 @@ const eventService_1 = require("../services/eventService");
 const performance_1 = require("../utils/performance");
 const cloudinary_1 = require("../utils/cloudinary");
 const AppError_1 = require("../utils/AppError");
+const logger_1 = require("../utils/logger");
 // @desc    Get all products
 // @route   GET /api/v1/products
 // @access  Public
@@ -35,24 +36,55 @@ exports.getProducts = (0, asyncHandler_1.asyncHandler)(async (req, res, next) =>
     const result = await productService_1.ProductService.getProducts(filters, query);
     response_1.ResponseHandler.paginated(res, result.products, result.pagination.page, result.pagination.limit, result.pagination.total, "Products retrieved successfully");
 });
-// @desc    Get single product
+// @desc    Get single product by ID or slug
 // @route   GET /api/v1/products/:id
 // @access  Public
 exports.getProduct = (0, asyncHandler_1.asyncHandler)(async (req, res, next) => {
     const startTime = performance.now();
-    const product = await productService_1.ProductService.getProductById(req.params.id);
-    // Track product view event
-    await eventService_1.eventService.emitProductEvent({
-        productId: req.params.id,
-        action: "view",
-        userId: req.user?.id,
-        sessionId: req.sessionId,
-        metadata: {
-            userAgent: req.get("User-Agent"),
-            ip: req.ip,
-            referrer: req.get("Referrer")
+    const identifier = req.params.id;
+    // Check if identifier is a valid MongoDB ObjectId (exactly 24 hex characters)
+    // ObjectId format: 24 hexadecimal characters, no dashes or other characters
+    const objectIdPattern = /^[0-9a-fA-F]{24}$/;
+    const isObjectId = objectIdPattern.test(identifier);
+    // Log for debugging
+    logger_1.logger.debug(`getProduct called with identifier: "${identifier}", isObjectId: ${isObjectId}`);
+    let product;
+    try {
+        if (isObjectId) {
+            // It's an ID, use getProductById
+            logger_1.logger.debug(`Using getProductById for: ${identifier}`);
+            product = await productService_1.ProductService.getProductById(identifier);
         }
-    });
+        else {
+            // It's a slug (or invalid format), use getProductBySlug
+            // getProductBySlug will handle validation and throw appropriate error
+            logger_1.logger.debug(`Using getProductBySlug for: ${identifier}`);
+            product = await productService_1.ProductService.getProductBySlug(identifier);
+        }
+    }
+    catch (error) {
+        // If getProductBySlug fails and it might be an ID format issue, provide better error
+        if (error.message?.includes("Cast to ObjectId")) {
+            logger_1.logger.error(`Cast to ObjectId error for identifier: "${identifier}". This should not happen if routing is correct.`);
+            throw new AppError_1.AppError(`Invalid product identifier: "${identifier}". Use a valid ObjectId or product slug.`, 400);
+        }
+        throw error;
+    }
+    // Track product view event
+    const productId = product._id?.toString() || product.id?.toString();
+    if (productId) {
+        await eventService_1.eventService.emitProductEvent({
+            productId,
+            action: "view",
+            userId: req.user?.id,
+            sessionId: req.sessionId,
+            metadata: {
+                userAgent: req.get("User-Agent"),
+                ip: req.ip,
+                referrer: req.get("Referrer")
+            }
+        });
+    }
     // Track performance
     const responseTime = performance.now() - startTime;
     performance_1.performanceMonitor.recordRequest(responseTime);
@@ -182,4 +214,11 @@ exports.uploadProductImage = (0, asyncHandler_1.asyncHandler)(async (req, res, n
         ],
     });
     response_1.ResponseHandler.success(res, { url: cloudinaryResult.secure_url, public_id: cloudinaryResult.public_id }, "Product image uploaded successfully");
+});
+// @desc    Get "Nước Cốt Vải 100% Thanh Hà" product (dedicated endpoint for OrderFe)
+// @route   GET /api/v1/products/nuoc-cot-vai-100
+// @access  Public
+exports.getNuocCotVai100Product = (0, asyncHandler_1.asyncHandler)(async (req, res, next) => {
+    const product = await productService_1.ProductService.getNuocCotVai100Product();
+    response_1.ResponseHandler.success(res, product, "Nước Cốt Vải 100% Thanh Hà product retrieved successfully");
 });

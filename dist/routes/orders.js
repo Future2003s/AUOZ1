@@ -38,6 +38,16 @@ router.put("/:id/status", (req, res, next) => {
     }
     next();
 }, unifiedValidation_1.validateOrderId, unifiedValidation_1.validateOrderStatus, orderController_1.updateOrderStatus);
+router.delete("/:id", (req, res, next) => {
+    if (!req.user) {
+        return res.status(401).json({ success: false, message: "Not authorized" });
+    }
+    const userRole = (req.user.role || "").toUpperCase();
+    if (!["ADMIN", "EMPLOYEE"].includes(userRole)) {
+        return res.status(403).json({ success: false, message: "Access denied" });
+    }
+    next();
+}, unifiedValidation_1.validateOrderId, orderController_1.deleteOrder);
 // Get order history
 router.get("/:id/history", (0, auth_1.authorize)("admin", "ADMIN"), (req, res) => {
     try {

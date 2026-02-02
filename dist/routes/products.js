@@ -11,10 +11,12 @@ const router = (0, express_1.Router)();
 // Public routes with optimized caching and rate limiting (NO AUTHENTICATION REQUIRED)
 router.get("/search", rateLimiting_1.searchRateLimit, productController_1.searchProducts);
 router.get("/featured", (0, compression_1.staticDataCache)(300), productController_1.getFeaturedProducts); // Public - No auth required - Cache for 5 minutes
+router.get("/nuoc-cot-vai-100", (0, compression_1.staticDataCache)(600), productController_1.getNuocCotVai100Product); // Dedicated endpoint for OrderFe - Cache for 10 minutes (backward compatibility)
 router.get("/category/:categoryId", (0, compression_1.staticDataCache)(600), productController_1.getProductsByCategory); // Cache for 10 minutes
 router.get("/brand/:brandId", (0, compression_1.staticDataCache)(600), productController_1.getProductsByBrand); // Cache for 10 minutes
 router.get("/", rateLimiting_1.generalRateLimit, productController_1.getProducts);
-router.get("/:id", (0, compression_1.staticDataCache)(300), productController_1.getProduct); // Cache individual products
+// Note: /:id route supports both ObjectId and slug (e.g., /nuoc-ep-vai-thieu)
+router.get("/:id", (0, compression_1.staticDataCache)(300), productController_1.getProduct); // Cache individual products (supports both ID and slug)
 // Protected routes (Admin/Seller/Employee only) with rate limiting
 router.post("/images", auth_1.protect, (0, auth_1.authorize)("admin", "seller", "employee"), rateLimiting_1.adminRateLimit, upload_1.uploadProductImage, productController_1.uploadProductImage);
 router.post("/", auth_1.protect, (0, auth_1.authorize)("admin", "seller", "employee"), rateLimiting_1.adminRateLimit, workingValidation_1.validateCreateProduct, productController_1.createProduct);
