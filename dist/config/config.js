@@ -9,6 +9,7 @@ const dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
 exports.config = {
     nodeEnv: process.env.NODE_ENV || "development",
+    // Giữ nguyên port mặc định cũ 8081 (LAN Share vẫn hoạt động bình thường trên 8081)
     port: parseInt(process.env.PORT || "8081", 10),
     database: {
         type: process.env.DB_TYPE || "mongodb",
@@ -64,7 +65,9 @@ exports.config = {
         db: parseInt(process.env.REDIS_DB || "0", 10)
     },
     cors: {
-        origin: process.env.CORS_ORIGIN?.split(",") || ["http://localhost:3000"]
+        origin: (process.env.CORS_ORIGIN || process.env.FE_ORIGIN)?.split(",") || [
+            "http://localhost:3000"
+        ]
     },
     upload: {
         maxSize: parseInt(process.env.UPLOAD_MAX_SIZE || "10485760", 10), // 10MB
@@ -87,6 +90,9 @@ exports.config = {
             url: process.env.VNPAY_URL || "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html",
             returnUrl: process.env.VNPAY_RETURN_URL || "http://localhost:3000/payment/return"
         }
+    },
+    lanShare: {
+        feOrigin: process.env.FE_ORIGIN
     }
 };
 // Validate required environment variables

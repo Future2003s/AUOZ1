@@ -21,6 +21,7 @@ const cacheService_1 = require("./services/cacheService");
 const performance_1 = require("./utils/performance");
 const i18n_1 = require("./middleware/i18n");
 const socket_1 = require("./config/socket");
+const lanShareRoutes_1 = require("./modules/lanShare/lanShareRoutes");
 class OptimizedApp {
     app;
     httpServer;
@@ -72,6 +73,8 @@ class OptimizedApp {
         });
         // Products CRUD routes at /products (dedicated route for product management)
         this.app.use("/products", products_crud_1.default);
+        // LAN Share API (simple LAN file sharing)
+        this.app.use("/api/lan", lanShareRoutes_1.lanShareRouter);
         // API routes
         this.app.use("/api/v1", routes_1.default);
     }
@@ -116,8 +119,8 @@ class OptimizedApp {
             logger_1.logger.info("✅ Socket.IO server initialized");
             // 6. Start server
             const port = config_1.config.port;
-            this.httpServer.listen(port, () => {
-                logger_1.logger.info(`🚀 Optimized server running on port ${port}`);
+            this.httpServer.listen(port, "0.0.0.0", () => {
+                logger_1.logger.info(`🚀 Optimized server running on 0.0.0.0:${port}`);
                 logger_1.logger.info(`📊 Environment: ${config_1.config.nodeEnv}`);
                 logger_1.logger.info(`🔗 Database: ${config_1.config.database.type}`);
                 logger_1.logger.info(`⚡ Redis caching enabled`);
@@ -125,6 +128,8 @@ class OptimizedApp {
                 logger_1.logger.info(`🔒 Security headers enabled`);
                 logger_1.logger.info(`📈 Performance monitoring enabled`);
                 logger_1.logger.info(`🔌 Socket.IO enabled`);
+                logger_1.logger.info(`📁 LAN Share upload dir: ${lanShareRoutes_1.lanUploadDir}`);
+                logger_1.logger.info(`🌐 LAN Share base URL (configure from LAN IP): http://<your-lan-ip>:${port}/api/lan`);
             });
             // 6. Log performance stats periodically in development
             if (config_1.config.nodeEnv === "development") {

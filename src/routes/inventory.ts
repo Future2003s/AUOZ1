@@ -39,7 +39,7 @@ router.put("/:id", adminRateLimit, updateInventory);
 // Adjust stock (import/export)
 router.post("/:id/adjust", adminRateLimit, adjustStock);
 
-// Delete inventory (Admin only)
-router.delete("/:id", adminRateLimit, authorize("admin"), deleteInventory);
+// Delete inventory (Admin, Employee)
+router.delete("/:id", adminRateLimit, deleteInventory);
 
 export default router;

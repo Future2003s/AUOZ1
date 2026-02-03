@@ -65,10 +65,14 @@ interface Config {
             returnUrl: string;
         };
     };
+    lanShare: {
+        feOrigin?: string;
+    };
 }
 
 export const config: Config = {
     nodeEnv: process.env.NODE_ENV || "development",
+    // Giữ nguyên port mặc định cũ 8081 (LAN Share vẫn hoạt động bình thường trên 8081)
     port: parseInt(process.env.PORT || "8081", 10),
 
     database: {
@@ -136,7 +140,10 @@ export const config: Config = {
     },
 
     cors: {
-        origin: process.env.CORS_ORIGIN?.split(",") || ["http://localhost:3000"]
+        origin:
+            (process.env.CORS_ORIGIN || process.env.FE_ORIGIN)?.split(",") || [
+                "http://localhost:3000"
+            ]
     },
 
     upload: {
@@ -162,6 +169,10 @@ export const config: Config = {
             url: process.env.VNPAY_URL || "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html",
             returnUrl: process.env.VNPAY_RETURN_URL || "http://localhost:3000/payment/return"
         }
+    },
+
+    lanShare: {
+        feOrigin: process.env.FE_ORIGIN
     }
 };
 

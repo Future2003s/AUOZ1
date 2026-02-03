@@ -16,6 +16,7 @@ import { cacheService } from "./services/cacheService";
 import { performanceMonitor } from "./utils/performance";
 import { apiI18nMiddleware } from "./middleware/i18n";
 import { initializeSocketIO } from "./config/socket";
+import { lanShareRouter, lanUploadDir } from "./modules/lanShare/lanShareRoutes";
 
 class OptimizedApp {
     public app: express.Application;
@@ -80,6 +81,9 @@ class OptimizedApp {
         // Products CRUD routes at /products (dedicated route for product management)
         this.app.use("/products", productsCrudRoutes);
 
+        // LAN Share API (simple LAN file sharing)
+        this.app.use("/api/lan", lanShareRouter);
+
         // API routes
         this.app.use("/api/v1", routes);
     }
@@ -130,8 +134,8 @@ class OptimizedApp {
 
             // 6. Start server
             const port = config.port;
-            this.httpServer.listen(port, () => {
-                logger.info(`🚀 Optimized server running on port ${port}`);
+            this.httpServer.listen(port, "0.0.0.0", () => {
+                logger.info(`🚀 Optimized server running on 0.0.0.0:${port}`);
                 logger.info(`📊 Environment: ${config.nodeEnv}`);
                 logger.info(`🔗 Database: ${config.database.type}`);
                 logger.info(`⚡ Redis caching enabled`);
@@ -139,6 +143,10 @@ class OptimizedApp {
                 logger.info(`🔒 Security headers enabled`);
                 logger.info(`📈 Performance monitoring enabled`);
                 logger.info(`🔌 Socket.IO enabled`);
+                logger.info(`📁 LAN Share upload dir: ${lanUploadDir}`);
+                logger.info(
+                    `🌐 LAN Share base URL (configure from LAN IP): http://<your-lan-ip>:${port}/api/lan`
+                );
             });
 
             // 6. Log performance stats periodically in development
