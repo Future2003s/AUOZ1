@@ -107,9 +107,12 @@ export const createOrder = asyncHandler(async (req: Request, res: Response, next
     const calculatedTotal = subtotal + tax + shipping - discount;
     const total = amount || calculatedTotal;
 
-    // Generate order number
-    const orderCount = await Order.countDocuments();
-    const orderNumber = `ORD${String(orderCount + 1).padStart(6, "0")}`;
+
+    // Generate unique order number using timestamp + random — avoid duplicate key from countDocuments race conditions
+    const timestamp = Date.now().toString(36).toUpperCase().slice(-6);
+    const random = Math.random().toString(36).substr(2, 4).toUpperCase();
+    const orderNumber = `ORD-${timestamp}-${random}`;
+
 
     // Prepare shipping address from customer data if not provided
     const finalShippingAddress = shippingAddress || {
