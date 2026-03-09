@@ -10,6 +10,11 @@ import {
     adjustStock,
     getInventoryStats,
     getInventoryHistory,
+    reportDefective,
+    getDefectiveReports,
+    resolveDefective,
+    returnProduct,
+    changeStatus,
 } from "../controllers/inventoryController";
 
 const router = Router();
@@ -18,28 +23,25 @@ const router = Router();
 router.use(protect);
 router.use(authorize("admin", "employee"));
 
-// Get inventory statistics
+// ─── Stats & Reports ─────────────────────────────────────────────────
 router.get("/stats", generalRateLimit, getInventoryStats);
-
-// Get inventory history
 router.get("/history", generalRateLimit, getInventoryHistory);
+router.get("/defective-reports", generalRateLimit, getDefectiveReports);
 
-// Get all inventories
+// ─── Defective report resolution ─────────────────────────────────────
+router.post("/defective-reports/:id/resolve", adminRateLimit, resolveDefective);
+
+// ─── CRUD ────────────────────────────────────────────────────────────
 router.get("/", generalRateLimit, getInventories);
-
-// Get single inventory
 router.get("/:id", generalRateLimit, getInventory);
-
-// Create new inventory
 router.post("/", adminRateLimit, createInventory);
-
-// Update inventory
 router.put("/:id", adminRateLimit, updateInventory);
-
-// Adjust stock (import/export)
-router.post("/:id/adjust", adminRateLimit, adjustStock);
-
-// Delete inventory (Admin, Employee)
 router.delete("/:id", adminRateLimit, deleteInventory);
+
+// ─── Stock operations ────────────────────────────────────────────────
+router.post("/:id/adjust", adminRateLimit, adjustStock);
+router.post("/:id/defective", adminRateLimit, reportDefective);
+router.post("/:id/return", adminRateLimit, returnProduct);
+router.post("/:id/status-change", adminRateLimit, changeStatus);
 
 export default router;

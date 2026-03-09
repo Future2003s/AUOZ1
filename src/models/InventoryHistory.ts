@@ -1,12 +1,28 @@
 import mongoose, { Document, Schema } from "mongoose";
 
+export type InventoryTransactionType =
+    | "import"
+    | "export"
+    | "defective"
+    | "adjust"
+    | "return"
+    | "damaged"
+    | "status_change"
+    | "destroy";
+
 export interface IInventoryHistory extends Document {
     inventoryId: mongoose.Types.ObjectId;
     itemName: string;
-    type: "import" | "export";
+    type: InventoryTransactionType;
     amount: number;
     unit: string;
     partner?: string;
+    reason?: string;
+    images?: string[];
+    fromStatus?: string;
+    toStatus?: string;
+    balanceBefore?: number;
+    balanceAfter?: number;
     createdBy?: mongoose.Types.ObjectId;
     createdAt: Date;
 }
@@ -26,7 +42,16 @@ const InventoryHistorySchema = new Schema<IInventoryHistory>(
         type: {
             type: String,
             required: [true, "Loại giao dịch là bắt buộc"],
-            enum: ["import", "export"],
+            enum: [
+                "import",
+                "export",
+                "defective",
+                "adjust",
+                "return",
+                "damaged",
+                "status_change",
+                "destroy",
+            ],
         },
         amount: {
             type: Number,
@@ -41,6 +66,31 @@ const InventoryHistorySchema = new Schema<IInventoryHistory>(
         partner: {
             type: String,
             trim: true,
+        },
+        reason: {
+            type: String,
+            trim: true,
+            maxlength: [1000, "Lý do không vượt quá 1000 ký tự"],
+        },
+        images: [
+            {
+                type: String,
+                trim: true,
+            },
+        ],
+        fromStatus: {
+            type: String,
+            trim: true,
+        },
+        toStatus: {
+            type: String,
+            trim: true,
+        },
+        balanceBefore: {
+            type: Number,
+        },
+        balanceAfter: {
+            type: Number,
         },
         createdBy: {
             type: Schema.Types.ObjectId,
@@ -58,5 +108,9 @@ const InventoryHistorySchema = new Schema<IInventoryHistory>(
 InventoryHistorySchema.index({ inventoryId: 1, createdAt: -1 });
 InventoryHistorySchema.index({ type: 1 });
 InventoryHistorySchema.index({ createdAt: -1 });
+InventoryHistorySchema.index({ fromStatus: 1, toStatus: 1 });
 
-export const InventoryHistory = mongoose.model<IInventoryHistory>("InventoryHistory", InventoryHistorySchema);
+export const InventoryHistory = mongoose.model<IInventoryHistory>(
+    "InventoryHistory",
+    InventoryHistorySchema
+);
