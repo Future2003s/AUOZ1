@@ -36,6 +36,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Inventory = void 0;
 const mongoose_1 = __importStar(require("mongoose"));
 const InventorySchema = new mongoose_1.Schema({
+    sku: {
+        type: String,
+        trim: true,
+        sparse: true,
+        index: true,
+    },
     name: {
         type: String,
         required: [true, "Tên sản phẩm là bắt buộc"],
@@ -45,6 +51,36 @@ const InventorySchema = new mongoose_1.Schema({
     quantity: {
         type: Number,
         required: [true, "Số lượng là bắt buộc"],
+        min: [0, "Số lượng không được âm"],
+        default: 0,
+    },
+    defectiveQty: {
+        type: Number,
+        min: [0, "Số lượng không được âm"],
+        default: 0,
+    },
+    returnedQty: {
+        type: Number,
+        min: [0, "Số lượng không được âm"],
+        default: 0,
+    },
+    damagedQty: {
+        type: Number,
+        min: [0, "Số lượng không được âm"],
+        default: 0,
+    },
+    pendingCheckQty: {
+        type: Number,
+        min: [0, "Số lượng không được âm"],
+        default: 0,
+    },
+    soldQty: {
+        type: Number,
+        min: [0, "Số lượng không được âm"],
+        default: 0,
+    },
+    importedQty: {
+        type: Number,
         min: [0, "Số lượng không được âm"],
         default: 0,
     },
@@ -79,8 +115,12 @@ const InventorySchema = new mongoose_1.Schema({
     category: {
         type: String,
         required: [true, "Danh mục là bắt buộc"],
-        enum: ["Thường", "Cao cấp", "Premium"],
         default: "Thường",
+    },
+    productId: {
+        type: mongoose_1.Schema.Types.ObjectId,
+        ref: "Product",
+        default: null,
     },
     lastUpdated: {
         type: Date,
@@ -99,10 +139,19 @@ const InventorySchema = new mongoose_1.Schema({
     toJSON: { virtuals: true },
     toObject: { virtuals: true },
 });
+// Virtual: tổng stock across all statuses
+InventorySchema.virtual("totalStock").get(function () {
+    return ((this.quantity || 0) +
+        (this.defectiveQty || 0) +
+        (this.returnedQty || 0) +
+        (this.damagedQty || 0) +
+        (this.pendingCheckQty || 0));
+});
 // Indexes for better query performance
 InventorySchema.index({ name: 1 });
 InventorySchema.index({ location: 1 });
 InventorySchema.index({ category: 1 });
 InventorySchema.index({ quantity: 1 });
 InventorySchema.index({ lastUpdated: -1 });
+InventorySchema.index({ productId: 1 });
 exports.Inventory = mongoose_1.default.model("Inventory", InventorySchema);

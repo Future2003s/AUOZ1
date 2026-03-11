@@ -51,9 +51,10 @@ class OptimizedPagination {
         // Calculate skip value
         const skip = (page - 1) * limit;
         // Execute optimized queries in parallel
+        // Clone the query BEFORE either operation to avoid shared state mutation
         const [data, total] = await Promise.all([
-            this.executeDataQuery(query, sortObj, skip, limit),
-            this.executeCountQuery(query)
+            this.executeDataQuery(query.clone(), sortObj, skip, limit),
+            this.executeCountQuery(query.clone())
         ]);
         // Calculate pagination metadata
         const pages = Math.ceil(total / limit);
@@ -102,10 +103,8 @@ class OptimizedPagination {
      * Execute optimized count query
      */
     async executeCountQuery(query) {
-        // Clone the query to avoid modifying the original
-        const countQuery = query.clone();
-        // Use countDocuments for better performance
-        return countQuery.countDocuments().exec();
+        // The query is already cloned before being passed in
+        return query.countDocuments().exec();
     }
     /**
      * Build sort object from string parameters

@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.streamOrderEvents = exports.updateOrderStatus = exports.getAllOrders = exports.getOrderTracking = exports.cancelOrder = exports.deleteOrder = exports.getOrder = exports.getUserOrders = exports.createOrder = void 0;
+exports.trackOrderByNumber = exports.streamOrderEvents = exports.updateOrderStatus = exports.getAllOrders = exports.getOrderTracking = exports.cancelOrder = exports.deleteOrder = exports.getOrder = exports.getUserOrders = exports.createOrder = void 0;
 const asyncHandler_1 = require("../utils/asyncHandler");
 const response_1 = require("../utils/response");
 const Order_1 = require("../models/Order");
@@ -52,7 +52,7 @@ exports.createOrder = (0, asyncHandler_1.asyncHandler)(async (req, res, next) =>
                 sku: product.sku,
                 quantity: item.quantity,
                 price: price,
-                image: product.images?.[0]
+                image: product.images?.[0]?.url
             });
             // Update product stock
             await Product_1.Product.findByIdAndUpdate(item.productId, { $inc: { quantity: -item.quantity } }, { new: true });
@@ -458,3 +458,90 @@ const streamOrderEvents = (req, res) => {
     });
 };
 exports.streamOrderEvents = streamOrderEvents;
+// @desc    Track order by order number (public)
+// @route   GET /api/v1/orders/track/:orderNumber
+// @access  Public
+exports.trackOrderByNumber = (0, asyncHandler_1.asyncHandler)(async (req, res, next) => {
+    const { orderNumber } = req.params;
+    if (!orderNumber) {
+        return next(new AppError_1.AppError("Order number is required", 400));
+    }
+    const order = await Order_1.Order.findOne({ orderNumber: orderNumber.toUpperCase() })
+        .populate("items.product", "name slug sku images");
+    if (!order) {
+        return next(new AppError_1.AppError("Order not found or invalid order number", 404));
+    }
+    // Mock tracking history (in real app, this would come from shipping provider API)
+    const trackingHistory = [
+        {
+            status: "pending",
+            description: "Đơn hàng đã được tạo",
+            timestamp: order.createdAt
+        }
+    ];
+    // Add more tracking steps based on current status
+    if (["processing", "shipped", "delivered"].includes(order.status)) {
+        trackingHistory.push({
+            status: "processing",
+            description: "Đơn hàng đang được xử lý",
+            timestamp: order.createdAt
+        });
+    }
+    if (order.status === "shipped" || order.status === "delivered") {
+        trackingHistory.push({
+            status: "shipped",
+            description: "Đơn hàng đã được giao cho đơn vị vận chuyển",
+            timestamp: order.updatedAt
+        });
+    }
+    if (order.status === "delivered") {
+        trackingHistory.push({
+            status: "delivered",
+            description: "Đơn hàng đã được giao thành công",
+            timestamp: order.deliveredAt || order.updatedAt // Use deliveredAt if available
+        });
+    }
+    if (order.status === "cancelled") {
+        trackingHistory.push({
+            status: "cancelled",
+            description: "Đơn hàng đã bị hủy",
+            timestamp: order.updatedAt
+        });
+    }
+    const trackingData = {
+        orderNumber: order.orderNumber,
+        status: order.status,
+        createdAt: order.createdAt,
+        items: order.items.map((item) => ({
+            name: item.name,
+            sku: item.sku,
+            quantity: item.quantity,
+            price: item.price,
+            image: (typeof item.image === 'string' && (item.image.startsWith('http') || item.image.startsWith('/upload')))
+                ? item.image
+                : item.product?.images?.[0]?.url
+        })),
+        subtotal: order.subtotal,
+        shippingCost: order.shippingCost,
+        discount: order.discount,
+        total: order.total,
+        payment: {
+            method: order.payment?.method,
+            status: order.payment?.status
+        },
+        shippingAddress: {
+            firstName: order.shippingAddress?.firstName,
+            lastName: order.shippingAddress?.lastName,
+            street: order.shippingAddress?.street,
+            city: order.shippingAddress?.city,
+            state: order.shippingAddress?.state,
+            phone: order.shippingAddress?.phone
+        },
+        trackingNumber: order.trackingNumber,
+        estimatedDelivery: order.status === "shipped"
+            ? new Date(Date.now() + 3 * 24 * 60 * 60 * 1000).toISOString()
+            : undefined,
+        trackingHistory
+    };
+    response_1.ResponseHandler.success(res, trackingData, "Order tracking retrieved successfully");
+});

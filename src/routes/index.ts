@@ -20,6 +20,7 @@ import complaintRoutes from "./complaints";
 import voucherRoutes from "./vouchers";
 import newsRoutes from "./news";
 import flowerLogRoutes from "./flowerLogs";
+import flowerImportRoutes from "./flowerImports";
 import taskRoutes from "./tasks";
 import storyRoutes from "./story";
 import debtRoutes from "./debt";
@@ -31,6 +32,9 @@ import uploadRoutes from "./uploads";
 import employeeRoutes from "./employee";
 import inventoryRoutes from "./inventory";
 import notificationRoutes from "./notifications";
+import bomRoutes from "./bom";
+import purchaseRoutes from "./purchase";
+import stockRoutes from "./stock";
 import path from "path";
 import fs from "fs";
 
@@ -110,6 +114,7 @@ router.use("/vouchers", voucherRoutes);
 router.use("/news", newsRoutes);
 router.use("/comments", commentRoutes);
 router.use("/flower-logs", flowerLogRoutes);
+    router.use("/flower-imports", flowerImportRoutes);
 router.use("/tasks", taskRoutes);
 router.use("/story", storyRoutes);
 router.use("/debt", debtRoutes);
@@ -121,5 +126,9 @@ router.use("/uploads", uploadRoutes);
 router.use("/employee", employeeRoutes);
 router.use("/inventory", inventoryRoutes);
 router.use("/notifications", notificationRoutes);
+// ─── ERP Modules ─────────────────────────────────────────────────────────────
+router.use("/boms", bomRoutes);
+router.use("/purchase", purchaseRoutes);
+router.use("/stock", stockRoutes);
 
 export default router;

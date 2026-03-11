@@ -1,6 +1,7 @@
 import mongoose, { Document, Schema } from "mongoose";
 
 export interface IInventory extends Document {
+    sku?: string;
     name: string;
     quantity: number;          // Hàng tốt (normal)
     defectiveQty: number;      // Hàng lỗi
@@ -8,6 +9,7 @@ export interface IInventory extends Document {
     damagedQty: number;        // Hàng hư hỏng / hủy
     pendingCheckQty: number;   // Chờ kiểm tra
     soldQty: number;           // Tổng đã bán (cumulative)
+    importedQty: number;       // Tổng đã nhập (cumulative)
     unit: string;
     netWeight: number;         // Trọng lượng tịnh (gram)
     minStock: number;
@@ -26,6 +28,12 @@ export interface IInventory extends Document {
 
 const InventorySchema = new Schema<IInventory>(
     {
+        sku: {
+            type: String,
+            trim: true,
+            sparse: true,
+            index: true,
+        },
         name: {
             type: String,
             required: [true, "Tên sản phẩm là bắt buộc"],
@@ -63,6 +71,11 @@ const InventorySchema = new Schema<IInventory>(
             min: [0, "Số lượng không được âm"],
             default: 0,
         },
+        importedQty: {
+            type: Number,
+            min: [0, "Số lượng không được âm"],
+            default: 0,
+        },
         unit: {
             type: String,
             required: [true, "Đơn vị là bắt buộc"],
@@ -94,7 +107,6 @@ const InventorySchema = new Schema<IInventory>(
         category: {
             type: String,
             required: [true, "Danh mục là bắt buộc"],
-            enum: ["Thường", "Cao cấp", "Premium"],
             default: "Thường",
         },
         productId: {

@@ -33,51 +33,29 @@ var __importStar = (this && this.__importStar) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.InventoryHistory = void 0;
+exports.DefectiveReport = void 0;
 const mongoose_1 = __importStar(require("mongoose"));
-const InventoryHistorySchema = new mongoose_1.Schema({
+const DefectiveReportSchema = new mongoose_1.Schema({
     inventoryId: {
         type: mongoose_1.Schema.Types.ObjectId,
         ref: "Inventory",
-        required: [true, "ID sản phẩm là bắt buộc"],
+        required: [true, "ID sản phẩm kho là bắt buộc"],
     },
-    itemName: {
-        type: String,
-        required: [true, "Tên sản phẩm là bắt buộc"],
-        trim: true,
+    productId: {
+        type: mongoose_1.Schema.Types.ObjectId,
+        ref: "Product",
+        default: null,
     },
-    type: {
-        type: String,
-        required: [true, "Loại giao dịch là bắt buộc"],
-        enum: [
-            "import",
-            "export",
-            "defective",
-            "adjust",
-            "return",
-            "damaged",
-            "status_change",
-            "destroy",
-        ],
-    },
-    amount: {
+    quantity: {
         type: Number,
         required: [true, "Số lượng là bắt buộc"],
         min: [1, "Số lượng phải lớn hơn 0"],
     },
-    unit: {
-        type: String,
-        required: [true, "Đơn vị là bắt buộc"],
-        default: "Lọ",
-    },
-    partner: {
-        type: String,
-        trim: true,
-    },
     reason: {
         type: String,
+        required: [true, "Lý do là bắt buộc"],
         trim: true,
-        maxlength: [1000, "Lý do không vượt quá 1000 ký tự"],
+        maxlength: [2000, "Lý do không vượt quá 2000 ký tự"],
     },
     images: [
         {
@@ -85,32 +63,52 @@ const InventoryHistorySchema = new mongoose_1.Schema({
             trim: true,
         },
     ],
-    fromStatus: {
+    severity: {
+        type: String,
+        required: [true, "Mức độ nghiêm trọng là bắt buộc"],
+        enum: ["low", "medium", "high", "critical"],
+        default: "medium",
+    },
+    status: {
+        type: String,
+        required: true,
+        enum: ["pending", "inspecting", "resolved", "destroyed"],
+        default: "pending",
+    },
+    resolution: {
+        type: String,
+        enum: ["repaired", "destroyed", "returned_to_supplier"],
+    },
+    resolutionNote: {
         type: String,
         trim: true,
+        maxlength: [2000, "Ghi chú không vượt quá 2000 ký tự"],
     },
-    toStatus: {
-        type: String,
-        trim: true,
-    },
-    balanceBefore: {
+    resolvedQuantity: {
         type: Number,
+        min: [0, "Số lượng không được âm"],
     },
-    balanceAfter: {
-        type: Number,
-    },
-    createdBy: {
+    reportedBy: {
         type: mongoose_1.Schema.Types.ObjectId,
         ref: "User",
+        required: [true, "Người báo cáo là bắt buộc"],
+    },
+    resolvedBy: {
+        type: mongoose_1.Schema.Types.ObjectId,
+        ref: "User",
+    },
+    resolvedAt: {
+        type: Date,
     },
 }, {
     timestamps: true,
     toJSON: { virtuals: true },
     toObject: { virtuals: true },
 });
-// Indexes for better query performance
-InventoryHistorySchema.index({ inventoryId: 1, createdAt: -1 });
-InventoryHistorySchema.index({ type: 1 });
-InventoryHistorySchema.index({ createdAt: -1 });
-InventoryHistorySchema.index({ fromStatus: 1, toStatus: 1 });
-exports.InventoryHistory = mongoose_1.default.model("InventoryHistory", InventoryHistorySchema);
+// Indexes
+DefectiveReportSchema.index({ inventoryId: 1, createdAt: -1 });
+DefectiveReportSchema.index({ status: 1 });
+DefectiveReportSchema.index({ severity: 1 });
+DefectiveReportSchema.index({ reportedBy: 1 });
+DefectiveReportSchema.index({ createdAt: -1 });
+exports.DefectiveReport = mongoose_1.default.model("DefectiveReport", DefectiveReportSchema);

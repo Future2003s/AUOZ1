@@ -8,6 +8,8 @@ const orderController_1 = require("../controllers/orderController");
 const router = (0, express_1.Router)();
 // Guest checkout (no authentication required)
 router.post("/guest", unifiedValidation_1.validateCreateOrder, orderController_1.createOrder);
+// Public track order route by orderNumber
+router.get("/track/:orderNumber", orderController_1.trackOrderByNumber);
 // All other routes require authentication
 router.use(auth_1.protect);
 // Customer routes (authentication required)

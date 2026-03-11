@@ -7,11 +7,12 @@ import { AppError } from "../utils/AppError";
 import { logger } from "../utils/logger";
 import { CacheWrapper, QueryAnalyzer } from "../utils/performance";
 import { CACHE_PREFIXES, CACHE_TTL } from "../config/redis";
-import { paginateQuery } from "../utils/pagination";
+import { paginateQuery, optimizedPagination } from "../utils/pagination";
 
 // ─── Interfaces ──────────────────────────────────────────────────────
 
 interface CreateInventoryData {
+    sku: string;
     name: string;
     quantity: number;
     unit: string;
@@ -137,7 +138,7 @@ export class InventoryService {
             const sortOptions: any = {};
             sortOptions[sort] = order === "asc" ? 1 : -1;
 
-            const mongoQuery = Inventory.find(filterQuery).sort(sortOptions);
+            const mongoQuery = Inventory.find(filterQuery);
 
             const result = await paginateQuery(mongoQuery, {
                 page,
@@ -192,8 +193,7 @@ export class InventoryService {
                 createdBy: userId ? new Types.ObjectId(userId) : undefined,
             });
 
-            await this.cache.del("inventory_list");
-            await this.cache.del(`inventory:${inventory._id}`);
+            await this.invalidateCache((inventory as any)._id.toString());
             logger.info(`Inventory created: ${inventory._id}`);
 
             return inventory;
@@ -224,8 +224,7 @@ export class InventoryService {
                 throw new AppError("Inventory not found", 404);
             }
 
-            await this.cache.del("inventory_list");
-            await this.cache.del(`inventory:${id}`);
+            await this.invalidateCache(id);
             logger.info(`Inventory updated: ${id}`);
 
             return inventory;
@@ -246,8 +245,7 @@ export class InventoryService {
             await InventoryHistory.deleteMany({ inventoryId: new Types.ObjectId(id) });
             await DefectiveReport.deleteMany({ inventoryId: new Types.ObjectId(id) });
 
-            await this.cache.del("inventory_list");
-            await this.cache.del(`inventory:${id}`);
+            await this.invalidateCache(id);
             logger.info(`Inventory deleted: ${id}`);
         });
     }
@@ -287,9 +285,11 @@ export class InventoryService {
                 inventory.lastUpdated = new Date();
                 inventory.updatedBy = userId ? new Types.ObjectId(userId) : undefined;
 
-                // Track sold quantity for exports
+                // Track sold quantity for exports and imported quantity for imports
                 if (adjustmentData.type === "export") {
                     inventory.soldQty = (inventory.soldQty || 0) + adjustmentData.amount;
+                } else if (adjustmentData.type === "import") {
+                    inventory.importedQty = (inventory.importedQty || 0) + adjustmentData.amount;
                 }
 
                 await inventory.save();
@@ -895,5 +895,6 @@ export class InventoryService {
         await this.cache.del("inventory_list");
         await this.cache.del(`inventory:${inventoryId}`);
         await this.historyCache.del("inventory_history_list");
+        await optimizedPagination.clearCache();
     }
 }

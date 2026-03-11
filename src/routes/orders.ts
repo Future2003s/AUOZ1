@@ -16,13 +16,17 @@ import {
     getAllOrders,
     updateOrderStatus,
     streamOrderEvents,
-    deleteOrder
+    deleteOrder,
+    trackOrderByNumber
 } from "../controllers/orderController";
 
 const router = Router();
 
 // Guest checkout (no authentication required)
 router.post("/guest", validateCreateOrder, createOrder);
+
+// Public track order route by orderNumber
+router.get("/track/:orderNumber", trackOrderByNumber);
 
 // All other routes require authentication
 router.use(protect);

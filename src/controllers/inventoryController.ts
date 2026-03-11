@@ -64,14 +64,15 @@ export const getInventory = asyncHandler(
 // @access  Private (Admin, Employee)
 export const createInventory = asyncHandler(
     async (req: Request, res: Response, next: NextFunction) => {
-        const { name, quantity, unit, netWeight, minStock, price, location, category, productId } =
+        const { sku, name, quantity, unit, netWeight, minStock, price, location, category, productId } =
             req.body;
 
-        if (!name || quantity === undefined || !price) {
+        if (!sku || !name || quantity === undefined || price === undefined) {
             return next(new AppError("Vui lòng điền đầy đủ thông tin bắt buộc", 400));
         }
 
         const inventoryData = {
+            sku,
             name,
             quantity: Number(quantity) || 0,
             unit: unit || "Lọ",
