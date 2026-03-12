@@ -1,3 +1,4 @@
+// Chat module integrated
 import express from "express";
 import { createServer } from "http";
 import path from "path";
@@ -129,7 +130,8 @@ class OptimizedApp {
 
             // 5. Initialize Socket.IO
             logger.info("🔌 Initializing Socket.IO server...");
-            initializeSocketIO(this.httpServer);
+            const ioInstance = initializeSocketIO(this.httpServer);
+            this.app.set("io", ioInstance);
             logger.info("✅ Socket.IO server initialized");
 
             // 6. Start server

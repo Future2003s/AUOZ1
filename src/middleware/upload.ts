@@ -153,3 +153,22 @@ export const uploadDeliveryProof = (req: any, res: any, next: any) => {
     });
 };
 
+// Upload chat attachment (images, docs, etc)
+export const uploadChatAttachment = multer({
+    storage,
+    limits: {
+        fileSize: 20 * 1024 * 1024, // 20MB max for chat
+    },
+    fileFilter: (req: any, file: Express.Multer.File, cb: multer.FileFilterCallback) => {
+        // More permissive for chat attachments
+        const allowedExtensions = [".jpg", ".jpeg", ".png", ".gif", ".webp", ".pdf", ".doc", ".docx", ".xls", ".xlsx", ".txt", ".zip", ".rar"];
+        const ext = path.extname(file.originalname).toLowerCase();
+        
+        if (allowedExtensions.includes(ext) || file.mimetype.startsWith('image/') || file.mimetype.startsWith('application/')) {
+            cb(null, true);
+        } else {
+            cb(new AppError(`File type not allowed.`, 400));
+        }
+    }
+}).single("file");
+

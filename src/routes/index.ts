@@ -35,6 +35,7 @@ import notificationRoutes from "./notifications";
 import bomRoutes from "./bom";
 import purchaseRoutes from "./purchase";
 import stockRoutes from "./stock";
+import chatRoutes from "./chat";
 import path from "path";
 import fs from "fs";
 
@@ -130,5 +131,7 @@ router.use("/notifications", notificationRoutes);
 router.use("/boms", bomRoutes);
 router.use("/purchase", purchaseRoutes);
 router.use("/stock", stockRoutes);
+// ─── Chat Module ─────────────────────────────────────────────────────────────
+router.use("/chat", chatRoutes);
 
 export default router;
