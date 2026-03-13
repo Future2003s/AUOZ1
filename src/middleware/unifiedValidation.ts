@@ -156,7 +156,7 @@ export const validateOrderId = [param("id").isMongoId().withMessage("Invalid ord
 
 export const validateOrderStatus = [
     body("status")
-        .isIn(["pending", "confirmed", "processing", "shipped", "delivered", "cancelled", "returned"])
+        .isIn(["pending", "confirmed", "processing", "shipped", "delivered", "completed", "cancelled", "returned"])
         .withMessage("Invalid order status"),
     body("notes").optional().trim().isLength({ max: 500 }).withMessage("Notes cannot exceed 500 characters"),
     handleValidationErrors

@@ -36,7 +36,7 @@ export interface IPaymentInfo {
 }
 
 export interface IOrderTracking {
-    status: "pending" | "confirmed" | "processing" | "shipped" | "delivered" | "cancelled" | "returned";
+    status: "pending" | "confirmed" | "processing" | "shipped" | "delivered" | "completed" | "cancelled" | "returned";
     updatedAt: Date;
     note?: string;
     updatedBy?: mongoose.Types.ObjectId;
@@ -74,7 +74,7 @@ export interface IOrder extends Document {
     deliveredAt?: Date;
 
     // Status and tracking
-    status: "pending" | "confirmed" | "processing" | "shipped" | "delivered" | "cancelled" | "returned";
+    status: "pending" | "confirmed" | "processing" | "shipped" | "delivered" | "completed" | "cancelled" | "returned";
     statusHistory: IOrderTracking[];
 
     // Notes
@@ -166,7 +166,7 @@ const PaymentInfoSchema = new Schema<IPaymentInfo>({
 const OrderTrackingSchema = new Schema<IOrderTracking>({
     status: {
         type: String,
-        enum: ["pending", "confirmed", "processing", "shipped", "delivered", "cancelled", "returned"],
+        enum: ["pending", "confirmed", "processing", "shipped", "delivered", "completed", "cancelled", "returned"],
         required: true
     },
     updatedAt: {
@@ -260,7 +260,7 @@ const OrderSchema = new Schema<IOrder>(
         // Status
         status: {
             type: String,
-            enum: ["pending", "confirmed", "processing", "shipped", "delivered", "cancelled", "returned"],
+            enum: ["pending", "confirmed", "processing", "shipped", "delivered", "completed", "cancelled", "returned"],
             default: "pending"
         },
         statusHistory: [OrderTrackingSchema],
@@ -330,9 +330,11 @@ OrderSchema.methods.calculateTotals = function (): void {
     this.total = this.subtotal + this.tax + this.shippingCost - this.discount;
 };
 
-// Pre-save middleware to calculate totals
+// Pre-save middleware to calculate totals (only when items change)
 OrderSchema.pre("save", function (next) {
-    this.calculateTotals();
+    if (this.isNew || this.isModified("items")) {
+        this.calculateTotals();
+    }
     next();
 });
 

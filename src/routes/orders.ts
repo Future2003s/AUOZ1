@@ -34,12 +34,9 @@ router.use(protect);
 // Customer routes (authentication required)
 router.get("/", validatePagination, getUserOrders);
 router.get("/stream", authorize("admin", "ADMIN"), streamOrderEvents);
-router.get("/:id", validateOrderId, getOrder);
 router.post("/", validateCreateOrder, createOrder);
-router.put("/:id/cancel", validateOrderId, cancelOrder);
-router.get("/:id/tracking", validateOrderId, getOrderTracking);
 
-// Admin/Employee routes - check role in uppercase
+// Admin/Employee routes - MUST be before /:id to avoid route shadowing
 router.get("/admin/all", (req: any, res: any, next: any) => {
     if (!req.user) {
         return res.status(401).json({ success: false, message: "Not authorized" });
@@ -72,6 +69,11 @@ router.delete("/:id", (req: any, res: any, next: any) => {
     }
     next();
 }, validateOrderId, deleteOrder);
+
+// Dynamic routes - MUST be after all static routes
+router.get("/:id", validateOrderId, getOrder);
+router.put("/:id/cancel", validateOrderId, cancelOrder);
+router.get("/:id/tracking", validateOrderId, getOrderTracking);
 
 // Get order history
 router.get("/:id/history", authorize("admin", "ADMIN"), (req, res) => {

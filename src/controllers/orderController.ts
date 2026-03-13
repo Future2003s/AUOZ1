@@ -463,7 +463,7 @@ export const updateOrderStatus = asyncHandler(async (req: Request, res: Response
         return next(new AppError("Order not found", 404));
     }
 
-    const validStatuses = ["pending", "processing", "shipped", "delivered", "cancelled", "refunded"];
+    const validStatuses = ["pending", "confirmed", "processing", "shipped", "delivered", "completed", "cancelled", "returned", "refunded"];
     if (!validStatuses.includes(status)) {
         return next(new AppError("Invalid order status", 400));
     }
@@ -471,7 +471,7 @@ export const updateOrderStatus = asyncHandler(async (req: Request, res: Response
     const oldStatus = order.status;
     order.status = status;
 
-    if (status === "delivered") {
+    if (status === "delivered" || status === "completed") {
         order.deliveredAt = new Date();
     }
 
