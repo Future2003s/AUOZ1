@@ -22,7 +22,8 @@ export function initializeSocketIO(httpServer: HttpServer): SocketIOServer {
         "http://localhost:3000",  // FeLLC - Employee dashboard
         "http://localhost:3001",
         "https://lalalycheee.vn",
-        "https://file.lalalycheee.vn" // OrderFe - Customer order page
+        "https://file.lalalycheee.vn",
+        "https://chat.lalalycheee.vn" // OrderFe - Customer order page
     ];
 
     const corsOrigins = process.env.CORS_ORIGIN
@@ -268,7 +269,8 @@ export async function emitChatMessage(conversationId: string, message: any, send
                 const pidStr = pid.toString();
                 if (pidStr !== senderId) {
                     logger.info(`[Socket] Broadcasting newMessage to user:${pidStr}`);
-                    io!.to(`user:${pidStr}`).emit("chat:newMessage", {
+                    // Only send 'chat:newMessage' to sockets that are NOT already in the conversation room
+                    io!.to(`user:${pidStr}`).except(`conv:${conversationId}`).emit("chat:newMessage", {
                         conversationId,
                         message
                     });
