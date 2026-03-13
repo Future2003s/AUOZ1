@@ -4,6 +4,7 @@ import { asyncHandler } from "../utils/asyncHandler";
 import { AppError } from "../utils/AppError";
 import { uploadToCloudinary } from "../utils/cloudinary";
 import { emitChatMessage } from "../config/socket";
+import { logger } from "../utils/logger";
 
 // GET /api/v1/chat/conversations
 export const getConversations = asyncHandler(async (req: Request, res: Response) => {
@@ -298,15 +299,19 @@ export const recallMessage = asyncHandler(async (req: Request, res: Response) =>
     const userId = req.user._id || req.user.id;
     const { messageId } = req.params;
 
+    logger.info(`[ChatController] Recall request for message ${messageId} from user ${userId}`);
     const message = await chatService.recallMessage(messageId, userId.toString());
 
     // Broadcast recall event to all members of the conversation
     const io = req.app.get("io");
     if (io) {
+        logger.info(`[ChatController] Emitting chat:messageRecalled for message ${messageId} in conv ${message.conversationId}`);
         io.to(`conv:${message.conversationId}`).emit("chat:messageRecalled", {
             messageId: message._id,
             conversationId: message.conversationId
         });
+    } else {
+        logger.warn("[ChatController] Socket.IO instance not found, recall event not broadcasted");
     }
 
     res.status(200).json({
