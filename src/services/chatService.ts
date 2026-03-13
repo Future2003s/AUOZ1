@@ -11,7 +11,8 @@ class ChatService {
      */
     async getConversations(userId: string) {
         const conversations = await ChatConversation.find({
-            participants: new mongoose.Types.ObjectId(userId)
+            participants: new mongoose.Types.ObjectId(userId),
+            hiddenBy: { $ne: new mongoose.Types.ObjectId(userId) }
         })
             .sort({ updatedAt: -1 })
             .populate("participants", "firstName lastName email avatar role isActive")
@@ -117,14 +118,15 @@ class ChatService {
             readBy: [senderId]
         });
 
-        // Update conversation's lastMessage
+        // Update conversation's lastMessage and clear hiddenBy so it resurfaces
         await ChatConversation.findByIdAndUpdate(conversationId, {
             lastMessage: {
                 senderId,
                 text: data.text || (data.images?.length ? "📷 Hình ảnh" : "📎 Tệp đính kèm"),
                 time: new Date()
             },
-            updatedAt: new Date()
+            updatedAt: new Date(),
+            $set: { hiddenBy: [] }
         });
 
         // Populate and return
@@ -216,7 +218,7 @@ class ChatService {
     }
 
     /**
-     * Delete a conversation (only creator or admin)
+     * Hide (soft delete) a conversation from the user's inbox
      */
     async deleteConversation(conversationId: string, userId: string) {
         const conv = await ChatConversation.findOne({
@@ -228,11 +230,10 @@ class ChatService {
             throw new AppError("Conversation not found or access denied", 404);
         }
 
-        // Delete all messages
-        await ChatMessage.deleteMany({ conversationId });
-
-        // Delete conversation
-        await ChatConversation.findByIdAndDelete(conversationId);
+        // Soft delete: add user to hiddenBy
+        await ChatConversation.findByIdAndUpdate(conversationId, {
+            $addToSet: { hiddenBy: new mongoose.Types.ObjectId(userId) }
+        });
 
         return { success: true };
     }
@@ -277,6 +278,22 @@ class ChatService {
             .lean();
 
         return users;
+    }
+
+    /**
+     * Get all groups a user has joined
+     */
+    async getJoinedGroups(userId: string) {
+        const groups = await ChatConversation.find({
+            type: "group",
+            participants: new mongoose.Types.ObjectId(userId)
+        })
+            .sort({ name: 1 })
+            .populate("participants", "firstName lastName email avatar role isActive")
+            .populate("lastMessage.senderId", "firstName lastName")
+            .lean();
+            
+        return groups;
     }
 
     /**

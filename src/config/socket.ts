@@ -6,6 +6,7 @@ import { OrderEvent } from "../types";
 import { chatService } from "../services/chatService";
 import jwt from "jsonwebtoken";
 import { config } from "./config";
+import { ChatConversation } from "../models/ChatConversation";
 
 let io: SocketIOServer | null = null;
 
@@ -59,6 +60,7 @@ export function initializeSocketIO(httpServer: HttpServer): SocketIOServer {
             if (currentUserId) {
                 // Join user's personal room for notifications
                 socket.join(`user:${currentUserId}`);
+                logger.info(`Socket ${socket.id} joined personal room user:${currentUserId}`);
 
                 // Track online status
                 if (!onlineUsers.has(currentUserId)) {
@@ -115,24 +117,7 @@ export function initializeSocketIO(httpServer: HttpServer): SocketIOServer {
                     }
                 );
 
-                // Broadcast to conversation room
-                io?.to(`conv:${data.conversationId}`).emit("chat:message", message);
-
-                // Also notify participants who are not in the room
-                const conv = await import("../models/ChatConversation").then(
-                    m => m.ChatConversation.findById(data.conversationId).lean()
-                );
-                if (conv) {
-                    (conv as any).participants.forEach((pid: any) => {
-                        const pidStr = pid.toString();
-                        if (pidStr !== currentUserId) {
-                            io?.to(`user:${pidStr}`).emit("chat:newMessage", {
-                                conversationId: data.conversationId,
-                                message
-                            });
-                        }
-                    });
-                }
+                await emitChatMessage(data.conversationId, message, currentUserId);
             } catch (error: any) {
                 socket.emit("chat:error", { message: error.message });
             }
@@ -261,3 +246,37 @@ export function emitOrderNotification(orderData: {
         logger.warn("Socket.IO server not initialized, cannot emit notification");
     }
 }
+
+/**
+ * Emit chat message to conversation room and participants' personal rooms
+ */
+export async function emitChatMessage(conversationId: string, message: any, senderId: string): Promise<void> {
+    if (!io) {
+        logger.warn("Socket.IO server not initialized, cannot emit chat message");
+        return;
+    }
+
+    // Broadcast to conversation room
+    logger.info(`[Socket] Broadcasting message to conv:${conversationId}`);
+    io.to(`conv:${conversationId}`).emit("chat:message", message);
+
+    // Also notify participants who are not in the room
+    try {
+        const conv = await ChatConversation.findById(conversationId).lean();
+        if (conv && conv.participants) {
+            conv.participants.forEach((pid: any) => {
+                const pidStr = pid.toString();
+                if (pidStr !== senderId) {
+                    logger.info(`[Socket] Broadcasting newMessage to user:${pidStr}`);
+                    io!.to(`user:${pidStr}`).emit("chat:newMessage", {
+                        conversationId,
+                        message
+                    });
+                }
+            });
+        }
+    } catch (error) {
+        logger.error("Error emitting chat message to participants:", error);
+    }
+}
+

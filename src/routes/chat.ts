@@ -14,7 +14,8 @@ import {
     updateMemberRole,
     removeMember,
     uploadChatFile,
-    recallMessage
+    recallMessage,
+    getJoinedGroups
 } from "../controllers/chatController";
 import { uploadChatAttachment } from "../middleware/upload";
 
@@ -41,6 +42,9 @@ router.post("/upload", uploadChatAttachment, uploadChatFile);
 router.get("/conversations/:id/messages", getMessages);
 router.post("/conversations/:id/messages", sendMessage);
 router.delete("/messages/:messageId/recall", recallMessage);
+
+// Groups
+router.get("/groups", getJoinedGroups);
 
 // Users for chat
 router.get("/users", getChatUsers);

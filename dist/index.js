@@ -3,6 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+// Chat module integrated
 const express_1 = __importDefault(require("express"));
 const http_1 = require("http");
 const path_1 = __importDefault(require("path"));
@@ -115,7 +116,8 @@ class OptimizedApp {
             ]);
             // 5. Initialize Socket.IO
             logger_1.logger.info("🔌 Initializing Socket.IO server...");
-            (0, socket_1.initializeSocketIO)(this.httpServer);
+            const ioInstance = (0, socket_1.initializeSocketIO)(this.httpServer);
+            this.app.set("io", ioInstance);
             logger_1.logger.info("✅ Socket.IO server initialized");
             // 6. Start server
             const port = config_1.config.port;

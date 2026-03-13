@@ -40,6 +40,7 @@ const notifications_1 = __importDefault(require("./notifications"));
 const bom_1 = __importDefault(require("./bom"));
 const purchase_1 = __importDefault(require("./purchase"));
 const stock_1 = __importDefault(require("./stock"));
+const chat_1 = __importDefault(require("./chat"));
 const path_1 = __importDefault(require("path"));
 const fs_1 = __importDefault(require("fs"));
 const router = (0, express_1.Router)();
@@ -129,4 +130,6 @@ router.use("/notifications", notifications_1.default);
 router.use("/boms", bom_1.default);
 router.use("/purchase", purchase_1.default);
 router.use("/stock", stock_1.default);
+// ─── Chat Module ─────────────────────────────────────────────────────────────
+router.use("/chat", chat_1.default);
 exports.default = router;

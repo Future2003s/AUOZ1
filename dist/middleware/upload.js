@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.uploadDeliveryProof = exports.uploadShippingProof = exports.uploadProductImage = exports.uploadAvatar = void 0;
+exports.uploadChatAttachment = exports.uploadDeliveryProof = exports.uploadShippingProof = exports.uploadProductImage = exports.uploadAvatar = void 0;
 const fs_1 = __importDefault(require("fs"));
 const path_1 = __importDefault(require("path"));
 const multer_1 = __importDefault(require("multer"));
@@ -144,3 +144,21 @@ const uploadDeliveryProof = (req, res, next) => {
     });
 };
 exports.uploadDeliveryProof = uploadDeliveryProof;
+// Upload chat attachment (images, docs, etc)
+exports.uploadChatAttachment = (0, multer_1.default)({
+    storage,
+    limits: {
+        fileSize: 20 * 1024 * 1024, // 20MB max for chat
+    },
+    fileFilter: (req, file, cb) => {
+        // More permissive for chat attachments
+        const allowedExtensions = [".jpg", ".jpeg", ".png", ".gif", ".webp", ".pdf", ".doc", ".docx", ".xls", ".xlsx", ".txt", ".zip", ".rar"];
+        const ext = path_1.default.extname(file.originalname).toLowerCase();
+        if (allowedExtensions.includes(ext) || file.mimetype.startsWith('image/') || file.mimetype.startsWith('application/')) {
+            cb(null, true);
+        }
+        else {
+            cb(new AppError_1.AppError(`File type not allowed.`, 400));
+        }
+    }
+}).single("file");

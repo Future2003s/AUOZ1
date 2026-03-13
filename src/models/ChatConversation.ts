@@ -13,6 +13,7 @@ export interface IChatConversation extends Document {
         time: Date;
     };
     createdBy: mongoose.Types.ObjectId;
+    hiddenBy?: mongoose.Types.ObjectId[];
     createdAt: Date;
     updatedAt: Date;
 }
@@ -59,7 +60,13 @@ const ChatConversationSchema = new Schema<IChatConversation>(
             type: Schema.Types.ObjectId,
             ref: "User",
             required: true
-        }
+        },
+        hiddenBy: [
+            {
+                type: Schema.Types.ObjectId,
+                ref: "User"
+            }
+        ]
     },
     {
         timestamps: true,
