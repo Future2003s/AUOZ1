@@ -27,7 +27,8 @@ export const getProducts = asyncHandler(async (req: Request, res: Response, next
         isFeatured,
         onSale,
         inStock,
-        search
+        search,
+        allProducts
     } = req.query;
 
     const filters = {
@@ -39,9 +40,10 @@ export const getProducts = asyncHandler(async (req: Request, res: Response, next
         status: status as string,
         isVisible: isVisible ? isVisible === "true" : undefined,
         isFeatured: isFeatured ? isFeatured === "true" : undefined,
-        onSale: onSale ? onSale === "true" : undefined,
+        onSale: onSale === "true" ? true : undefined,
         inStock: inStock ? inStock === "true" : undefined,
-        search: search as string
+        search: search as string,
+        allProducts: allProducts === "true"
     };
 
     const query = {
@@ -221,9 +223,11 @@ export const updateProductStock = asyncHandler(async (req: Request, res: Respons
 // @access  Public
 export const getProductsByCategory = asyncHandler(async (req: Request, res: Response, next: NextFunction) => {
     const { categoryId } = req.params;
-    const { page, limit, sort, order } = req.query;
+    const { page, limit, sort, order, status, isVisible } = req.query;
 
-    const filters = { category: categoryId };
+    const filters: any = { category: categoryId };
+    if (status) filters.status = status as string;
+    if (isVisible !== undefined) filters.isVisible = isVisible === 'true';
     const query = {
         page: page ? parseInt(page as string) : undefined,
         limit: limit ? parseInt(limit as string) : undefined,
@@ -248,9 +252,11 @@ export const getProductsByCategory = asyncHandler(async (req: Request, res: Resp
 // @access  Public
 export const getProductsByBrand = asyncHandler(async (req: Request, res: Response, next: NextFunction) => {
     const { brandId } = req.params;
-    const { page, limit, sort, order } = req.query;
+    const { page, limit, sort, order, status, isVisible } = req.query;
 
-    const filters = { brand: brandId };
+    const filters: any = { brand: brandId };
+    if (status) filters.status = status as string;
+    if (isVisible !== undefined) filters.isVisible = isVisible === 'true';
     const query = {
         page: page ? parseInt(page as string) : undefined,
         limit: limit ? parseInt(limit as string) : undefined,

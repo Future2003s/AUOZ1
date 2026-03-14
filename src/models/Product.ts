@@ -67,6 +67,7 @@ export interface IProduct extends Document {
     status: 'draft' | 'active' | 'archived';
     isVisible: boolean;
     isFeatured: boolean;
+    isExcludedFromPublic: boolean; // Nếu true: sản phẩm không xuất hiện trên public (thay thế honey regex)
     
     // Pricing and Discounts
     onSale: boolean;
@@ -246,6 +247,11 @@ const ProductSchema = new Schema<IProduct>({
     isFeatured: {
         type: Boolean,
         default: false
+    },
+    isExcludedFromPublic: {
+        type: Boolean,
+        default: false,
+        index: true
     },
     
     onSale: {

@@ -6,6 +6,7 @@ const asyncHandler_1 = require("../utils/asyncHandler");
 const AppError_1 = require("../utils/AppError");
 const cloudinary_1 = require("../utils/cloudinary");
 const socket_1 = require("../config/socket");
+const logger_1 = require("../utils/logger");
 // GET /api/v1/chat/conversations
 exports.getConversations = (0, asyncHandler_1.asyncHandler)(async (req, res) => {
     const userId = req.user._id || req.user.id;
@@ -245,14 +246,19 @@ exports.uploadChatFile = (0, asyncHandler_1.asyncHandler)(async (req, res) => {
 exports.recallMessage = (0, asyncHandler_1.asyncHandler)(async (req, res) => {
     const userId = req.user._id || req.user.id;
     const { messageId } = req.params;
+    logger_1.logger.info(`[ChatController] Recall request for message ${messageId} from user ${userId}`);
     const message = await chatService_1.chatService.recallMessage(messageId, userId.toString());
     // Broadcast recall event to all members of the conversation
     const io = req.app.get("io");
     if (io) {
+        logger_1.logger.info(`[ChatController] Emitting chat:messageRecalled for message ${messageId} in conv ${message.conversationId}`);
         io.to(`conv:${message.conversationId}`).emit("chat:messageRecalled", {
             messageId: message._id,
             conversationId: message.conversationId
         });
+    }
+    else {
+        logger_1.logger.warn("[ChatController] Socket.IO instance not found, recall event not broadcasted");
     }
     res.status(200).json({
         success: true,

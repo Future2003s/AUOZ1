@@ -135,7 +135,7 @@ exports.validateCreateOrder = [
 exports.validateOrderId = [(0, express_validator_1.param)("id").isMongoId().withMessage("Invalid order ID"), exports.handleValidationErrors];
 exports.validateOrderStatus = [
     (0, express_validator_1.body)("status")
-        .isIn(["pending", "confirmed", "processing", "shipped", "delivered", "cancelled", "returned"])
+        .isIn(["pending", "confirmed", "processing", "shipped", "delivered", "completed", "cancelled", "returned"])
         .withMessage("Invalid order status"),
     (0, express_validator_1.body)("notes").optional().trim().isLength({ max: 500 }).withMessage("Notes cannot exceed 500 characters"),
     exports.handleValidationErrors

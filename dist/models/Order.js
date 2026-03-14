@@ -103,7 +103,7 @@ const PaymentInfoSchema = new mongoose_1.Schema({
 const OrderTrackingSchema = new mongoose_1.Schema({
     status: {
         type: String,
-        enum: ["pending", "confirmed", "processing", "shipped", "delivered", "cancelled", "returned"],
+        enum: ["pending", "confirmed", "processing", "shipped", "delivered", "completed", "cancelled", "returned"],
         required: true
     },
     updatedAt: {
@@ -190,7 +190,7 @@ const OrderSchema = new mongoose_1.Schema({
     // Status
     status: {
         type: String,
-        enum: ["pending", "confirmed", "processing", "shipped", "delivered", "cancelled", "returned"],
+        enum: ["pending", "confirmed", "processing", "shipped", "delivered", "completed", "cancelled", "returned"],
         default: "pending"
     },
     statusHistory: [OrderTrackingSchema],
@@ -246,9 +246,11 @@ OrderSchema.methods.calculateTotals = function () {
     this.tax = this.subtotal * this.taxRate;
     this.total = this.subtotal + this.tax + this.shippingCost - this.discount;
 };
-// Pre-save middleware to calculate totals
+// Pre-save middleware to calculate totals (only when items change)
 OrderSchema.pre("save", function (next) {
-    this.calculateTotals();
+    if (this.isNew || this.isModified("items")) {
+        this.calculateTotals();
+    }
     next();
 });
 // Pre-save middleware to generate order number

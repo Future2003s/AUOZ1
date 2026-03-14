@@ -13,7 +13,7 @@ const logger_1 = require("../utils/logger");
 // @route   GET /api/v1/products
 // @access  Public
 exports.getProducts = (0, asyncHandler_1.asyncHandler)(async (req, res, next) => {
-    const { page, limit, sort, order, category, brand, minPrice, maxPrice, tags, status, isVisible, isFeatured, onSale, inStock, search } = req.query;
+    const { page, limit, sort, order, category, brand, minPrice, maxPrice, tags, status, isVisible, isFeatured, onSale, inStock, search, allProducts } = req.query;
     const filters = {
         category: category,
         brand: brand,
@@ -23,9 +23,10 @@ exports.getProducts = (0, asyncHandler_1.asyncHandler)(async (req, res, next) =>
         status: status,
         isVisible: isVisible ? isVisible === "true" : undefined,
         isFeatured: isFeatured ? isFeatured === "true" : undefined,
-        onSale: onSale ? onSale === "true" : undefined,
+        onSale: onSale === "true" ? true : undefined,
         inStock: inStock ? inStock === "true" : undefined,
-        search: search
+        search: search,
+        allProducts: allProducts === "true"
     };
     const query = {
         page: page ? parseInt(page) : undefined,
@@ -165,8 +166,12 @@ exports.updateProductStock = (0, asyncHandler_1.asyncHandler)(async (req, res, n
 // @access  Public
 exports.getProductsByCategory = (0, asyncHandler_1.asyncHandler)(async (req, res, next) => {
     const { categoryId } = req.params;
-    const { page, limit, sort, order } = req.query;
+    const { page, limit, sort, order, status, isVisible } = req.query;
     const filters = { category: categoryId };
+    if (status)
+        filters.status = status;
+    if (isVisible !== undefined)
+        filters.isVisible = isVisible === 'true';
     const query = {
         page: page ? parseInt(page) : undefined,
         limit: limit ? parseInt(limit) : undefined,
@@ -181,8 +186,12 @@ exports.getProductsByCategory = (0, asyncHandler_1.asyncHandler)(async (req, res
 // @access  Public
 exports.getProductsByBrand = (0, asyncHandler_1.asyncHandler)(async (req, res, next) => {
     const { brandId } = req.params;
-    const { page, limit, sort, order } = req.query;
+    const { page, limit, sort, order, status, isVisible } = req.query;
     const filters = { brand: brandId };
+    if (status)
+        filters.status = status;
+    if (isVisible !== undefined)
+        filters.isVisible = isVisible === 'true';
     const query = {
         page: page ? parseInt(page) : undefined,
         limit: limit ? parseInt(limit) : undefined,

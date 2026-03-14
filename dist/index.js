@@ -112,7 +112,7 @@ class OptimizedApp {
             // 4. Warm up cache with frequently accessed data
             logger_1.logger.info("🔥 Warming up cache...");
             await cacheService_1.cacheService.warmUp([
-                // Add your warm-up functions here when you have data
+            // Add your warm-up functions here when you have data
             ]);
             // 5. Initialize Socket.IO
             logger_1.logger.info("🔌 Initializing Socket.IO server...");

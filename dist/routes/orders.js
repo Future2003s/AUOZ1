@@ -15,11 +15,8 @@ router.use(auth_1.protect);
 // Customer routes (authentication required)
 router.get("/", unifiedValidation_1.validatePagination, orderController_1.getUserOrders);
 router.get("/stream", (0, auth_1.authorize)("admin", "ADMIN"), orderController_1.streamOrderEvents);
-router.get("/:id", unifiedValidation_1.validateOrderId, orderController_1.getOrder);
 router.post("/", unifiedValidation_1.validateCreateOrder, orderController_1.createOrder);
-router.put("/:id/cancel", unifiedValidation_1.validateOrderId, orderController_1.cancelOrder);
-router.get("/:id/tracking", unifiedValidation_1.validateOrderId, orderController_1.getOrderTracking);
-// Admin/Employee routes - check role in uppercase
+// Admin/Employee routes - MUST be before /:id to avoid route shadowing
 router.get("/admin/all", (req, res, next) => {
     if (!req.user) {
         return res.status(401).json({ success: false, message: "Not authorized" });
@@ -50,6 +47,10 @@ router.delete("/:id", (req, res, next) => {
     }
     next();
 }, unifiedValidation_1.validateOrderId, orderController_1.deleteOrder);
+// Dynamic routes - MUST be after all static routes
+router.get("/:id", unifiedValidation_1.validateOrderId, orderController_1.getOrder);
+router.put("/:id/cancel", unifiedValidation_1.validateOrderId, orderController_1.cancelOrder);
+router.get("/:id/tracking", unifiedValidation_1.validateOrderId, orderController_1.getOrderTracking);
 // Get order history
 router.get("/:id/history", (0, auth_1.authorize)("admin", "ADMIN"), (req, res) => {
     try {

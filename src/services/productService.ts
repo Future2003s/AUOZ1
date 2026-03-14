@@ -71,6 +71,7 @@ interface ProductFilters {
     onSale?: boolean;
     inStock?: boolean;
     search?: string;
+    allProducts?: boolean;
 }
 
 interface ProductQuery {
@@ -172,17 +173,10 @@ export class ProductService {
             // Build optimized filter query
             const filterQuery = this.buildProductFilterQuery(filters);
             
-            // Exclude honey products (mật ong) by default unless explicitly requested
-            // This ensures only nước ép vải products are shown
-            const searchTerm = filters.search?.toLowerCase() || "";
-            const isHoneySearch = searchTerm.includes("mật ong") || searchTerm.includes("mat ong") || searchTerm.includes("honey");
-            
-            if (!isHoneySearch) {
-                // Add exclusion for honey products
-                filterQuery.$and = filterQuery.$and || [];
-                filterQuery.$and.push({
-                    name: { $not: { $regex: /mật ong|mat ong|honey/i } }
-                });
+            // Exclude products marked as excluded from public listing
+            // Use isExcludedFromPublic flag instead of brittle name regex
+            if (!filters.allProducts) {
+                filterQuery.isExcludedFromPublic = { $ne: true };
             }
 
             // If searching, also search in category and brand names using aggregation
@@ -517,8 +511,14 @@ export class ProductService {
             await product.save();
 
             // Invalidate caches so subsequent fetches don't serve stale data
-            await this.invalidateProductCache(`product:${productId}`); // direct product cache
+            await this.invalidateProductCache(`product:${productId}`); // direct product cache by ID
             await this.cache.invalidatePattern("*"); // all product list caches
+
+            // Invalidate slug-based cache so product detail page doesn't serve stale data
+            if ((product as any).slug) {
+                await this.cache.del(`product:slug:${(product as any).slug}`);
+            }
+            await this.cache.invalidatePattern("product:slug:*"); // safety-net: clear all slug caches
 
             // Invalidate featured products cache if isFeatured was updated or if product status/visibility changed
             if (
@@ -553,13 +553,24 @@ export class ProductService {
                 throw new AppError("Product not found", 404);
             }
 
+            // Read slug before deletion for cache invalidation
+            const productSlug = (product as any).slug as string | undefined;
+
             await Product.findByIdAndDelete(productId);
 
-            // Invalidate cache
+            // Invalidate direct ID cache
             await this.cache.del(`product:${productId}`);
 
-            // Invalidate all list caches
+            // Invalidate slug-based cache
+            if (productSlug) {
+                await this.cache.del(`product:slug:${productSlug}`);
+            }
+            await this.cache.invalidatePattern("product:slug:*"); // safety-net
+
+            // Invalidate all list caches + featured
             await this.invalidateProductCache();
+            await this.invalidateProductCache("featured:*");
+            await optimizedPagination.clearCache();
 
             logger.info(`Product deleted: ${product.name}`);
         } catch (error) {

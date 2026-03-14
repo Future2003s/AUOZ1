@@ -182,6 +182,11 @@ const ProductSchema = new mongoose_1.Schema({
         type: Boolean,
         default: false
     },
+    isExcludedFromPublic: {
+        type: Boolean,
+        default: false,
+        index: true
+    },
     onSale: {
         type: Boolean,
         default: false

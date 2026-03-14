@@ -8,6 +8,7 @@ const mongoose_1 = __importDefault(require("mongoose"));
 const ChatConversation_1 = require("../models/ChatConversation");
 const ChatMessage_1 = require("../models/ChatMessage");
 const User_1 = require("../models/User");
+const logger_1 = require("../utils/logger");
 const AppError_1 = require("../utils/AppError");
 class ChatService {
     /**
@@ -366,24 +367,30 @@ class ChatService {
      * Recall (unsend) a message - only sender, within 30 minutes
      */
     async recallMessage(messageId, userId) {
+        logger_1.logger.info(`[ChatService] Recalling message ${messageId} by user ${userId}`);
         const message = await ChatMessage_1.ChatMessage.findById(messageId);
         if (!message) {
+            logger_1.logger.warn(`[ChatService] Recall failed: Message ${messageId} not found`);
             throw new AppError_1.AppError("Message not found", 404);
         }
         // Only sender can recall
         if (message.senderId.toString() !== userId) {
+            logger_1.logger.warn(`[ChatService] Recall failed: User ${userId} is not the sender of message ${messageId}`);
             throw new AppError_1.AppError("You can only recall your own messages", 403);
         }
-        // Optional: time limit (30 minutes)
-        const LIMIT_MS = 30 * 60 * 1000;
-        if (Date.now() - new Date(message.createdAt).getTime() > LIMIT_MS) {
-            throw new AppError_1.AppError("Tin nhắn quá cũ để thu hồi (tối đa 30 phút)", 400);
+        // Time limit (24 hours)
+        const LIMIT_MS = 24 * 60 * 60 * 1000;
+        const ageMsg = Date.now() - new Date(message.createdAt).getTime();
+        if (ageMsg > LIMIT_MS) {
+            logger_1.logger.warn(`[ChatService] Recall failed: Message ${messageId} is too old (${Math.round(ageMsg / 1000 / 60 / 60)} hours)`);
+            throw new AppError_1.AppError("Tin nhắn quá cũ để thu hồi (tối đa 24 giờ)", 400);
         }
         message.recalled = true;
-        message.text = undefined;
+        message.text = ""; // Use empty string instead of undefined for better JSON compatibility
         message.images = [];
         message.file = undefined;
         await message.save();
+        logger_1.logger.info(`[ChatService] Message ${messageId} recalled successfully`);
         return message;
     }
 }
