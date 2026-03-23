@@ -67,6 +67,7 @@ export interface IProduct extends Document {
     status: 'draft' | 'active' | 'archived';
     isVisible: boolean;
     isFeatured: boolean;
+    comingSoon: boolean; // Nếu true: hiển thị "Coming Soon" thay vì giá
     isExcludedFromPublic: boolean; // Nếu true: sản phẩm không xuất hiện trên public (thay thế honey regex)
     
     // Pricing and Discounts
@@ -247,6 +248,11 @@ const ProductSchema = new Schema<IProduct>({
     isFeatured: {
         type: Boolean,
         default: false
+    },
+    comingSoon: {
+        type: Boolean,
+        default: false,
+        index: true
     },
     isExcludedFromPublic: {
         type: Boolean,
