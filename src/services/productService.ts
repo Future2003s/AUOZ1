@@ -520,11 +520,12 @@ export class ProductService {
             }
             await this.cache.invalidatePattern("product:slug:*"); // safety-net: clear all slug caches
 
-            // Invalidate featured products cache if isFeatured was updated or if product status/visibility changed
+            // Invalidate featured products cache if isFeatured was updated or if product status/visibility/comingSoon changed
             if (
                 isFeaturedUpdated ||
                 sanitizedUpdate.hasOwnProperty("status") ||
-                sanitizedUpdate.hasOwnProperty("isVisible")
+                sanitizedUpdate.hasOwnProperty("isVisible") ||
+                sanitizedUpdate.hasOwnProperty("comingSoon")
             ) {
                 // Invalidate all featured product caches (different limits)
                 await this.invalidateProductCache("featured:*");
