@@ -169,6 +169,10 @@ const ProductSchema = new mongoose_1.Schema({
         description: String,
         keywords: [String]
     },
+    translations: {
+        type: mongoose_1.Schema.Types.Mixed,
+        default: {}
+    },
     status: {
         type: String,
         enum: ['draft', 'active', 'archived'],

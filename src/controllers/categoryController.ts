@@ -4,6 +4,40 @@ import { asyncHandler } from "../utils/asyncHandler";
 import { ResponseHandler } from "../utils/response";
 import { AppError } from "../utils/AppError";
 
+const applyCategoryTranslations = (category: any, locale?: string) => {
+    if (!category || !locale || locale === "vi" || !category.translations || !category.translations[locale]) {
+        return category;
+    }
+
+    const c = typeof category.toObject === 'function' ? category.toObject() :
+        (JSON.parse(JSON.stringify(category)));
+
+    const trans = c.translations[locale];
+    if (trans) {
+        if (trans.name) c.name = trans.name;
+        if (trans.description) c.description = trans.description;
+        if (trans.seo) c.seo = { ...c.seo, ...trans.seo };
+    }
+
+    delete c.translations;
+
+    if (c.children && Array.isArray(c.children)) {
+        c.children = applyCategoryTranslationsToList(c.children, locale);
+    }
+
+    if (c.parent && typeof c.parent === 'object' && c.parent.name) {
+        const mappedParent = applyCategoryTranslations(c.parent, locale);
+        c.parent.name = mappedParent.name;
+    }
+
+    return c;
+};
+
+const applyCategoryTranslationsToList = (categories: any[], locale?: string) => {
+    if (!categories || !locale || locale === "vi") return categories;
+    return categories.map(c => applyCategoryTranslations(c, locale));
+};
+
 // @desc    Get all categories
 // @route   GET /api/v1/categories
 // @access  Public
@@ -20,13 +54,14 @@ export const getCategories = asyncHandler(async (req: Request, res: Response, ne
         filter.parent = parent === "null" ? null : parent;
     }
 
-    const categories = await Category.find(filter).populate("parent", "name slug").sort({ sortOrder: 1, name: 1 });
+    const categories = await Category.find(filter).populate("parent", "name slug translations").sort({ sortOrder: 1, name: 1 });
+    const locale = req.query.locale as string;
 
     // Temporary: bypass fastJSON for categories
     res.status(200).json({
         success: true,
         message: "Categories retrieved successfully",
-        data: categories,
+        data: applyCategoryTranslationsToList(categories, locale),
         timestamp: new Date().toISOString()
     });
 });
@@ -35,13 +70,16 @@ export const getCategories = asyncHandler(async (req: Request, res: Response, ne
 // @route   GET /api/v1/categories/:id
 // @access  Public
 export const getCategory = asyncHandler(async (req: Request, res: Response, next: NextFunction) => {
-    const category = await Category.findById(req.params.id).populate("parent", "name slug").populate("children");
+    const category = await Category.findById(req.params.id)
+        .populate("parent", "name slug translations")
+        .populate("children");
 
     if (!category) {
         return next(new AppError("Category not found", 404));
     }
 
-    ResponseHandler.success(res, category, "Category retrieved successfully");
+    const locale = req.query.locale as string;
+    ResponseHandler.success(res, applyCategoryTranslations(category, locale), "Category retrieved successfully");
 });
 
 // @desc    Get category by slug
@@ -49,14 +87,15 @@ export const getCategory = asyncHandler(async (req: Request, res: Response, next
 // @access  Public
 export const getCategoryBySlug = asyncHandler(async (req: Request, res: Response, next: NextFunction) => {
     const category = await Category.findOne({ slug: req.params.slug })
-        .populate("parent", "name slug")
+        .populate("parent", "name slug translations")
         .populate("children");
 
     if (!category) {
         return next(new AppError("Category not found", 404));
     }
 
-    ResponseHandler.success(res, category, "Category retrieved successfully");
+    const locale = req.query.locale as string;
+    ResponseHandler.success(res, applyCategoryTranslations(category, locale), "Category retrieved successfully");
 });
 
 // @desc    Create category
@@ -98,10 +137,11 @@ export const createCategory = asyncHandler(async (req: Request, res: Response, n
         icon,
         isActive,
         sortOrder,
-        seo
+        seo,
+        translations: req.body.translations || {}
     });
 
-    await category.populate("parent", "name slug");
+    await category.populate("parent", "name slug translations");
 
     ResponseHandler.created(res, category, "Category created successfully");
 });
@@ -128,7 +168,7 @@ export const updateCategory = asyncHandler(async (req: Request, res: Response, n
     const category = await Category.findByIdAndUpdate(req.params.id, req.body, {
         new: true,
         runValidators: true
-    }).populate("parent", "name slug");
+    }).populate("parent", "name slug translations");
 
     if (!category) {
         return next(new AppError("Category not found", 404));
@@ -195,5 +235,6 @@ export const getCategoryTree = asyncHandler(async (req: Request, res: Response, 
         }
     });
 
-    ResponseHandler.success(res, tree, "Category tree retrieved successfully");
+    const locale = req.query.locale as string;
+    ResponseHandler.success(res, applyCategoryTranslationsToList(tree, locale), "Category tree retrieved successfully");
 });

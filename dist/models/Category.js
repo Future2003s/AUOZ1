@@ -81,6 +81,10 @@ const CategorySchema = new mongoose_1.Schema({
         title: String,
         description: String,
         keywords: [String]
+    },
+    translations: {
+        type: mongoose_1.Schema.Types.Mixed,
+        default: {}
     }
 }, {
     timestamps: true,

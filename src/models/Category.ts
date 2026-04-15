@@ -10,18 +10,25 @@ export interface ICategory extends Document {
     isActive: boolean;
     sortOrder: number;
     productCount: number;
-    
+
     // SEO
     seo: {
         title?: string;
         description?: string;
         keywords?: string[];
     };
-    
+
+    // Translations (i18n)
+    translations?: Record<string, {
+        name?: string;
+        description?: string;
+        [key: string]: any;
+    }>;
+
     // Timestamps
     createdAt: Date;
     updatedAt: Date;
-    
+
     // Virtual fields
     level: number;
     path: string;
@@ -74,6 +81,10 @@ const CategorySchema = new Schema<ICategory>({
         title: String,
         description: String,
         keywords: [String]
+    },
+    translations: {
+        type: Schema.Types.Mixed,
+        default: {}
     }
 }, {
     timestamps: true,
@@ -82,13 +93,13 @@ const CategorySchema = new Schema<ICategory>({
 });
 
 // Virtual for category level (depth in hierarchy)
-CategorySchema.virtual('level').get(function() {
+CategorySchema.virtual('level').get(function () {
     // This would need to be calculated based on parent chain
     return 0; // Placeholder
 });
 
 // Virtual for category path
-CategorySchema.virtual('path').get(function() {
+CategorySchema.virtual('path').get(function () {
     // This would build the full path like "Electronics > Phones > Smartphones"
     return this.name; // Placeholder
 });
@@ -108,7 +119,7 @@ CategorySchema.index({ sortOrder: 1 });
 CategorySchema.index({ name: 'text', description: 'text' });
 
 // Pre-save middleware to generate slug
-CategorySchema.pre('save', function(next) {
+CategorySchema.pre('save', function (next) {
     if (this.isModified('name') && !this.slug) {
         this.slug = this.name
             .toLowerCase()

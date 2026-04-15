@@ -9,6 +9,34 @@ const performance_1 = require("../utils/performance");
 const cloudinary_1 = require("../utils/cloudinary");
 const AppError_1 = require("../utils/AppError");
 const logger_1 = require("../utils/logger");
+const applyProductTranslations = (product, locale) => {
+    if (!product || !locale || locale === "vi" || !product.translations || !product.translations[locale]) {
+        return product;
+    }
+    const p = typeof product.toObject === 'function' ? product.toObject() :
+        (JSON.parse(JSON.stringify(product)));
+    const trans = p.translations[locale];
+    if (trans) {
+        if (trans.name)
+            p.name = trans.name;
+        if (trans.description)
+            p.description = trans.description;
+        if (trans.shortDescription)
+            p.shortDescription = trans.shortDescription;
+        if (trans.ingredients)
+            p.ingredients = trans.ingredients;
+        if (trans.seo)
+            p.seo = { ...p.seo, ...trans.seo };
+    }
+    // Remove translations payload from API response
+    delete p.translations;
+    return p;
+};
+const applyProductTranslationsToList = (products, locale) => {
+    if (!products || !locale || locale === "vi")
+        return products;
+    return products.map(p => applyProductTranslations(p, locale));
+};
 // @desc    Get all products
 // @route   GET /api/v1/products
 // @access  Public
@@ -35,7 +63,8 @@ exports.getProducts = (0, asyncHandler_1.asyncHandler)(async (req, res, next) =>
         order: order
     };
     const result = await productService_1.ProductService.getProducts(filters, query);
-    response_1.ResponseHandler.paginated(res, result.products, result.pagination.page, result.pagination.limit, result.pagination.total, "Products retrieved successfully");
+    const locale = req.query.locale;
+    response_1.ResponseHandler.paginated(res, applyProductTranslationsToList(result.products, locale), result.pagination.page, result.pagination.limit, result.pagination.total, "Products retrieved successfully");
 });
 // @desc    Get single product by ID or slug
 // @route   GET /api/v1/products/:id
@@ -89,7 +118,8 @@ exports.getProduct = (0, asyncHandler_1.asyncHandler)(async (req, res, next) => 
     // Track performance
     const responseTime = performance.now() - startTime;
     performance_1.performanceMonitor.recordRequest(responseTime);
-    response_1.ResponseHandler.success(res, product, "Product retrieved successfully");
+    const locale = req.query.locale;
+    response_1.ResponseHandler.success(res, applyProductTranslations(product, locale), "Product retrieved successfully");
 });
 // @desc    Create product
 // @route   POST /api/v1/products
@@ -118,8 +148,9 @@ exports.deleteProduct = (0, asyncHandler_1.asyncHandler)(async (req, res, next) 
 // @access  Public
 exports.getFeaturedProducts = (0, asyncHandler_1.asyncHandler)(async (req, res, next) => {
     const limit = req.query.limit ? parseInt(req.query.limit) : 10;
+    const locale = req.query.locale;
     const products = await productService_1.ProductService.getFeaturedProducts(limit);
-    response_1.ResponseHandler.success(res, products, "Featured products retrieved successfully");
+    response_1.ResponseHandler.success(res, applyProductTranslationsToList(products, locale), "Featured products retrieved successfully");
 });
 // @desc    Search products
 // @route   GET /api/v1/products/search
@@ -148,7 +179,8 @@ exports.searchProducts = (0, asyncHandler_1.asyncHandler)(async (req, res, next)
         order: otherQuery.order
     };
     const result = await productService_1.ProductService.searchProducts(searchTerm, filters, query);
-    response_1.ResponseHandler.paginated(res, result.products, result.pagination.page, result.pagination.limit, result.pagination.total, `Search results for "${searchTerm}"`);
+    const locale = req.query.locale;
+    response_1.ResponseHandler.paginated(res, applyProductTranslationsToList(result.products, locale), result.pagination.page, result.pagination.limit, result.pagination.total, `Search results for "${searchTerm}"`);
 });
 // @desc    Update product stock
 // @route   PUT /api/v1/products/:id/stock
@@ -179,7 +211,8 @@ exports.getProductsByCategory = (0, asyncHandler_1.asyncHandler)(async (req, res
         order: order
     };
     const result = await productService_1.ProductService.getProducts(filters, query);
-    response_1.ResponseHandler.paginated(res, result.products, result.pagination.page, result.pagination.limit, result.pagination.total, "Products by category retrieved successfully");
+    const locale = req.query.locale;
+    response_1.ResponseHandler.paginated(res, applyProductTranslationsToList(result.products, locale), result.pagination.page, result.pagination.limit, result.pagination.total, "Products by category retrieved successfully");
 });
 // @desc    Get products by brand
 // @route   GET /api/v1/products/brand/:brandId
@@ -199,7 +232,8 @@ exports.getProductsByBrand = (0, asyncHandler_1.asyncHandler)(async (req, res, n
         order: order
     };
     const result = await productService_1.ProductService.getProducts(filters, query);
-    response_1.ResponseHandler.paginated(res, result.products, result.pagination.page, result.pagination.limit, result.pagination.total, "Products by brand retrieved successfully");
+    const locale = req.query.locale;
+    response_1.ResponseHandler.paginated(res, applyProductTranslationsToList(result.products, locale), result.pagination.page, result.pagination.limit, result.pagination.total, "Products by brand retrieved successfully");
 });
 // @desc    Upload product image
 // @route   POST /api/v1/products/images

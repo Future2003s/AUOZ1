@@ -21,7 +21,7 @@ export interface IProduct extends Document {
         height: number;
         unit: 'cm' | 'in';
     };
-    
+
     // Product details
     ingredients?: string; // Thành phần
     nutrition?: {
@@ -35,12 +35,12 @@ export interface IProduct extends Document {
     volumeMl?: number; // Dung tích (ml)
     supervisedBy?: string; // Giám sát bởi
     claims?: string[]; // Tiêu chí (3 Không)
-    
+
     // Category and Brand
     category: mongoose.Types.ObjectId;
     brand?: mongoose.Types.ObjectId;
     tags: string[];
-    
+
     // Images and Media
     images: Array<{
         url: string;
@@ -48,49 +48,58 @@ export interface IProduct extends Document {
         isMain: boolean;
         order: number;
     }>;
-    
+
     // Variants
     hasVariants: boolean;
     variants: Array<{
         name: string;
         options: string[];
     }>;
-    
+
     // SEO
     seo: {
         title?: string;
         description?: string;
         keywords?: string[];
     };
-    
+
+    // Translations (i18n)
+    translations?: Record<string, {
+        name?: string;
+        description?: string;
+        shortDescription?: string;
+        ingredients?: string;
+        [key: string]: any;
+    }>;
+
     // Status and Visibility
     status: 'draft' | 'active' | 'archived';
     isVisible: boolean;
     isFeatured: boolean;
     comingSoon: boolean; // Nếu true: hiển thị "Coming Soon" thay vì giá
     isExcludedFromPublic: boolean; // Nếu true: sản phẩm không xuất hiện trên public (thay thế honey regex)
-    
+
     // Pricing and Discounts
     onSale: boolean;
     salePrice?: number;
     saleStartDate?: Date;
     saleEndDate?: Date;
-    
+
     // Shipping
     requiresShipping: boolean;
     shippingClass?: string;
-    
+
     // Reviews and Ratings
     averageRating: number;
     reviewCount: number;
-    
+
     // Timestamps
     publishedAt?: Date;
     createdBy: mongoose.Types.ObjectId;
     updatedBy?: mongoose.Types.ObjectId;
     createdAt: Date;
     updatedAt: Date;
-    
+
     // Virtual fields
     finalPrice: number;
     isInStock: boolean;
@@ -198,7 +207,7 @@ const ProductSchema = new Schema<IProduct>({
         height: { type: Number, min: 0 },
         unit: { type: String, enum: ['cm', 'in'], default: 'cm' }
     },
-    
+
     category: {
         type: Schema.Types.ObjectId,
         ref: 'Category',
@@ -213,14 +222,14 @@ const ProductSchema = new Schema<IProduct>({
         trim: true,
         lowercase: true
     }],
-    
+
     images: [{
         url: { type: String, required: true },
         alt: String,
         isMain: { type: Boolean, default: false },
         order: { type: Number, default: 0 }
     }],
-    
+
     hasVariants: {
         type: Boolean,
         default: false
@@ -229,13 +238,18 @@ const ProductSchema = new Schema<IProduct>({
         name: { type: String, required: true },
         options: [{ type: String, required: true }]
     }],
-    
+
     seo: {
         title: String,
         description: String,
         keywords: [String]
     },
-    
+
+    translations: {
+        type: Schema.Types.Mixed,
+        default: {}
+    },
+
     status: {
         type: String,
         enum: ['draft', 'active', 'archived'],
@@ -259,7 +273,7 @@ const ProductSchema = new Schema<IProduct>({
         default: false,
         index: true
     },
-    
+
     onSale: {
         type: Boolean,
         default: false
@@ -270,13 +284,13 @@ const ProductSchema = new Schema<IProduct>({
     },
     saleStartDate: Date,
     saleEndDate: Date,
-    
+
     requiresShipping: {
         type: Boolean,
         default: true
     },
     shippingClass: String,
-    
+
     averageRating: {
         type: Number,
         default: 0,
@@ -288,7 +302,7 @@ const ProductSchema = new Schema<IProduct>({
         default: 0,
         min: 0
     },
-    
+
     publishedAt: Date,
     createdBy: {
         type: Schema.Types.ObjectId,
@@ -306,23 +320,23 @@ const ProductSchema = new Schema<IProduct>({
 });
 
 // Virtual for final price (considering sale)
-ProductSchema.virtual('finalPrice').get(function() {
+ProductSchema.virtual('finalPrice').get(function () {
     if (this.onSale && this.salePrice && this.salePrice > 0) {
         const now = new Date();
         const saleActive = (!this.saleStartDate || now >= this.saleStartDate) &&
-                          (!this.saleEndDate || now <= this.saleEndDate);
+            (!this.saleEndDate || now <= this.saleEndDate);
         return saleActive ? this.salePrice : this.price;
     }
     return this.price;
 });
 
 // Virtual for stock status
-ProductSchema.virtual('isInStock').get(function() {
+ProductSchema.virtual('isInStock').get(function () {
     if (!this.trackQuantity) return true;
     return this.quantity > 0 || this.allowBackorder;
 });
 
-ProductSchema.virtual('stockStatus').get(function() {
+ProductSchema.virtual('stockStatus').get(function () {
     if (!this.trackQuantity) return 'in_stock';
     if (this.quantity <= 0) return this.allowBackorder ? 'in_stock' : 'out_of_stock';
     if (this.quantity <= 10) return 'low_stock'; // Low stock threshold
@@ -341,7 +355,7 @@ ProductSchema.index({ createdAt: -1 });
 ProductSchema.index({ averageRating: -1 });
 
 // Pre-save middleware
-ProductSchema.pre('save', function(next) {
+ProductSchema.pre('save', function (next) {
     if (this.isModified('status') && this.status === 'active' && !this.publishedAt) {
         this.publishedAt = new Date();
     }

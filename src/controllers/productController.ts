@@ -8,6 +8,32 @@ import { uploadToCloudinary } from "../utils/cloudinary";
 import { AppError } from "../utils/AppError";
 import { logger } from "../utils/logger";
 
+const applyProductTranslations = (product: any, locale?: string) => {
+    if (!product || !locale || locale === "vi" || !product.translations || !product.translations[locale]) {
+        return product;
+    }
+
+    const p = typeof product.toObject === 'function' ? product.toObject() :
+        (JSON.parse(JSON.stringify(product)));
+
+    const trans = p.translations[locale];
+    if (trans) {
+        if (trans.name) p.name = trans.name;
+        if (trans.description) p.description = trans.description;
+        if (trans.shortDescription) p.shortDescription = trans.shortDescription;
+        if (trans.ingredients) p.ingredients = trans.ingredients;
+        if (trans.seo) p.seo = { ...p.seo, ...trans.seo };
+    }
+
+    // Remove translations payload from API response
+    delete p.translations;
+    return p;
+};
+
+const applyProductTranslationsToList = (products: any[], locale?: string) => {
+    if (!products || !locale || locale === "vi") return products;
+    return products.map(p => applyProductTranslations(p, locale));
+};
 // @desc    Get all products
 // @route   GET /api/v1/products
 // @access  Public
@@ -54,10 +80,11 @@ export const getProducts = asyncHandler(async (req: Request, res: Response, next
     };
 
     const result = await ProductService.getProducts(filters, query);
+    const locale = req.query.locale as string;
 
     ResponseHandler.paginated(
         res,
-        result.products,
+        applyProductTranslationsToList(result.products, locale),
         result.pagination.page,
         result.pagination.limit,
         result.pagination.total,
@@ -76,10 +103,10 @@ export const getProduct = asyncHandler(async (req: Request, res: Response, next:
     // ObjectId format: 24 hexadecimal characters, no dashes or other characters
     const objectIdPattern = /^[0-9a-fA-F]{24}$/;
     const isObjectId = objectIdPattern.test(identifier);
-    
+
     // Log for debugging
     logger.debug(`getProduct called with identifier: "${identifier}", isObjectId: ${isObjectId}`);
-    
+
     let product;
     try {
         if (isObjectId) {
@@ -121,7 +148,8 @@ export const getProduct = asyncHandler(async (req: Request, res: Response, next:
     const responseTime = performance.now() - startTime;
     performanceMonitor.recordRequest(responseTime);
 
-    ResponseHandler.success(res, product, "Product retrieved successfully");
+    const locale = req.query.locale as string;
+    ResponseHandler.success(res, applyProductTranslations(product, locale), "Product retrieved successfully");
 });
 
 // @desc    Create product
@@ -158,8 +186,9 @@ export const deleteProduct = asyncHandler(async (req: Request, res: Response, ne
 // @access  Public
 export const getFeaturedProducts = asyncHandler(async (req: Request, res: Response, next: NextFunction) => {
     const limit = req.query.limit ? parseInt(req.query.limit as string) : 10;
+    const locale = req.query.locale as string;
     const products = await ProductService.getFeaturedProducts(limit);
-    ResponseHandler.success(res, products, "Featured products retrieved successfully");
+    ResponseHandler.success(res, applyProductTranslationsToList(products, locale), "Featured products retrieved successfully");
 });
 
 // @desc    Search products
@@ -193,10 +222,11 @@ export const searchProducts = asyncHandler(async (req: Request, res: Response, n
     };
 
     const result = await ProductService.searchProducts(searchTerm as string, filters, query);
+    const locale = req.query.locale as string;
 
     ResponseHandler.paginated(
         res,
-        result.products,
+        applyProductTranslationsToList(result.products, locale),
         result.pagination.page,
         result.pagination.limit,
         result.pagination.total,
@@ -236,10 +266,11 @@ export const getProductsByCategory = asyncHandler(async (req: Request, res: Resp
     };
 
     const result = await ProductService.getProducts(filters, query);
+    const locale = req.query.locale as string;
 
     ResponseHandler.paginated(
         res,
-        result.products,
+        applyProductTranslationsToList(result.products, locale),
         result.pagination.page,
         result.pagination.limit,
         result.pagination.total,
@@ -265,10 +296,11 @@ export const getProductsByBrand = asyncHandler(async (req: Request, res: Respons
     };
 
     const result = await ProductService.getProducts(filters, query);
+    const locale = req.query.locale as string;
 
     ResponseHandler.paginated(
         res,
-        result.products,
+        applyProductTranslationsToList(result.products, locale),
         result.pagination.page,
         result.pagination.limit,
         result.pagination.total,

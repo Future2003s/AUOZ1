@@ -205,7 +205,7 @@ export const listTranslationKeys = asyncHandler(
     async (req: Request, res: Response, next: NextFunction): Promise<void> => {
         const { locale } = req.params;
         const page = Math.max(1, parseInt(String(req.query.page ?? "1"), 10));
-        const limit = Math.min(200, Math.max(1, parseInt(String(req.query.limit ?? "50"), 10)));
+        const limit = Math.min(5000, Math.max(1, parseInt(String(req.query.limit ?? "50"), 10)));
         const search = String(req.query.search ?? "").trim();
 
         const filter: Record<string, unknown> = { locale };
