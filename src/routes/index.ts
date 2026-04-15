@@ -36,6 +36,7 @@ import bomRoutes from "./bom";
 import purchaseRoutes from "./purchase";
 import stockRoutes from "./stock";
 import chatRoutes from "./chat";
+import i18nRoutes from "./i18n";
 import path from "path";
 import fs from "fs";
 
@@ -133,5 +134,7 @@ router.use("/purchase", purchaseRoutes);
 router.use("/stock", stockRoutes);
 // ─── Chat Module ─────────────────────────────────────────────────────────────
 router.use("/chat", chatRoutes);
+// ─── i18n Translation (next-intl locale-based) ───────────────────────────────
+router.use("/i18n", i18nRoutes);
 
 export default router;

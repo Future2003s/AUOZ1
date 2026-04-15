@@ -1,4 +1,4 @@
-// Chat module integrated
+// Chat module integrated — i18n translation routes added
 import express from "express";
 import { createServer } from "http";
 import path from "path";
