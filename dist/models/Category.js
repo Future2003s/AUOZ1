@@ -113,6 +113,7 @@ CategorySchema.index({ parent: 1 });
 CategorySchema.index({ isActive: 1 });
 CategorySchema.index({ sortOrder: 1 });
 CategorySchema.index({ name: 'text', description: 'text' });
+CategorySchema.index({ parent: 1, isActive: 1, sortOrder: 1 });
 // Pre-save middleware to generate slug
 CategorySchema.pre('save', function (next) {
     if (this.isModified('name') && !this.slug) {

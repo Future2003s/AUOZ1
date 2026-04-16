@@ -9,6 +9,7 @@ const performance_1 = require("../utils/performance");
 const cloudinary_1 = require("../utils/cloudinary");
 const AppError_1 = require("../utils/AppError");
 const logger_1 = require("../utils/logger");
+const categoryController_1 = require("./categoryController");
 const applyProductTranslations = (product, locale) => {
     if (!product || !locale || locale === "vi" || !product.translations || !product.translations[locale]) {
         return product;
@@ -27,6 +28,10 @@ const applyProductTranslations = (product, locale) => {
             p.ingredients = trans.ingredients;
         if (trans.seo)
             p.seo = { ...p.seo, ...trans.seo };
+    }
+    // Apply translations to populated category if it exists
+    if (p.category && typeof p.category === 'object') {
+        p.category = (0, categoryController_1.applyCategoryTranslations)(p.category, locale);
     }
     // Remove translations payload from API response
     delete p.translations;

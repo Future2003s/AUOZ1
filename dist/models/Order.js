@@ -225,6 +225,9 @@ OrderSchema.index({ user: 1 });
 OrderSchema.index({ status: 1 });
 OrderSchema.index({ createdAt: -1 });
 OrderSchema.index({ "payment.status": 1 });
+// Compound indexes for optimized querying and sorting
+OrderSchema.index({ user: 1, createdAt: -1 });
+OrderSchema.index({ status: 1, createdAt: -1 });
 // Methods
 OrderSchema.methods.updateStatus = async function (status, note, updatedBy) {
     this.status = status;

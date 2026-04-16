@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getCategoryTree = exports.deleteCategory = exports.updateCategory = exports.createCategory = exports.getCategoryBySlug = exports.getCategory = exports.getCategories = void 0;
+exports.getCategoryTree = exports.deleteCategory = exports.updateCategory = exports.createCategory = exports.getCategoryBySlug = exports.getCategory = exports.getCategories = exports.applyCategoryTranslationsToList = exports.applyCategoryTranslations = void 0;
 const Category_1 = require("../models/Category");
 const asyncHandler_1 = require("../utils/asyncHandler");
 const response_1 = require("../utils/response");
@@ -22,19 +22,21 @@ const applyCategoryTranslations = (category, locale) => {
     }
     delete c.translations;
     if (c.children && Array.isArray(c.children)) {
-        c.children = applyCategoryTranslationsToList(c.children, locale);
+        c.children = (0, exports.applyCategoryTranslationsToList)(c.children, locale);
     }
     if (c.parent && typeof c.parent === 'object' && c.parent.name) {
-        const mappedParent = applyCategoryTranslations(c.parent, locale);
+        const mappedParent = (0, exports.applyCategoryTranslations)(c.parent, locale);
         c.parent.name = mappedParent.name;
     }
     return c;
 };
+exports.applyCategoryTranslations = applyCategoryTranslations;
 const applyCategoryTranslationsToList = (categories, locale) => {
     if (!categories || !locale || locale === "vi")
         return categories;
-    return categories.map(c => applyCategoryTranslations(c, locale));
+    return categories.map(c => (0, exports.applyCategoryTranslations)(c, locale));
 };
+exports.applyCategoryTranslationsToList = applyCategoryTranslationsToList;
 // @desc    Get all categories
 // @route   GET /api/v1/categories
 // @access  Public
@@ -53,7 +55,7 @@ exports.getCategories = (0, asyncHandler_1.asyncHandler)(async (req, res, next) 
     res.status(200).json({
         success: true,
         message: "Categories retrieved successfully",
-        data: applyCategoryTranslationsToList(categories, locale),
+        data: (0, exports.applyCategoryTranslationsToList)(categories, locale),
         timestamp: new Date().toISOString()
     });
 });
@@ -68,7 +70,7 @@ exports.getCategory = (0, asyncHandler_1.asyncHandler)(async (req, res, next) =>
         return next(new AppError_1.AppError("Category not found", 404));
     }
     const locale = req.query.locale;
-    response_1.ResponseHandler.success(res, applyCategoryTranslations(category, locale), "Category retrieved successfully");
+    response_1.ResponseHandler.success(res, (0, exports.applyCategoryTranslations)(category, locale), "Category retrieved successfully");
 });
 // @desc    Get category by slug
 // @route   GET /api/v1/categories/slug/:slug
@@ -81,7 +83,7 @@ exports.getCategoryBySlug = (0, asyncHandler_1.asyncHandler)(async (req, res, ne
         return next(new AppError_1.AppError("Category not found", 404));
     }
     const locale = req.query.locale;
-    response_1.ResponseHandler.success(res, applyCategoryTranslations(category, locale), "Category retrieved successfully");
+    response_1.ResponseHandler.success(res, (0, exports.applyCategoryTranslations)(category, locale), "Category retrieved successfully");
 });
 // @desc    Create category
 // @route   POST /api/v1/categories
@@ -198,5 +200,5 @@ exports.getCategoryTree = (0, asyncHandler_1.asyncHandler)(async (req, res, next
         }
     });
     const locale = req.query.locale;
-    response_1.ResponseHandler.success(res, applyCategoryTranslationsToList(tree, locale), "Category tree retrieved successfully");
+    response_1.ResponseHandler.success(res, (0, exports.applyCategoryTranslationsToList)(tree, locale), "Category tree retrieved successfully");
 });

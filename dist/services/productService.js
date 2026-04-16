@@ -118,7 +118,7 @@ class ProductService {
                 }
             }
             // Create base query with necessary relations populated for admin UI
-            const baseQuery = Product_1.Product.find(filterQuery).populate("category", "name").populate("brand", "name");
+            const baseQuery = Product_1.Product.find(filterQuery).populate("category", "name slug translations").populate("brand", "name");
             // Use optimized pagination
             const result = await (0, pagination_1.paginateQuery)(baseQuery, {
                 page,
@@ -168,7 +168,7 @@ class ProductService {
             }
             // Use findById only after validation - this will throw if productId is invalid
             const product = await Product_1.Product.findById(productId)
-                .populate("category", "name slug description")
+                .populate("category", "name slug description translations")
                 .populate("brand", "name slug logo website")
                 .populate("createdBy", "firstName lastName")
                 .lean();
@@ -211,14 +211,14 @@ class ProductService {
             const resolvedSlug = SLUG_ALIASES[slug] || slug;
             // Try to find product with active status first
             let product = await Product_1.Product.findOne({ slug: resolvedSlug, status: "active", isVisible: true })
-                .populate("category", "name slug description")
+                .populate("category", "name slug description translations")
                 .populate("brand", "name slug logo website")
                 .populate("createdBy", "firstName lastName")
                 .lean();
             // If not found with active status, try without status filter (for draft products)
             if (!product) {
                 product = await Product_1.Product.findOne({ slug: resolvedSlug })
-                    .populate("category", "name slug description")
+                    .populate("category", "name slug description translations")
                     .populate("brand", "name slug logo website")
                     .populate("createdBy", "firstName lastName")
                     .lean();
@@ -226,14 +226,14 @@ class ProductService {
             // If not found and original slug was an alias, try original slug
             if (!product && SLUG_ALIASES[slug]) {
                 product = await Product_1.Product.findOne({ slug, status: "active", isVisible: true })
-                    .populate("category", "name slug description")
+                    .populate("category", "name slug description translations")
                     .populate("brand", "name slug logo website")
                     .populate("createdBy", "firstName lastName")
                     .lean();
                 // If still not found, try without status filter
                 if (!product) {
                     product = await Product_1.Product.findOne({ slug })
-                        .populate("category", "name slug description")
+                        .populate("category", "name slug description translations")
                         .populate("brand", "name slug logo website")
                         .populate("createdBy", "firstName lastName")
                         .lean();
@@ -278,10 +278,12 @@ class ProductService {
                 {
                     $and: [
                         { name: { $regex: /vải|vai/i } },
-                        { $or: [
+                        {
+                            $or: [
                                 { name: { $regex: /100/i } },
                                 { name: { $regex: /thanh hà|thanh ha/i } }
-                            ] }
+                            ]
+                        }
                     ]
                 }
             ];
@@ -293,7 +295,7 @@ class ProductService {
                         status: "active",
                         isVisible: true
                     })
-                        .populate("category", "name slug description")
+                        .populate("category", "name slug description translations")
                         .populate("brand", "name slug logo website")
                         .populate("createdBy", "firstName lastName")
                         .lean();
@@ -316,7 +318,7 @@ class ProductService {
                     status: "active",
                     isVisible: true
                 })
-                    .populate("category", "name slug description")
+                    .populate("category", "name slug description translations")
                     .populate("brand", "name slug logo website")
                     .populate("createdBy", "firstName lastName")
                     .sort({ createdAt: -1 }) // Get the most recent one
@@ -390,6 +392,8 @@ class ProductService {
             }
             await pagination_1.optimizedPagination.clearCache(); // clear pagination caches
             await product.populate(["category", "brand", "createdBy"]);
+            // Re-populate category with translations if needed after save
+            await product.populate({ path: 'category', select: 'name slug translations' });
             return product;
         }
         catch (error) {
@@ -574,7 +578,7 @@ class ProductService {
                 isVisible: true,
                 name: { $not: { $regex: /mật ong|mat ong|honey/i } }
             })
-                .populate("category", "name slug")
+                .populate("category", "name slug translations")
                 .populate("brand", "name slug logo")
                 .sort({ createdAt: -1 })
                 .limit(limit)

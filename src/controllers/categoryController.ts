@@ -4,7 +4,7 @@ import { asyncHandler } from "../utils/asyncHandler";
 import { ResponseHandler } from "../utils/response";
 import { AppError } from "../utils/AppError";
 
-const applyCategoryTranslations = (category: any, locale?: string) => {
+export const applyCategoryTranslations = (category: any, locale?: string) => {
     if (!category || !locale || locale === "vi" || !category.translations || !category.translations[locale]) {
         return category;
     }
@@ -33,7 +33,7 @@ const applyCategoryTranslations = (category: any, locale?: string) => {
     return c;
 };
 
-const applyCategoryTranslationsToList = (categories: any[], locale?: string) => {
+export const applyCategoryTranslationsToList = (categories: any[], locale?: string) => {
     if (!categories || !locale || locale === "vi") return categories;
     return categories.map(c => applyCategoryTranslations(c, locale));
 };

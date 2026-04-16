@@ -7,6 +7,7 @@ import { performanceMonitor } from "../utils/performance";
 import { uploadToCloudinary } from "../utils/cloudinary";
 import { AppError } from "../utils/AppError";
 import { logger } from "../utils/logger";
+import { applyCategoryTranslations } from "./categoryController";
 
 const applyProductTranslations = (product: any, locale?: string) => {
     if (!product || !locale || locale === "vi" || !product.translations || !product.translations[locale]) {
@@ -23,6 +24,11 @@ const applyProductTranslations = (product: any, locale?: string) => {
         if (trans.shortDescription) p.shortDescription = trans.shortDescription;
         if (trans.ingredients) p.ingredients = trans.ingredients;
         if (trans.seo) p.seo = { ...p.seo, ...trans.seo };
+    }
+
+    // Apply translations to populated category if it exists
+    if (p.category && typeof p.category === 'object') {
+        p.category = applyCategoryTranslations(p.category, locale);
     }
 
     // Remove translations payload from API response

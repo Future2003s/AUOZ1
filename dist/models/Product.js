@@ -272,6 +272,10 @@ ProductSchema.index({ status: 1, isVisible: 1 });
 ProductSchema.index({ isFeatured: 1 });
 ProductSchema.index({ createdAt: -1 });
 ProductSchema.index({ averageRating: -1 });
+// Compound Indexes for common frontend queries
+ProductSchema.index({ status: 1, isVisible: 1, category: 1 });
+ProductSchema.index({ status: 1, isVisible: 1, brand: 1 });
+ProductSchema.index({ isFeatured: 1, status: 1, isVisible: 1 });
 // Pre-save middleware
 ProductSchema.pre('save', function (next) {
     if (this.isModified('status') && this.status === 'active' && !this.publishedAt) {

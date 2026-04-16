@@ -57,7 +57,7 @@ interface CreateProductData {
     shippingClass?: string;
 }
 
-interface UpdateProductData extends Partial<CreateProductData> {}
+interface UpdateProductData extends Partial<CreateProductData> { }
 
 interface ProductFilters {
     category?: string;
@@ -172,7 +172,7 @@ export class ProductService {
 
             // Build optimized filter query
             const filterQuery = this.buildProductFilterQuery(filters);
-            
+
             // Exclude products marked as excluded from public listing
             // Use isExcludedFromPublic flag instead of brittle name regex
             if (!filters.allProducts) {
@@ -184,18 +184,18 @@ export class ProductService {
                 const searchTerm = filters.search.trim();
                 const escapedTerm = searchTerm.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
                 const searchRegex = new RegExp(escapedTerm, 'i');
-                
+
                 // First, get products that match the main search
                 const mainQuery = Product.find(filterQuery).lean();
                 const mainResults = await mainQuery.exec();
-                
+
                 // Then search in category and brand collections
                 const categoryMatches = await Category.find({ name: searchRegex }).select('_id').lean();
                 const brandMatches = await Brand.find({ name: searchRegex }).select('_id').lean();
-                
+
                 const categoryIds = categoryMatches.map(c => c._id);
                 const brandIds = brandMatches.map(b => b._id);
-                
+
                 // Get products by category or brand
                 const additionalQuery: any = {
                     ...filterQuery,
@@ -205,7 +205,7 @@ export class ProductService {
                         ...(brandIds.length > 0 ? [{ brand: { $in: brandIds } }] : [])
                     ]
                 };
-                
+
                 // If we have additional matches, update the query
                 if (categoryIds.length > 0 || brandIds.length > 0) {
                     const additionalResults = await Product.find(additionalQuery).lean().exec();
@@ -213,7 +213,7 @@ export class ProductService {
                         ...mainResults.map((p: any) => p._id.toString()),
                         ...additionalResults.map((p: any) => p._id.toString())
                     ]);
-                    
+
                     if (allProductIds.size > 0) {
                         filterQuery._id = { $in: Array.from(allProductIds).map(id => new Types.ObjectId(id)) };
                     }
@@ -221,7 +221,7 @@ export class ProductService {
             }
 
             // Create base query with necessary relations populated for admin UI
-            const baseQuery = Product.find(filterQuery).populate("category", "name").populate("brand", "name");
+            const baseQuery = Product.find(filterQuery).populate("category", "name slug translations").populate("brand", "name");
 
             // Use optimized pagination
             const result = await paginateQuery(baseQuery, {
@@ -277,7 +277,7 @@ export class ProductService {
 
             // Use findById only after validation - this will throw if productId is invalid
             const product = await Product.findById(productId)
-                .populate("category", "name slug description")
+                .populate("category", "name slug description translations")
                 .populate("brand", "name slug logo website")
                 .populate("createdBy", "firstName lastName")
                 .lean();
@@ -314,7 +314,7 @@ export class ProductService {
                 logger.debug(`Cache HIT for slug: ${slug}`);
                 return cached;
             }
-            
+
             logger.debug(`Cache MISS for slug: ${slug}, querying database...`);
 
             // Slug alias mapping for backward compatibility
@@ -327,7 +327,7 @@ export class ProductService {
 
             // Try to find product with active status first
             let product = await Product.findOne({ slug: resolvedSlug, status: "active", isVisible: true })
-                .populate("category", "name slug description")
+                .populate("category", "name slug description translations")
                 .populate("brand", "name slug logo website")
                 .populate("createdBy", "firstName lastName")
                 .lean();
@@ -335,7 +335,7 @@ export class ProductService {
             // If not found with active status, try without status filter (for draft products)
             if (!product) {
                 product = await Product.findOne({ slug: resolvedSlug })
-                    .populate("category", "name slug description")
+                    .populate("category", "name slug description translations")
                     .populate("brand", "name slug logo website")
                     .populate("createdBy", "firstName lastName")
                     .lean();
@@ -344,15 +344,15 @@ export class ProductService {
             // If not found and original slug was an alias, try original slug
             if (!product && SLUG_ALIASES[slug]) {
                 product = await Product.findOne({ slug, status: "active", isVisible: true })
-                    .populate("category", "name slug description")
+                    .populate("category", "name slug description translations")
                     .populate("brand", "name slug logo website")
                     .populate("createdBy", "firstName lastName")
                     .lean();
-                
+
                 // If still not found, try without status filter
                 if (!product) {
                     product = await Product.findOne({ slug })
-                        .populate("category", "name slug description")
+                        .populate("category", "name slug description translations")
                         .populate("brand", "name slug logo website")
                         .populate("createdBy", "firstName lastName")
                         .lean();
@@ -397,13 +397,15 @@ export class ProductService {
                 { name: { $regex: /nước ép vải.*thanh hà/i } },
                 { tags: { $in: ["nuoc-cot-vai-100", "nước cốt vải 100", "thanh hà", "nuoc-cot-vai", "nước cốt vải"] } },
                 // More flexible search - find any product with "vải" and "100" or "thanh hà"
-                { 
+                {
                     $and: [
                         { name: { $regex: /vải|vai/i } },
-                        { $or: [
-                            { name: { $regex: /100/i } },
-                            { name: { $regex: /thanh hà|thanh ha/i } }
-                        ]}
+                        {
+                            $or: [
+                                { name: { $regex: /100/i } },
+                                { name: { $regex: /thanh hà|thanh ha/i } }
+                            ]
+                        }
                     ]
                 }
             ];
@@ -416,7 +418,7 @@ export class ProductService {
                         status: "active",
                         isVisible: true
                     })
-                        .populate("category", "name slug description")
+                        .populate("category", "name slug description translations")
                         .populate("brand", "name slug logo website")
                         .populate("createdBy", "firstName lastName")
                         .lean();
@@ -440,7 +442,7 @@ export class ProductService {
                     status: "active",
                     isVisible: true
                 })
-                    .populate("category", "name slug description")
+                    .populate("category", "name slug description translations")
                     .populate("brand", "name slug logo website")
                     .populate("createdBy", "firstName lastName")
                     .sort({ createdAt: -1 }) // Get the most recent one
@@ -537,6 +539,8 @@ export class ProductService {
             await optimizedPagination.clearCache(); // clear pagination caches
 
             await product.populate(["category", "brand", "createdBy"]);
+            // Re-populate category with translations if needed after save
+            await product.populate({ path: 'category', select: 'name slug translations' });
             return product;
         } catch (error) {
             logger.error("Update product error:", error);
@@ -646,7 +650,7 @@ export class ProductService {
                 const escapedTerm = searchTerm.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
                 // Use regex for case-insensitive partial matching
                 const searchRegex = new RegExp(escapedTerm, 'i');
-                
+
                 // Search in multiple fields: name, description, shortDescription, tags, SKU, barcode
                 // Also search in SEO fields
                 const searchConditions: Record<string, any>[] = [
@@ -753,7 +757,7 @@ export class ProductService {
                 isVisible: true,
                 name: { $not: { $regex: /mật ong|mat ong|honey/i } }
             })
-                .populate("category", "name slug")
+                .populate("category", "name slug translations")
                 .populate("brand", "name slug logo")
                 .sort({ createdAt: -1 })
                 .limit(limit)
