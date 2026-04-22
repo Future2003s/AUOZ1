@@ -37,10 +37,13 @@ import purchaseRoutes from "./purchase";
 import stockRoutes from "./stock";
 import chatRoutes from "./chat";
 import i18nRoutes from "./i18n";
+import pastoralRoutes from "./pastoral";
+import promoWidgetRoutes from "./promoWidget.routes";
 import path from "path";
 import fs from "fs";
 
 const router = Router();
+
 
 // Home page route
 router.get("/", (req, res) => {
@@ -116,7 +119,7 @@ router.use("/vouchers", voucherRoutes);
 router.use("/news", newsRoutes);
 router.use("/comments", commentRoutes);
 router.use("/flower-logs", flowerLogRoutes);
-    router.use("/flower-imports", flowerImportRoutes);
+router.use("/flower-imports", flowerImportRoutes);
 router.use("/tasks", taskRoutes);
 router.use("/story", storyRoutes);
 router.use("/debt", debtRoutes);
@@ -136,5 +139,11 @@ router.use("/stock", stockRoutes);
 router.use("/chat", chatRoutes);
 // ─── i18n Translation (next-intl locale-based) ───────────────────────────────
 router.use("/i18n", i18nRoutes);
+
+// Pastoral gallery
+router.use("/pastoral", pastoralRoutes);
+
+// Promo Widgets
+router.use("/promo-widgets", promoWidgetRoutes);
 
 export default router;

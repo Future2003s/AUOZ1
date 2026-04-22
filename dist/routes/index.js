@@ -42,6 +42,8 @@ const purchase_1 = __importDefault(require("./purchase"));
 const stock_1 = __importDefault(require("./stock"));
 const chat_1 = __importDefault(require("./chat"));
 const i18n_1 = __importDefault(require("./i18n"));
+const pastoral_1 = __importDefault(require("./pastoral"));
+const promoWidget_routes_1 = __importDefault(require("./promoWidget.routes"));
 const path_1 = __importDefault(require("path"));
 const fs_1 = __importDefault(require("fs"));
 const router = (0, express_1.Router)();
@@ -135,4 +137,8 @@ router.use("/stock", stock_1.default);
 router.use("/chat", chat_1.default);
 // ─── i18n Translation (next-intl locale-based) ───────────────────────────────
 router.use("/i18n", i18n_1.default);
+// Pastoral gallery
+router.use("/pastoral", pastoral_1.default);
+// Promo Widgets
+router.use("/promo-widgets", promoWidget_routes_1.default);
 exports.default = router;
